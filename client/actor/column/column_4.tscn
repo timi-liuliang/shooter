@@ -12,7 +12,7 @@ extents = Vector2( 59.4304, 10 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.709559, 0, 0, 20.3916, 5.54463, 33.0263 )
-shapes/0/trigger = true
+shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
@@ -31,7 +31,7 @@ texture = ExtResource( 1 )
 transform/pos = Vector2( 5.54463, 33.0263 )
 transform/scale = Vector2( 0.709559, 20.3916 )
 shape = SubResource( 1 )
-trigger = true
+trigger = false
 _update_shape_index = 0
 
 

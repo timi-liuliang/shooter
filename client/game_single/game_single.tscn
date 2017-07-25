@@ -12,11 +12,35 @@
 [node name="game" type="Node2D"]
 
 script/script = ExtResource( 1 )
+init_speed = 800.0
+gravity = 350.0
 
 [node name="arrow" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 164.744, 608.72 )
-transform/rot = 133.35
+transform/pos = Vector2( 197.358, 581.453 )
+transform/rot = 90.5413
+transform/scale = Vector2( 3, 2.89928 )
+
+[node name="Camera2D" type="Camera2D" parent="arrow"]
+
+transform/pos = Vector2( -175.183, 193.401 )
+transform/scale = Vector2( 1.97347, 1.7586 )
+anchor_mode = 1
+rotating = false
+current = false
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
 
 [node name="archer" parent="." instance=ExtResource( 3 )]
 

@@ -1,47 +1,33 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://actor/weapon/arrow.png" type="Texture" id=1]
 
-[sub_resource type="RayShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-length = 20.0
+extents = Vector2( 10, 10 )
 
-[node name="arrow" type="RigidBody2D"]
+[node name="arrow" type="KinematicBody2D"]
 
 transform/pos = Vector2( 0.237831, -9.75092 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.985672, 0, 0, 1.02765, -0.0835061, 0.161123 )
+shapes/0/transform = Matrix32( 0.163571, 0, 0, 2.06762, -0.106536, 10.0718 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
-mode = 0
-mass = 1.0
-friction = 1.0
-bounce = 0.0
-gravity_scale = 0.0
-custom_integrator = false
-continuous_cd = 1
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-velocity/linear = Vector2( 0, 0 )
-velocity/angular = 0.0
-damp_override/linear = -1.0
-damp_override/angular = -1.0
+collision/margin = 0.08
 
 [node name="Sprite" type="Sprite" parent="."]
 
-transform/pos = Vector2( -0.175079, 12.009 )
-transform/scale = Vector2( 0.0432196, 0.382753 )
+transform/pos = Vector2( -0.0804051, 9.6375 )
+transform/scale = Vector2( 0.297441, 0.214888 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.0835061, 0.161123 )
-transform/scale = Vector2( 0.985672, 1.02765 )
+transform/pos = Vector2( -0.106536, 10.0718 )
+transform/scale = Vector2( 0.163571, 2.06762 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
