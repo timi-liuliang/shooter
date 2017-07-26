@@ -66,6 +66,7 @@ func _fixed_process(delta):
 		
 		var camera = get_node("camera")
 		camera.set_pos( weapon.get_pos() + cam_archer_offset * 0.3)
+		camera.set_zoom(Vector2(max(1.0-shoot_time*0.3, 0.5), max(1.0-shoot_time*0.3, 0.5)))
 		
 		var velocity = move_velocity
 		velocity = velocity.normalized()
@@ -98,12 +99,12 @@ func refresh_map(delta):
 		ground.set_battle_id(next_battle_id)
 		ground.set_pos(Vector2( next_battle_id * 1334, 712))
 		get_node("ground").add_child(ground)
-		next_battle_pos = Vector2(next_battle_id * 1334 + randi() % 100, 644)
+		next_battle_pos = Vector2(next_battle_id * 1334 + 50, 644)
 		
 		# gen column enemy
 		var column = preload("res://actor/column/column_0.tscn").instance()
 		column.set_battle_id(next_battle_id)
-		column.set_pos(Vector2( next_battle_id * 1334 + 200 + randi() % 9 * 100, 750 - randi() % 6 * 100))
+		column.set_pos(Vector2( next_battle_id * 1334 + 400 + randi() % 8 * 100, 750 - randi() % 6 * 100))
 		get_node("column_enemy").add_child(column)
 		
 		gen_map_phase = MOVETO_NEXT_BATTLE_MAP
@@ -119,7 +120,7 @@ func refresh_map(delta):
 			
 			var camera = get_node("camera")
 			camera.set_pos( next_pos + cam_archer_offset + Vector2(0.0, 100))
-			
+			camera.set_zoom(Vector2(1.0, 1.0))
 		else:
 			var character = get_node("archer")
 			var cur_pos = character.get_pos()

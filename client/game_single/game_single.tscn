@@ -27,7 +27,6 @@ transform/pos = Vector2( 1013.81, 447.167 )
 
 transform/pos = Vector2( 661.181, 374.507 )
 transform/rot = 90.0
-transform/scale = Vector2( 1, 1 )
 anchor_mode = 1
 rotating = false
 current = true
