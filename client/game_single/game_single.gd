@@ -1,5 +1,7 @@
 extends Node2D
 
+var score = int(0)
+
 var is_aim    = false
 var aim_degree = 0.0
 var aim_adjust_dir = 1.0
@@ -48,13 +50,10 @@ func _fixed_process(delta):
 	var is_c = weapon.is_colliding()
 	if is_shoot and not weapon.is_colliding():
 		shoot_time += delta
-		
 		var init_dir = Vector2(0,1).rotated(deg2rad(aim_degree + 90))
 		var init_velocity = init_speed * init_dir
 		var move_velocity = init_velocity
 		move_velocity.y = init_velocity.y + gravity * shoot_time
-		
-		print("hihi")
 		
 		weapon.move( delta * move_velocity)
 		var velocity = move_velocity
@@ -62,16 +61,22 @@ func _fixed_process(delta):
 		var angle = Vector2(0.0, 1.0).angle_to(velocity)
 		weapon.set_rot(angle)
 		
+		if( shoot_time > 3.8):
+			get_node("ui/game_over").set_hidden(false)
+		
 	if weapon.is_colliding() and not is_weapon_colling:
 		var collider = weapon.get_collider()
 		if collider.get_type()=="body":
 			print("body shooter")
+			score += 1
+			get_node("ui/score").set_text(String(score))
 			gen_map_phase = CREAT_NEXT_BATTLE_MAP
 		elif collider.get_type()=="head":
 			gen_map_phase = CREAT_NEXT_BATTLE_MAP
-			print("head shooter")
+			score += 2
+			get_node("ui/score").set_text(String(score))
 		else:
-			print("fail")
+			get_node("ui/game_over").set_hidden(false)
 	
 	is_weapon_colling = weapon.is_colliding()
 

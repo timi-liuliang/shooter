@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://game_single/game_single.gd" type="Script" id=1]
 [ext_resource path="res://actor/weapon/arrow.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actor/column/column_0.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/game_over.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=7]
 
 [node name="game" type="Node2D"]
 
@@ -21,11 +23,11 @@ transform/scale = Vector2( 3, 2.9 )
 
 [node name="archer" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 126.726, 644.558 )
+transform/pos = Vector2( 145.181, 642.507 )
 
 [node name="camera" type="Camera2D" parent="archer"]
 
-transform/pos = Vector2( 542.984, -277.398 )
+transform/pos = Vector2( 516.164, -268.196 )
 transform/rot = 90.5413
 transform/scale = Vector2( 3, 2.89928 )
 anchor_mode = 1
@@ -56,5 +58,35 @@ transform/pos = Vector2( 280, 712 )
 [node name="column" parent="column_enemy" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 1013.81, 447.167 )
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="game_over" parent="ui" instance=ExtResource( 6 )]
+
+visibility/visible = false
+
+[node name="score" type="Label" parent="ui"]
+
+anchor/left = 3
+anchor/right = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -5.0
+margin/top = 5.0
+margin/right = -110.0
+margin/bottom = 46.0
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 
