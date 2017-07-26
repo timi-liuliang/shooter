@@ -2,6 +2,9 @@ extends Node2D
 
 var score = int(0)
 
+var cam_archer_offset
+var cam_arrow_offset
+
 var is_aim    = false
 var aim_degree = 0.0
 var aim_adjust_dir = 1.0
@@ -17,6 +20,7 @@ const MOVETO_NEXT_BATTLE_MAP = 2
 const DELETE_LAST_BATTLE_MAP = 3
 var   next_battle_pos = Vector2()
 
+
 var is_weapon_colling = false
 
 var gen_map_phase = 0
@@ -24,6 +28,9 @@ var gen_map_phase = 0
 var battle_id = int(0)
 
 func _ready():
+	cam_archer_offset = get_node("camera").get_pos() - get_node("archer").get_pos()
+	cam_arrow_offset  = get_node("camera").get_pos() - get_node("arrow").get_pos()
+	
 	set_process(true)
 	set_fixed_process(true)
 	
@@ -56,6 +63,10 @@ func _fixed_process(delta):
 		move_velocity.y = init_velocity.y + gravity * shoot_time
 		
 		weapon.move( delta * move_velocity)
+		
+		var camera = get_node("camera")
+		camera.set_pos( weapon.get_pos() + cam_archer_offset * 0.3)
+		
 		var velocity = move_velocity
 		velocity = velocity.normalized()
 		var angle = Vector2(0.0, 1.0).angle_to(velocity)
@@ -105,6 +116,10 @@ func refresh_map(delta):
 			var move_len = min(len, character_move_speed*delta)
 			var next_pos = cur_pos + Vector2(move_len, 0.0)
 			character.set_pos( next_pos)
+			
+			var camera = get_node("camera")
+			camera.set_pos( next_pos + cam_archer_offset + Vector2(0.0, 100))
+			
 		else:
 			var character = get_node("archer")
 			var cur_pos = character.get_pos()
