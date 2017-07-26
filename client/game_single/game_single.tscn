@@ -1,33 +1,36 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://game_single/game_single.gd" type="Script" id=1]
 [ext_resource path="res://actor/weapon/arrow.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actor/column/column_0.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actor/column/column_1.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actor/enemy/enemy_0.tscn" type="PackedScene" id=7]
-[ext_resource path="res://actor/enemy/enemy_1.tscn" type="PackedScene" id=8]
 
 [node name="game" type="Node2D"]
 
 script/script = ExtResource( 1 )
 init_speed = 800.0
 gravity = 350.0
+character_move_speed = 500.0
 
 [node name="arrow" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 197.358, 581.453 )
+transform/rot = 90.0
+transform/scale = Vector2( 3, 2.9 )
+
+[node name="archer" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 126.726, 644.558 )
+
+[node name="camera" type="Camera2D" parent="archer"]
+
+transform/pos = Vector2( 542.984, -277.398 )
 transform/rot = 90.5413
 transform/scale = Vector2( 3, 2.89928 )
-
-[node name="Camera2D" type="Camera2D" parent="arrow"]
-
-transform/pos = Vector2( -175.183, 193.401 )
-transform/scale = Vector2( 1.97347, 1.7586 )
 anchor_mode = 1
 rotating = false
-current = false
+current = true
 zoom = Vector2( 1, 1 )
 limit/left = -10000000
 limit/top = -10000000
@@ -35,47 +38,23 @@ limit/right = 10000000
 limit/bottom = 10000000
 drag_margin/h_enabled = true
 drag_margin/v_enabled = true
-smoothing/enable = false
+smoothing/enable = true
 smoothing/speed = 5.0
 drag_margin/left = 0.2
 drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
-[node name="archer" parent="." instance=ExtResource( 3 )]
+[node name="ground" type="Node2D" parent="."]
 
-transform/pos = Vector2( 126.726, 644.558 )
+[node name="ground" parent="ground" instance=ExtResource( 4 )]
 
-[node name="ground" parent="." instance=ExtResource( 4 )]
+transform/pos = Vector2( 280, 712 )
 
-transform/pos = Vector2( 279.446, 712.462 )
+[node name="column_enemy" type="Node2D" parent="."]
 
-[node name="ground1" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 2008.99, 713.462 )
-
-[node name="ground2" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 1436.1, 713.979 )
-
-[node name="ground3" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 855.961, 712.462 )
-
-[node name="column" parent="." instance=ExtResource( 5 )]
+[node name="column" parent="column_enemy" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 1013.81, 447.167 )
-
-[node name="column 2" parent="." instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 1996.71, 457.449 )
-
-[node name="enemy" parent="." instance=ExtResource( 7 )]
-
-transform/pos = Vector2( 1020.8, 189.736 )
-
-[node name="enemy 2" parent="." instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 1999.06, 335.938 )
 
 
