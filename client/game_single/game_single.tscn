@@ -15,16 +15,6 @@ init_speed = 800.0
 gravity = 350.0
 character_move_speed = 500.0
 
-[node name="behavior" type="BTRootNode" parent="."]
-
-[node name="selector" type="BTSelectorNode" parent="behavior"]
-
-[node name="start" type="BTSequenceNode" parent="behavior/selector"]
-
-[node name="playing" type="BTSequenceNode" parent="behavior/selector"]
-
-[node name="fail" type="BTSequenceNode" parent="behavior/selector"]
-
 [node name="column_enemy" type="Node2D" parent="."]
 
 editor/display_folded = true
@@ -74,7 +64,6 @@ transform/pos = Vector2( 512, 600 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0

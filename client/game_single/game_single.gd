@@ -18,6 +18,7 @@ export(float) var character_move_speed = 100
 const CREAT_NEXT_BATTLE_MAP = 1
 const MOVETO_NEXT_BATTLE_MAP = 3
 const DELETE_LAST_BATTLE_MAP = 4
+
 var   next_battle_pos = Vector2()
 var   column_pos = Vector2()
 
@@ -74,7 +75,7 @@ func _fixed_process(delta):
 		var angle = Vector2(0.0, 1.0).angle_to(velocity)
 		weapon.set_rot(angle)
 		
-		if( shoot_time > 3.8):
+		if( shoot_time > 2.0):
 			get_node("ui/game_over").set_hidden(false)
 		
 	if weapon.is_colliding() and not is_weapon_colling:
@@ -162,11 +163,3 @@ func refresh_map(delta):
 		
 		battle_id = battle_id+1
 		gen_map_phase = 0
-
-
-func _on_tween_tween_complete( object, key ):
-	is_tween_runing = false
-
-	gen_map_phase = MOVETO_NEXT_BATTLE_MAP
-	
-	print("cao")
