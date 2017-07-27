@@ -16,12 +16,12 @@ export(float)   var gravity = 100
 export(float) var character_move_speed = 100
 
 const CREAT_NEXT_BATTLE_MAP = 1
-const MOVETO_NEXT_BATTLE_MAP = 2
-const DELETE_LAST_BATTLE_MAP = 3
+const MOVETO_NEXT_BATTLE_MAP = 3
+const DELETE_LAST_BATTLE_MAP = 4
 var   next_battle_pos = Vector2()
 var   column_pos = Vector2()
 
-
+var is_tween_runing = false
 var is_weapon_colling = false
 
 var gen_map_phase = 0
@@ -125,9 +125,11 @@ func refresh_map(delta):
 			var cam_target_pos = character.get_pos() + cam_archer_offset
 			
 			# tween
+			var next_target_pos = (cam_target_pos - cam_cur_pos) * 0.1 + cam_cur_pos
+			var next_zoom = camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.1
+			camera.set_pos( next_target_pos)
+			camera.set_zoom(next_zoom)
 			
-			camera.set_pos( cam_target_pos)
-			camera.set_zoom(Vector2(1.0, 1.0))
 		else:
 			var character = get_node("archer")
 			var cur_pos = character.get_pos()
@@ -160,3 +162,11 @@ func refresh_map(delta):
 		
 		battle_id = battle_id+1
 		gen_map_phase = 0
+
+
+func _on_tween_tween_complete( object, key ):
+	is_tween_runing = false
+
+	gen_map_phase = MOVETO_NEXT_BATTLE_MAP
+	
+	print("cao")
