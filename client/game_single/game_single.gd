@@ -19,6 +19,7 @@ const CREAT_NEXT_BATTLE_MAP = 1
 const MOVETO_NEXT_BATTLE_MAP = 2
 const DELETE_LAST_BATTLE_MAP = 3
 var   next_battle_pos = Vector2()
+var   column_pos = Vector2()
 
 
 var is_weapon_colling = false
@@ -65,8 +66,8 @@ func _fixed_process(delta):
 		weapon.move( delta * move_velocity)
 		
 		var camera = get_node("camera")
-		camera.set_pos( weapon.get_pos() + cam_archer_offset * 0.3)
-		camera.set_zoom(Vector2(max(1.0-shoot_time*0.3, 0.5), max(1.0-shoot_time*0.3, 0.5)))
+		camera.set_pos( weapon.get_pos() + cam_arrow_offset * min(shoot_time, 0.2))
+		camera.set_zoom(Vector2(max(1.0-shoot_time*0.2, 0.5), max(1.0-shoot_time*0.2, 0.5)))
 		
 		var velocity = move_velocity
 		velocity = velocity.normalized()
@@ -97,14 +98,15 @@ func refresh_map(delta):
 		var next_battle_id = battle_id + 1
 		var ground = preload("res://actor/ground/ground.tscn").instance()
 		ground.set_battle_id(next_battle_id)
-		ground.set_pos(Vector2( next_battle_id * 1334, 712))
+		ground.set_pos(Vector2( next_battle_id * 1024 + 512, 600))
 		get_node("ground").add_child(ground)
-		next_battle_pos = Vector2(next_battle_id * 1334 + 50, 644)
+		next_battle_pos = Vector2(next_battle_id * 1024 + 50, 480)
 		
 		# gen column enemy
 		var column = preload("res://actor/column/column_0.tscn").instance()
 		column.set_battle_id(next_battle_id)
-		column.set_pos(Vector2( next_battle_id * 1334 + 400 + randi() % 8 * 100, 750 - randi() % 6 * 100))
+		column_pos = Vector2( next_battle_id * 1024 + 400 + randi() % 8 * 100, 750 - randi() % 6 * 100)
+		column.set_pos(column_pos)
 		get_node("column_enemy").add_child(column)
 		
 		gen_map_phase = MOVETO_NEXT_BATTLE_MAP
@@ -119,7 +121,12 @@ func refresh_map(delta):
 			character.set_pos( next_pos)
 			
 			var camera = get_node("camera")
-			camera.set_pos( next_pos + cam_archer_offset + Vector2(0.0, 100))
+			var cam_cur_pos = camera.get_pos()
+			var cam_target_pos = character.get_pos() + cam_archer_offset
+			
+			# tween
+			
+			camera.set_pos( cam_target_pos)
 			camera.set_zoom(Vector2(1.0, 1.0))
 		else:
 			var character = get_node("archer")
@@ -129,7 +136,7 @@ func refresh_map(delta):
 			var arrow = preload("res://actor/weapon/arrow.tscn").instance()
 			self.add_child(arrow)
 			
-			get_node("arrow").set_pos(cur_pos + Vector2(80, -80))
+			get_node("arrow").set_pos(cur_pos)# + Vector2(80, -80))
 			get_node("arrow").set_scale(Vector2(3.0, 2.9))
 			get_node("arrow").set_rot(deg2rad(90.0))
 			is_aim = false

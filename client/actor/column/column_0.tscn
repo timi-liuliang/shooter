@@ -1,13 +1,31 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://actor/collider.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://actor/enemy/enemy_0.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actor/column/AnimPlay.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 59.4304, 10 )
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "fly"
+length = 2.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("enemy:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1, 2 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.51755, -256.789 ), Vector2( 2.51755, -345.789 ), Vector2( 2.51755, -259.789 ) ]
+}
 
 [node name="column" type="StaticBody2D"]
 
@@ -39,6 +57,18 @@ _update_shape_index = 0
 
 [node name="enemy" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 2.51755, -256.789 )
+transform/pos = Vector2( 2.51755, -294.465 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/fly = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+script/script = ExtResource( 4 )
 
 

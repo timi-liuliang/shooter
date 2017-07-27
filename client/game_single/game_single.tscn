@@ -15,17 +15,27 @@ init_speed = 800.0
 gravity = 350.0
 character_move_speed = 500.0
 
+[node name="behavior" type="BTRootNode" parent="."]
+
+[node name="selector" type="BTSelectorNode" parent="behavior"]
+
+[node name="start" type="BTSequenceNode" parent="behavior/selector"]
+
+[node name="playing" type="BTSequenceNode" parent="behavior/selector"]
+
+[node name="fail" type="BTSequenceNode" parent="behavior/selector"]
+
 [node name="column_enemy" type="Node2D" parent="."]
 
 editor/display_folded = true
 
 [node name="column" parent="column_enemy" instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 1013.81, 447.167 )
+transform/pos = Vector2( 720, 480 )
 
 [node name="camera" type="Camera2D" parent="."]
 
-transform/pos = Vector2( 661.181, 374.507 )
+transform/pos = Vector2( 515.768, 294.984 )
 transform/rot = 90.0
 anchor_mode = 1
 rotating = false
@@ -35,32 +45,32 @@ limit/left = -10000000
 limit/top = -10000000
 limit/right = 10000000
 limit/bottom = 10000000
-drag_margin/h_enabled = true
-drag_margin/v_enabled = true
+drag_margin/h_enabled = false
+drag_margin/v_enabled = false
 smoothing/enable = true
-smoothing/speed = 5.0
-drag_margin/left = 0.2
-drag_margin/top = 0.2
-drag_margin/right = 0.2
-drag_margin/bottom = 0.2
+smoothing/speed = 1.5
+drag_margin/left = 0.0
+drag_margin/top = 0.0
+drag_margin/right = 0.0
+drag_margin/bottom = 0.0
 
 [node name="arrow" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 197.358, 581.453 )
+transform/pos = Vector2( 100, 400 )
 transform/rot = 90.0
 transform/scale = Vector2( 3, 2.9 )
 
 [node name="archer" parent="." instance=ExtResource( 4 )]
 
-transform/pos = Vector2( 145.181, 642.507 )
+transform/pos = Vector2( 100, 400 )
+collision/layers = 2
+collision/mask = 2
 
 [node name="ground" type="Node2D" parent="."]
 
-editor/display_folded = true
-
 [node name="ground" parent="ground" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 280, 712 )
+transform/pos = Vector2( 512, 600 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -92,12 +102,5 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="Tween" type="Tween" parent="."]
-
-playback/process_mode = 1
-playback/active = false
-playback/repeat = false
-playback/speed = 1.0
 
 
