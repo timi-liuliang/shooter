@@ -3,20 +3,28 @@
 [ext_resource path="res://launch/launch.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
-[node name="launch" type="Node2D"]
+[node name="launch" type="CanvasLayer"]
 
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
 script/script = ExtResource( 1 )
 
 [node name="play" type="TextureButton" parent="."]
 
+anchor/left = 2
+anchor/top = 2
+anchor/right = 2
+anchor/bottom = 2
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 470.0
-margin/top = 270.0
-margin/right = 510.0
-margin/bottom = 310.0
+margin/left = 0.458984
+margin/top = 0.45
+margin/right = 0.498047
+margin/bottom = 0.516667
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -24,6 +32,6 @@ textures/normal = ExtResource( 2 )
 params/resize_mode = 0
 params/stretch_mode = 0
 
-[connection signal="pressed" from="play" to="." method="_on_TextureButton_pressed"]
+[connection signal="pressed" from="play" to="." method="_on_play_pressed"]
 
 
