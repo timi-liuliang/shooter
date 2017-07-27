@@ -12,7 +12,7 @@ enum GameState{
 	GS_Failed
 }
 
-var game_state =GameState.GS_PREPARE
+var game_state =GameState.GS_CREATE_NEXT_BATTLE_MAP
 var score = int(0)
 var cam_archer_offset
 var cam_arrow_offset
@@ -22,13 +22,14 @@ var shoot_time = 0.0
 export(float) var init_speed = 300
 export(float) var gravity = 100
 export(float) var character_move_speed = 100
+export(float) var wind_slow_down = 100
 var next_battle_pos = Vector2()
 var column_pos = Vector2()
 var battle_id = int(0)
 
 func _ready():
 	cam_archer_offset = get_node("camera").get_pos() - get_node("archer").get_pos()
-	cam_arrow_offset  = get_node("camera").get_pos() - get_node("arrow").get_pos()
+	cam_arrow_offset  = get_node("camera").get_pos() - get_node("archer").get_pos()
 	
 	set_process(true)
 	
@@ -72,11 +73,12 @@ func aim(delta):
 		
 func shoot(delta):
 	var weapon = get_node("arrow")
+	var cha_pos = get_node("archer").get_pos()
 	if !weapon.is_colliding():
 		# 移动武器
 		shoot_time += delta
 		var init_dir = Vector2(0,1).rotated(deg2rad(aim_degree + 90))
-		var init_velocity = init_speed * init_dir
+		var init_velocity = (init_speed - shoot_time * wind_slow_down) * init_dir
 		var move_velocity = init_velocity
 		move_velocity.y = init_velocity.y + gravity * shoot_time	
 		weapon.move( delta * move_velocity)
@@ -88,22 +90,19 @@ func shoot(delta):
 		weapon.set_rot(angle)
 		
 		# 摄像机跟随武器
-		var camera = get_node("camera")
-		var cam_cur_pos = camera.get_pos()
-		var cam_target_pos = weapon.get_pos() + cam_arrow_offset * 0.2
-		var next_target_pos = (cam_target_pos - cam_cur_pos) * 0.1 + cam_cur_pos
-		var cam_target_zoom = Vector2(max(1.0-shoot_time*0.2, 0.5), max(1.0-shoot_time*0.2, 0.5))
-		var next_zoom = camera.get_zoom() + (cam_target_zoom - camera.get_zoom()) * 0.05
-		camera.set_pos( next_target_pos)
-		camera.set_zoom(next_zoom)
+		if weapon.get_pos().x < cha_pos.x + 924:
+			var camera = get_node("camera")
+			var cam_cur_pos = camera.get_pos()
+			var cam_target_pos = weapon.get_pos() + cam_arrow_offset * 0.2
+			var next_target_pos = (cam_target_pos - cam_cur_pos) * 0.1 + cam_cur_pos
+			var cam_target_zoom = Vector2(max(1.0-shoot_time*0.2, 0.5), max(1.0-shoot_time*0.2, 0.5))
+			var next_zoom = camera.get_zoom() + (cam_target_zoom - camera.get_zoom()) * 0.05
+			camera.set_pos( next_target_pos)
+			camera.set_zoom(next_zoom)
 		
-		
-		#var camera = get_node("camera")
-		#camera.set_pos( weapon.get_pos() + cam_arrow_offset * min(shoot_time, 0.2))
-		#camera.set_zoom(Vector2(max(1.0-shoot_time*0.2, 0.5), max(1.0-shoot_time*0.2, 0.5)))
-		
-	if weapon.is_colliding() || shoot_time>2.0:
-		game_state = GameState.GS_CHECK_SHOOT_RESULT
+	var arrow_pos_x = weapon.get_pos().x	
+	if weapon.is_colliding() || arrow_pos_x > (cha_pos.x + 1124):
+		game_state = GameState.GS_CHECK_SHOOT_RESULT	
 		
 func check_result():
 	var weapon = get_node("arrow")
@@ -161,7 +160,8 @@ func moveto_next_battle_map(delta):
 		# 到达目的地，生成箭支
 		var character = get_node("archer")
 		var cur_pos = character.get_pos()
-		get_node("arrow").free()
+		if has_node("arrow"):
+			get_node("arrow").free()
 			
 		var arrow = preload("res://actor/weapon/arrow.tscn").instance()
 		self.add_child(arrow)
