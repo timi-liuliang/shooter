@@ -45,6 +45,8 @@ collision/mask = 2
 
 [node name="ground" type="Node2D" parent="."]
 
+editor/display_folded = true
+
 [node name="ground" parent="ground" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 512, 600 )

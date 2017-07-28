@@ -153,11 +153,15 @@ func moveto_next_battle_map(delta):
 		# tween
 		var next_target_pos = (cam_target_pos - cam_cur_pos) * 0.1 + cam_cur_pos
 		var next_zoom = camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.1
+		camera.set_follow_smoothing(2.5)
 		camera.set_pos( next_target_pos)
 		camera.set_zoom(next_zoom)
 			
 	else:
 		# 到达目的地，生成箭支
+		var camera = get_node("camera")
+		camera.set_follow_smoothing(1.5)
+		
 		var character = get_node("archer")
 		var cur_pos = character.get_pos()
 		if has_node("arrow"):
