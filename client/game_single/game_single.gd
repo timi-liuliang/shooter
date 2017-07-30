@@ -26,6 +26,7 @@ export(float) var wind_slow_down = 100
 var next_battle_pos = Vector2()
 var column_pos = Vector2()
 var battle_id = int(0)
+var blood_effect = null
 
 func _ready():
 	cam_archer_offset = get_node("camera").get_pos() - get_node("archer").get_pos()
@@ -107,8 +108,22 @@ func shoot(delta):
 func check_result():
 	var weapon = get_node("arrow")
 	if weapon.is_colliding():
+		# 箭摇尾
+		weapon.get_node("anim").play("attacked")
+		
 		var collider = weapon.get_collider()
 		if collider.get_type()=="body":
+			# 显示血
+			if blood_effect:
+				blood_effect.queue_free()
+				blood_effect = null
+			
+			blood_effect = preload("res://effect/blood.tscn").instance()
+			blood_effect.set_pos( weapon.get_collision_pos())
+			blood_effect.set_rot( weapon.get_rot())# + deg2rad(180.0))
+			blood_effect.get_node("anim").play("play")
+			add_child(blood_effect)
+			
 			score += 1
 			get_node("ui/score").set_text(String(score))
 			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP

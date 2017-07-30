@@ -75,14 +75,16 @@ params/stretch_mode = 0
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
+anchor/right = 1
+anchor/bottom = 1
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 512.0
 margin/top = 0.0
-margin/right = 1027.0
-margin/bottom = 600.0
+margin/right = -3.0
+margin/bottom = 0.0
 texture = ExtResource( 5 )
 stretch_mode = 0
 
