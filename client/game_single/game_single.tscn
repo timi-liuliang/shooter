@@ -19,6 +19,7 @@ wind_slow_down = 800.0
 
 [node name="parallax_background" type="ParallaxBackground" parent="."]
 
+editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -64,7 +65,7 @@ texture = ExtResource( 3 )
 [node name="layer_0" type="ParallaxLayer" parent="parallax_background"]
 
 transform/pos = Vector2( -27.895, -5.57901 )
-motion/scale = Vector2( 1, 0 )
+motion/scale = Vector2( 0.65, 0 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1020, 0 )
 
@@ -72,6 +73,8 @@ motion/mirroring = Vector2( 1020, 0 )
 
 transform/pos = Vector2( 517.909, 558.094 )
 texture = ExtResource( 4 )
+
+[node name="weapon" type="Node2D" parent="."]
 
 [node name="column_enemy" type="Node2D" parent="."]
 
@@ -103,6 +106,8 @@ collision/layers = 2
 collision/mask = 2
 
 [node name="ground" type="Node2D" parent="."]
+
+editor/display_folded = true
 
 [node name="ground" parent="ground" instance=ExtResource( 6 )]
 

@@ -60,7 +60,7 @@ func prepare():
 	
 func aim(delta):
 	if Input.is_action_pressed("touch"):
-		var weapon = get_node("arrow")
+		var weapon = get_node("weapon/arrow")
 		aim_degree += delta * 60.0 * aim_adjust_dir
 		if aim_degree > 89.0:
 			aim_adjust_dir = -1.0
@@ -73,7 +73,7 @@ func aim(delta):
 		game_state = GameState.GS_SHOOT
 		
 func shoot(delta):
-	var weapon = get_node("arrow")
+	var weapon = get_node("weapon/arrow")
 	var cha_pos = get_node("archer").get_pos()
 	if !weapon.is_colliding():
 		# 移动武器
@@ -106,7 +106,7 @@ func shoot(delta):
 		game_state = GameState.GS_CHECK_SHOOT_RESULT	
 		
 func check_result():
-	var weapon = get_node("arrow")
+	var weapon = get_node("weapon/arrow")
 	if weapon.is_colliding():
 		# 箭摇尾
 		weapon.get_node("anim").play("attacked")
@@ -179,15 +179,15 @@ func moveto_next_battle_map(delta):
 		
 		var character = get_node("archer")
 		var cur_pos = character.get_pos()
-		if has_node("arrow"):
-			get_node("arrow").free()
+		if has_node("weapon/arrow"):
+			get_node("weapon/arrow").free()
 			
 		var arrow = preload("res://actor/weapon/arrow.tscn").instance()
-		self.add_child(arrow)
+		get_node("weapon").add_child(arrow)
 			
-		get_node("arrow").set_pos(cur_pos)# + Vector2(80, -80))
-		get_node("arrow").set_scale(Vector2(3.0, 2.9))
-		get_node("arrow").set_rot(deg2rad(90.0))
+		get_node("weapon/arrow").set_pos(cur_pos)# + Vector2(80, -80))
+		get_node("weapon/arrow").set_scale(Vector2(3.0, 2.9))
+		get_node("weapon/arrow").set_rot(deg2rad(90.0))
 		shoot_time = 0.0
 		aim_degree = 0.0
 		game_state = GS_DELETE_LAST_BATTLE_MAP
