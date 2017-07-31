@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://game_single/game_single.gd" type="Script" id=1]
-[ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=3]
-[ext_resource path="res://ui/game_over.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://game_single/bg_layer3.png" type="Texture" id=2]
+[ext_resource path="res://game_single/bg_layer1.png" type="Texture" id=3]
+[ext_resource path="res://game_single/bg_layer0.png" type="Texture" id=4]
+[ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/game_over.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=8]
 
 [node name="game" type="Node2D"]
 
@@ -13,6 +16,62 @@ init_speed = 2000.0
 gravity = 1200.0
 character_move_speed = 500.0
 wind_slow_down = 800.0
+
+[node name="parallax_background" type="ParallaxBackground" parent="."]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = false
+
+[node name="layer_3" type="ParallaxLayer" parent="parallax_background"]
+
+transform/pos = Vector2( 2.78937, -235.37 )
+motion/scale = Vector2( 0, 0 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 1024, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="parallax_background/layer_3"]
+
+transform/pos = Vector2( 6.75726, -12.7593 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="layer_1" type="ParallaxLayer" parent="parallax_background"]
+
+transform/pos = Vector2( 2.78937, -114.37 )
+motion/scale = Vector2( 0.5, 0 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 1020, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="parallax_background/layer_1"]
+
+transform/pos = Vector2( 507.105, 311.497 )
+texture = ExtResource( 3 )
+
+[node name="layer_0" type="ParallaxLayer" parent="parallax_background"]
+
+transform/pos = Vector2( -27.895, -5.57901 )
+motion/scale = Vector2( 1, 0 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 1020, 0 )
+
+[node name="Sprite" type="Sprite" parent="parallax_background/layer_0"]
+
+transform/pos = Vector2( 517.909, 558.094 )
+texture = ExtResource( 4 )
 
 [node name="column_enemy" type="Node2D" parent="."]
 
@@ -37,7 +96,7 @@ drag_margin/top = 0.0
 drag_margin/right = 0.0
 drag_margin/bottom = 0.0
 
-[node name="archer" parent="." instance=ExtResource( 2 )]
+[node name="archer" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 100, 400 )
 collision/layers = 2
@@ -45,20 +104,19 @@ collision/mask = 2
 
 [node name="ground" type="Node2D" parent="."]
 
-editor/display_folded = true
-
-[node name="ground" parent="ground" instance=ExtResource( 3 )]
+[node name="ground" parent="ground" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 512, 600 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 
-[node name="game_over" parent="ui" instance=ExtResource( 4 )]
+[node name="game_over" parent="ui" instance=ExtResource( 7 )]
 
 visibility/visible = false
 anchor/left = 3
@@ -82,7 +140,7 @@ margin/left = 56.0
 margin/top = 1.0
 margin/right = -49.0
 margin/bottom = 42.0
-custom_fonts/font = ExtResource( 5 )
+custom_fonts/font = ExtResource( 8 )
 text = "0"
 align = 1
 percent_visible = 1.0
