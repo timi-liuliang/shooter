@@ -1,4 +1,5 @@
 extends AnimationPlayer
 
 func _ready():
-	self.play("fly")
+	pass
+	#self.play("fly")
