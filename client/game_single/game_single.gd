@@ -183,7 +183,7 @@ func moveto_next_battle_map(delta):
 		if has_node("weapon/arrow"):
 			get_node("weapon/arrow").free()
 			
-		var arrow = preload("res://actor/weapon/arrow.tscn").instance()
+		var arrow = preload("res://actor/weapon/stick.tscn").instance()
 		get_node("weapon").add_child(arrow)
 			
 		get_node("weapon/arrow").set_pos(cur_pos)# + Vector2(80, -80))

@@ -19,7 +19,6 @@ wind_slow_down = 800.0
 
 [node name="parallax_background" type="ParallaxBackground" parent="."]
 
-editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -101,7 +100,7 @@ drag_margin/bottom = 0.0
 
 [node name="archer" parent="." instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 100, 400 )
+transform/pos = Vector2( 100, 452 )
 collision/layers = 2
 collision/mask = 2
 

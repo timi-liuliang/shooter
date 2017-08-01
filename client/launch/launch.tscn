@@ -67,7 +67,7 @@ transform/pos = Vector2( 512, 600 )
 
 [node name="archer" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 100, 400 )
+transform/pos = Vector2( 96, 452 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 

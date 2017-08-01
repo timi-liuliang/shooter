@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://actor/weapon/stick.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "attacked"
+length = 1.2
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:transform/rot")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -8.0, 6.0, -4.0, 2.0, -1.0, 0.0 ]
+}
+
+[node name="arrow" type="KinematicBody2D"]
+
+transform/pos = Vector2( 0.237831, -9.75092 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 0.163571, 0, 0, 2.06762, -0.106535, 10.0718 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+
+[node name="Sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 0.778193, 27.3704 )
+transform/scale = Vector2( 0.1, 0.2 )
+texture = ExtResource( 1 )
+offset = Vector2( -0.0770264, -91.2887 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( -0.106535, 10.0718 )
+transform/scale = Vector2( 0.163571, 2.06762 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="anim" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/attacked = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+
