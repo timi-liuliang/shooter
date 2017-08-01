@@ -161,6 +161,7 @@ func moveto_next_battle_map(delta):
 		var move_len = min(len, character_move_speed*delta)
 		var next_pos = cur_pos + Vector2(move_len, 0.0)
 		character.set_pos( next_pos)
+		character.play_anim("run")
 			
 		var camera = get_node("camera")
 		var cam_cur_pos = camera.get_pos()
@@ -174,6 +175,8 @@ func moveto_next_battle_map(delta):
 		camera.set_zoom(next_zoom)
 			
 	else:
+		character.play_anim("idle")
+		
 		# 到达目的地，生成箭支
 		var camera = get_node("camera")
 		camera.set_follow_smoothing(1.5)

@@ -1,13 +1,78 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=8 format=1]
 
-[ext_resource path="res://actor/archer/foot.png" type="Texture" id=1]
-[ext_resource path="res://actor/archer/body.png" type="Texture" id=2]
-[ext_resource path="res://actor/archer/right_hand.png" type="Texture" id=3]
+[ext_resource path="res://actor/archer/archer.gd" type="Script" id=1]
+[ext_resource path="res://actor/archer/foot.png" type="Texture" id=2]
+[ext_resource path="res://actor/archer/body.png" type="Texture" id=3]
+[ext_resource path="res://actor/archer/right_hand.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "idle"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("display/body:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("display/foot_right:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ 1.92061 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("display/foot_left:transform/rot")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 0,
+"values": [ 2.52533 ]
+}
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "run"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("display/foot_right:transform/rot")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ -34.683, 39.7825 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("display/foot_left:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 21.6483, -43.2336 ]
+}
 
 [node name="archer" type="KinematicBody2D"]
 
@@ -19,6 +84,7 @@ shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
+script/script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
@@ -33,6 +99,8 @@ _update_shape_index = 0
 playback/process_mode = 1
 playback/default_blend_time = 0.0
 root/root = NodePath("..")
+anims/idle = SubResource( 3 )
+anims/run = SubResource( 2 )
 playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
@@ -43,23 +111,31 @@ autoplay = ""
 transform/pos = Vector2( 1, -49 )
 transform/scale = Vector2( 0.5, 0.5 )
 
-[node name="foot_left" type="Sprite" parent="display"]
-
-transform/pos = Vector2( 16.6205, 126.316 )
-texture = ExtResource( 1 )
-
 [node name="foot_right" type="Sprite" parent="display"]
 
-transform/pos = Vector2( -43.2134, 127.424 )
-texture = ExtResource( 1 )
+transform/pos = Vector2( -5.05606, 103.714 )
+transform/rot = 1.92061
+transform/scale = Vector2( 1, 1 )
+texture = ExtResource( 2 )
+offset = Vector2( 2.00729, 23.9148 )
+
+[node name="foot_left" type="Sprite" parent="display"]
+
+transform/pos = Vector2( 7.97604, 113.488 )
+transform/rot = 2.52533
+texture = ExtResource( 2 )
+offset = Vector2( 1.05603, 15.5748 )
 
 [node name="body" type="Sprite" parent="display"]
 
-texture = ExtResource( 2 )
-
-[node name="hand_right" type="Sprite" parent="display"]
-
-transform/pos = Vector2( -28.8089, -4.43214 )
+transform/pos = Vector2( 0, -7.61578 )
 texture = ExtResource( 3 )
+
+[node name="hand_right" type="Sprite" parent="display/body"]
+
+transform/pos = Vector2( -58.8135, 28.7796 )
+transform/rot = 23.1323
+texture = ExtResource( 4 )
+offset = Vector2( 30.0046, -33.2117 )
 
 
