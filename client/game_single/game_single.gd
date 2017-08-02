@@ -129,7 +129,14 @@ func check_result():
 		weapon.get_node("anim").play("attacked")
 		
 		var collider = weapon.get_collider()
-		if collider.get_type()=="body":
+		# 施加力
+		if collider.is_type("RigidBody2D"):
+			var impulse = Vector2(1.0, 0.0)
+			impulse.rotated(weapon.get_rot())
+			collider.apply_impulse(weapon.get_collision_pos(), impulse * 100.0)
+		
+		# 计算得分
+		if collider.get_type()=="body" || collider.get_type()=="head":
 			# 显示血
 			if blood_effect:
 				blood_effect.queue_free()
@@ -137,15 +144,15 @@ func check_result():
 			
 			blood_effect = preload("res://effect/blood.tscn").instance()
 			blood_effect.set_pos( weapon.get_collision_pos())
-			blood_effect.set_rot( weapon.get_rot())# + deg2rad(180.0))
+			blood_effect.set_rot( weapon.get_rot())
 			blood_effect.get_node("anim").play("play")
 			add_child(blood_effect)
 			
-			score += 1
-			get_node("ui/score").set_text(String(score))
-			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP
-		elif collider.get_type()=="head":
-			score += 2
+			if collider.get_type()=="head":
+				score += 2
+			else:
+				score +=1
+			
 			get_node("ui/score").set_text(String(score))
 			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP
 		else:
