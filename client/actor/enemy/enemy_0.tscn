@@ -1,38 +1,51 @@
 [gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://actor/collider.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://actor/collider_rigid.gd" type="Script" id=1]
+[ext_resource path="res://actor/enemy/bosspit_gold_colossus.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="enemy" type="StaticBody2D"]
+[node name="enemy" type="RigidBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 3.24217, 0, 0, 4.69699, 0.379484, -20.6374 )
+shapes/0/transform = Matrix32( 1.25309, 0, 0, 7.64388, 0.369508, -31.7672 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
+mode = 0
+mass = 1.0
 friction = 1.0
 bounce = 0.0
+gravity_scale = 3.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
 script/script = ExtResource( 1 )
 type = "body"
 
 [node name="Sprite" type="Sprite" parent="."]
 
-transform/pos = Vector2( 0, -17.0138 )
-transform/scale = Vector2( 1, 1.53168 )
+transform/pos = Vector2( -16.3942, -30.9569 )
+transform/scale = Vector2( 0.51217, 0.409679 )
 texture = ExtResource( 2 )
+flip_h = true
+modulate = Color( 0.710938, 0.163849, 0.163849, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 0.379484, -20.6374 )
-transform/scale = Vector2( 3.24217, 4.69699 )
+transform/pos = Vector2( 0.369508, -31.7672 )
+transform/scale = Vector2( 1.25309, 7.64388 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0

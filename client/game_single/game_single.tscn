@@ -73,8 +73,6 @@ motion/mirroring = Vector2( 1020, 0 )
 transform/pos = Vector2( 517.909, 558.094 )
 texture = ExtResource( 4 )
 
-[node name="weapon" type="Node2D" parent="."]
-
 [node name="column_enemy" type="Node2D" parent="."]
 
 [node name="camera" type="Camera2D" parent="."]
@@ -103,6 +101,8 @@ drag_margin/bottom = 0.0
 transform/pos = Vector2( 100, 452 )
 collision/layers = 2
 collision/mask = 2
+
+[node name="weapon" type="Node2D" parent="."]
 
 [node name="ground" type="Node2D" parent="."]
 

@@ -10,11 +10,10 @@
 custom_solver_bias = 0.0
 extents = Vector2( 51.0418, 13.9894 )
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=2]
 
 custom_solver_bias = 0.0
-radius = 10.0
-height = 19.0575
+extents = Vector2( 10, 10 )
 
 [sub_resource type="Animation" id=3]
 
@@ -40,7 +39,7 @@ shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 0.510831, 0, 0, 14.8934, 0.600261, 17.6594 )
 shapes/0/trigger = false
 shapes/1/shape = SubResource( 2 )
-shapes/1/transform = Matrix32( -0.0112881, 1.53876, -2.6196, -0.019217, 3.72319, -208.182 )
+shapes/1/transform = Matrix32( -0.0121089, 1.65064, -4.57627, -0.0335707, 2.258, -207.045 )
 shapes/1/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -66,16 +65,16 @@ _update_shape_index = 0
 
 [node name="CollisionShape2D1" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 3.72319, -208.182 )
+transform/pos = Vector2( 2.258, -207.045 )
 transform/rot = -90.4203
-transform/scale = Vector2( 1.5388, 2.61967 )
+transform/scale = Vector2( 1.65069, 4.57639 )
 shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 1
 
 [node name="enemy" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 0.0476971, -259.122 )
+transform/pos = Vector2( -1.96204, -270.4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

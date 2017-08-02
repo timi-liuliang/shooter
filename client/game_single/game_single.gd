@@ -57,19 +57,34 @@ func _process(delta):
 func prepare():
 	if Input.is_action_pressed("touch"):
 		game_state = GameState.GS_AIM
+		
+	var character = get_node("archer")
+	character.set_hand_rot(deg2rad(aim_degree))
+		
+	var weapon = get_node("weapon/arrow")
+	weapon.set_pos(character.get_weapon_pos())
+	weapon.set_rot(character.get_weapon_rot() + deg2rad(90.0))
 	
 func aim(delta):
-	if Input.is_action_pressed("touch"):
-		var weapon = get_node("weapon/arrow")
+	if Input.is_action_pressed("touch"):	
 		aim_degree += delta * 60.0 * aim_adjust_dir
 		if aim_degree > 89.0:
 			aim_adjust_dir = -1.0
 		if aim_degree <0.0:
 			aim_adjust_dir = 1.0
 			
-		weapon.set_rot(deg2rad(aim_degree + 90))
+		var character = get_node("archer")
+		character.set_hand_rot(deg2rad(aim_degree))
+		
+		var weapon = get_node("weapon/arrow")
+		weapon.set_pos(character.get_weapon_pos())
+		weapon.set_rot(character.get_weapon_rot())
 		
 	if !Input.is_action_pressed("touch"):
+		var character = get_node("archer")
+		character.set_weapon_hidden(true)
+		get_node("weapon/arrow").set_hidden(false)
+		
 		game_state = GameState.GS_SHOOT
 		
 func shoot(delta):
@@ -100,6 +115,12 @@ func shoot(delta):
 			var next_zoom = camera.get_zoom() + (cam_target_zoom - camera.get_zoom()) * 0.05
 			camera.set_pos( next_target_pos)
 			camera.set_zoom(next_zoom)
+			
+		# 回复射击初始姿势
+		var character = get_node("archer")
+		var cha_hand_rot = character.get_hand_rot()
+		cha_hand_rot = max( 0.0, cha_hand_rot - delta* 10)
+		character.set_hand_rot( cha_hand_rot)
 		
 	var arrow_pos_x = weapon.get_pos().x	
 	if weapon.is_colliding() || arrow_pos_x > (cha_pos.x + 1124):
@@ -108,11 +129,23 @@ func shoot(delta):
 func check_result():
 	var weapon = get_node("weapon/arrow")
 	if weapon.is_colliding():
-		# 箭摇尾
-		weapon.get_node("anim").play("attacked")
-		
 		var collider = weapon.get_collider()
-		if collider.get_type()=="body":
+		# 施加力
+		if collider.is_type("RigidBody2D"):	
+			var impulse = Vector2(0.0, 1.0)
+			impulse = impulse.rotated(weapon.get_rot())
+			
+			var weapon_display = weapon.get_node("display")
+			weapon.remove_child(weapon_display)		
+			collider.add_child(weapon_display)
+			var offset = weapon.get_collision_pos() - collider.get_global_pos()
+			collider.apply_impulse( offset, impulse * 150.0)
+			
+			weapon.set_layer_mask(4)
+			weapon.set_collision_mask(4)
+		
+		# 计算得分
+		if collider.get_type()=="body" || collider.get_type()=="head":
 			# 显示血
 			if blood_effect:
 				blood_effect.queue_free()
@@ -120,23 +153,29 @@ func check_result():
 			
 			blood_effect = preload("res://effect/blood.tscn").instance()
 			blood_effect.set_pos( weapon.get_collision_pos())
-			blood_effect.set_rot( weapon.get_rot())# + deg2rad(180.0))
+			blood_effect.set_rot( weapon.get_rot())
 			blood_effect.get_node("anim").play("play")
 			add_child(blood_effect)
 			
-			score += 1
-			get_node("ui/score").set_text(String(score))
-			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP
-		elif collider.get_type()=="head":
-			score += 2
+			if collider.get_type()=="head":
+				score += 2
+			else:
+				score +=1
+			
 			get_node("ui/score").set_text(String(score))
 			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP
 		else:
+			# 箭摇尾
+			weapon.get_node("anim").play("attacked")
+			
 			game_state = GameState.GS_Failing
 	else:
 		game_state = GameState.GS_Failing
 		
 func create_next_battle_map():
+	var character = get_node("archer")
+	character.set_weapon_hidden(false)
+	
 	var next_battle_id = battle_id + 1
 	var ground = preload("res://actor/ground/ground.tscn").instance()
 	ground.set_battle_id(next_battle_id)
@@ -182,16 +221,16 @@ func moveto_next_battle_map(delta):
 		camera.set_follow_smoothing(1.5)
 		
 		var character = get_node("archer")
-		var cur_pos = character.get_pos()
 		if has_node("weapon/arrow"):
 			get_node("weapon/arrow").free()
 			
 		var arrow = preload("res://actor/weapon/stick.tscn").instance()
 		get_node("weapon").add_child(arrow)
-			
-		get_node("weapon/arrow").set_pos(cur_pos)# + Vector2(80, -80))
+		
+		get_node("weapon/arrow").set_hidden(true)
+		get_node("weapon/arrow").set_pos(character.get_weapon_pos())
 		get_node("weapon/arrow").set_scale(Vector2(3.0, 2.9))
-		get_node("weapon/arrow").set_rot(deg2rad(90.0))
+		get_node("weapon/arrow").set_rot(character.get_weapon_rot())
 		shoot_time = 0.0
 		aim_degree = 0.0
 		game_state = GS_DELETE_LAST_BATTLE_MAP
