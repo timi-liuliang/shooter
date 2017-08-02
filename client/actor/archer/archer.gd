@@ -23,3 +23,6 @@ func set_hand_rot(radian):
 	
 func get_hand_rot():
 	return get_node("display/body/hand_right").get_rot()
+	
+func set_weapon_hidden(hide):
+	get_node("display/body/weapon_sprite").set_hidden(hide)

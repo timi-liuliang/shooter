@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://actor/archer/archer.gd" type="Script" id=1]
 [ext_resource path="res://actor/archer/foot.png" type="Texture" id=2]
 [ext_resource path="res://actor/archer/body.png" type="Texture" id=3]
-[ext_resource path="res://actor/archer/right_hand.png" type="Texture" id=4]
+[ext_resource path="res://actor/weapon/stick.png" type="Texture" id=4]
+[ext_resource path="res://actor/archer/right_hand.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -126,18 +127,27 @@ offset = Vector2( 1.05603, 15.5748 )
 
 [node name="body" type="Sprite" parent="display"]
 
-transform/pos = Vector2( 0, -5.30835 )
+transform/pos = Vector2( 0, -6.63271 )
 texture = ExtResource( 3 )
+
+[node name="weapon_sprite" type="Sprite" parent="display/body"]
+
+transform/pos = Vector2( -0.0699959, -40.9695 )
+transform/rot = 87.7934
+transform/scale = Vector2( 1, 1 )
+texture = ExtResource( 4 )
 
 [node name="hand_right" type="Sprite" parent="display/body"]
 
 transform/pos = Vector2( -58.8135, 28.7796 )
 transform/rot = -1.42942
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 offset = Vector2( 30.0046, -33.2117 )
 
-[node name="weapon" type="Node2D" parent="display/body/hand_right"]
+[node name="weapon" type="RemoteTransform2D" parent="display/body/hand_right"]
 
 transform/pos = Vector2( 56.9853, -71.1928 )
+transform/rot = 89.2228
+remote_path = NodePath("../../weapon_sprite")
 
 

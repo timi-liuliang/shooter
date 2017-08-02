@@ -78,9 +78,13 @@ func aim(delta):
 		
 		var weapon = get_node("weapon/arrow")
 		weapon.set_pos(character.get_weapon_pos())
-		weapon.set_rot(character.get_weapon_rot() + deg2rad(90.0))
+		weapon.set_rot(character.get_weapon_rot())
 		
 	if !Input.is_action_pressed("touch"):
+		var character = get_node("archer")
+		character.set_weapon_hidden(true)
+		get_node("weapon/arrow").set_hidden(false)
+		
 		game_state = GameState.GS_SHOOT
 		
 func shoot(delta):
@@ -169,6 +173,9 @@ func check_result():
 		game_state = GameState.GS_Failing
 		
 func create_next_battle_map():
+	var character = get_node("archer")
+	character.set_weapon_hidden(false)
+	
 	var next_battle_id = battle_id + 1
 	var ground = preload("res://actor/ground/ground.tscn").instance()
 	ground.set_battle_id(next_battle_id)
@@ -219,10 +226,11 @@ func moveto_next_battle_map(delta):
 			
 		var arrow = preload("res://actor/weapon/stick.tscn").instance()
 		get_node("weapon").add_child(arrow)
-			
+		
+		get_node("weapon/arrow").set_hidden(true)
 		get_node("weapon/arrow").set_pos(character.get_weapon_pos())
 		get_node("weapon/arrow").set_scale(Vector2(3.0, 2.9))
-		get_node("weapon/arrow").set_rot(character.get_weapon_rot() + deg2rad(90))
+		get_node("weapon/arrow").set_rot(character.get_weapon_rot())
 		shoot_time = 0.0
 		aim_degree = 0.0
 		game_state = GS_DELETE_LAST_BATTLE_MAP
