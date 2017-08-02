@@ -74,7 +74,7 @@ _update_shape_index = 1
 
 [node name="enemy" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 0.0476971, -259.122 )
+transform/pos = Vector2( -1.96204, -270.4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

@@ -14,7 +14,7 @@ length = 1.2
 loop = false
 step = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:transform/rot")
+tracks/0/path = NodePath("display:transform/rot")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
@@ -35,7 +35,7 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="display" type="Sprite" parent="."]
 
 transform/pos = Vector2( 0.778193, 27.3704 )
 transform/scale = Vector2( 0.1, 0.2 )

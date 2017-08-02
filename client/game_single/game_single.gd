@@ -125,15 +125,21 @@ func shoot(delta):
 func check_result():
 	var weapon = get_node("weapon/arrow")
 	if weapon.is_colliding():
-		# 箭摇尾
-		weapon.get_node("anim").play("attacked")
-		
 		var collider = weapon.get_collider()
 		# 施加力
 		if collider.is_type("RigidBody2D"):
-			var impulse = Vector2(1.0, 0.0)
-			impulse.rotated(weapon.get_rot())
-			collider.apply_impulse(weapon.get_collision_pos(), impulse * 100.0)
+			
+			weapon.set_layer_mask(4)
+			weapon.set_collision_mask(4)
+			
+			var impulse = Vector2(0.0, 1.0)
+			impulse = impulse.rotated(weapon.get_rot())
+			
+			var weapon_display = weapon.get_node("display")
+			weapon.remove_child(weapon_display)		
+			collider.add_child(weapon_display)
+			
+			collider.apply_impulse(weapon.get_collision_pos() - collider.get_pos(), impulse * 50.0)
 		
 		# 计算得分
 		if collider.get_type()=="body" || collider.get_type()=="head":
@@ -154,8 +160,11 @@ func check_result():
 				score +=1
 			
 			get_node("ui/score").set_text(String(score))
-			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP
+			game_state = GameState.GS_Failed #GameState.GS_CREATE_NEXT_BATTLE_MAP
 		else:
+			# 箭摇尾
+			weapon.get_node("anim").play("attacked")
+			
 			game_state = GameState.GS_Failing
 	else:
 		game_state = GameState.GS_Failing
