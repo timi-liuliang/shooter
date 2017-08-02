@@ -57,17 +57,28 @@ func _process(delta):
 func prepare():
 	if Input.is_action_pressed("touch"):
 		game_state = GameState.GS_AIM
+		
+	var character = get_node("archer")
+	character.set_hand_rot(deg2rad(aim_degree))
+		
+	var weapon = get_node("weapon/arrow")
+	weapon.set_pos(character.get_weapon_pos())
+	weapon.set_rot(character.get_weapon_rot() + deg2rad(90.0))
 	
 func aim(delta):
-	if Input.is_action_pressed("touch"):
-		var weapon = get_node("weapon/arrow")
+	if Input.is_action_pressed("touch"):	
 		aim_degree += delta * 60.0 * aim_adjust_dir
 		if aim_degree > 89.0:
 			aim_adjust_dir = -1.0
 		if aim_degree <0.0:
 			aim_adjust_dir = 1.0
 			
-		weapon.set_rot(deg2rad(aim_degree + 90))
+		var character = get_node("archer")
+		character.set_hand_rot(deg2rad(aim_degree))
+		
+		var weapon = get_node("weapon/arrow")
+		weapon.set_pos(character.get_weapon_pos())
+		weapon.set_rot(character.get_weapon_rot() + deg2rad(90.0))
 		
 	if !Input.is_action_pressed("touch"):
 		game_state = GameState.GS_SHOOT
@@ -100,6 +111,12 @@ func shoot(delta):
 			var next_zoom = camera.get_zoom() + (cam_target_zoom - camera.get_zoom()) * 0.05
 			camera.set_pos( next_target_pos)
 			camera.set_zoom(next_zoom)
+			
+		# 回复射击初始姿势
+		var character = get_node("archer")
+		var cha_hand_rot = character.get_hand_rot()
+		cha_hand_rot = max( 0.0, cha_hand_rot - delta* 10)
+		character.set_hand_rot( cha_hand_rot)
 		
 	var arrow_pos_x = weapon.get_pos().x	
 	if weapon.is_colliding() || arrow_pos_x > (cha_pos.x + 1124):
@@ -182,16 +199,15 @@ func moveto_next_battle_map(delta):
 		camera.set_follow_smoothing(1.5)
 		
 		var character = get_node("archer")
-		var cur_pos = character.get_pos()
 		if has_node("weapon/arrow"):
 			get_node("weapon/arrow").free()
 			
 		var arrow = preload("res://actor/weapon/stick.tscn").instance()
 		get_node("weapon").add_child(arrow)
 			
-		get_node("weapon/arrow").set_pos(cur_pos)# + Vector2(80, -80))
+		get_node("weapon/arrow").set_pos(character.get_weapon_pos())
 		get_node("weapon/arrow").set_scale(Vector2(3.0, 2.9))
-		get_node("weapon/arrow").set_rot(deg2rad(90.0))
+		get_node("weapon/arrow").set_rot(character.get_weapon_rot() + deg2rad(90))
 		shoot_time = 0.0
 		aim_degree = 0.0
 		game_state = GS_DELETE_LAST_BATTLE_MAP
