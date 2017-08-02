@@ -1,0 +1,5 @@
+#windows
+scons platform=windows vsproj=yes
+
+#html5
+scons platform=javascript tools=no target=release
