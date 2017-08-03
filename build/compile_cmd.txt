@@ -2,4 +2,4 @@
 scons platform=windows vsproj=yes
 
 #html5
-scons platform=javascript tools=no xml=no disable_3d=yes disable_advanced_gui=yes  module_jpg_enabled=no module_webp_enabled=no module_dds_enabled=no module_gridmap_enabled=no  module_theora_enabled=no target=release
+scons platform=javascript tools=no xml=no disable_3d=yes disable_advanced_gui=yes deprecated=no buildin_libtheora=no buildin_libvorbis=no module_chibi_enabled=no module_cscript_enabled=no module_jpg_enabled=no module_dds_enabled=no module_etc1_enabled=no module_openssl_enabled=no module_gridmap_enabled=no  module_theora_enabled=no module_vorbis_enabled=no module_webp_enabled=no target=release
