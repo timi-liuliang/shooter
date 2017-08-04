@@ -1,0 +1,16 @@
+Import('env')
+
+sources = [
+           'register_types.cpp',
+           'ios/src/gomob.mm'
+           ]
+
+sources_default = [
+           'register_types.cpp',
+           'ios/src/gomob.cpp'
+           ]
+
+if (env["platform"] == "iphone"):
+    env.add_source_files(env.modules_sources, sources)
+else:
+    env.add_source_files(env.modules_sources, sources_default)
