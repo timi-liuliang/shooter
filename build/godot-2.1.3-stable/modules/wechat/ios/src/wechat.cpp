@@ -3,7 +3,7 @@
 #include "core/variant.h"
 #include "core/message_queue.h"
 
-WeChat* instance = NULL;
+static WeChat* instance = NULL;
 
 WeChat::WeChat() {
     ERR_FAIL_COND(instance != NULL);

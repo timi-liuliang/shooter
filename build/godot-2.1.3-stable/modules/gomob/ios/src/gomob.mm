@@ -78,7 +78,7 @@ void Gomob::show() {
   }
 }
 
-void AdView::_bind_methods() {
+void Gomob::_bind_methods() {
     ObjectTypeDB::bind_method("init",&Gomob::init);
     ObjectTypeDB::bind_method("set_test",&Gomob::set_test);
     ObjectTypeDB::bind_method("set_top",&Gomob::set_top);

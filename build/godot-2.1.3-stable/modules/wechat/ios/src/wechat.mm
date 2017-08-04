@@ -1,13 +1,7 @@
-#include "gomob.h"
+#include "wechat.h"
 #include "core/globals.h"
 #include "core/variant.h"
 #include "core/message_queue.h"
-
-#import <GoogleMobileAds/DFPBannerView.h>
-#import <GoogleMobileAds/GADRequest.h>
-#import <UIKit/UIKit.h>
-
-#import "app_delegate.h"
 
 WeChat* instance = NULL;
 
@@ -43,39 +37,6 @@ void WeChat::set_bottom(bool val) {
 }
 
 void WeChat::show() {
-  if(!initialized) {
-    DFPBannerView *bannerView_ = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-
-    if(test) {
-      bannerView_.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
-    }
-    else {
-      bannerView_.adUnitID = [NSString stringWithCString:adsId.utf8().get_data() encoding:NSUTF8StringEncoding];
-    }
-
-    NSLog(@"adUnitID: %@", bannerView_.adUnitID);
-
-    ViewController * root_controller = (ViewController *)((AppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
-
-
-    bannerView_.rootViewController = root_controller;
-
-
-    GADRequest *request = [GADRequest request];
-
-    request.testDevices = @[ @"2077ef9a63d2b398840261c8221a0c9a"];
-    [bannerView_ loadRequest:request];
-
-    if(bottom) {
-      float height = root_controller.view.frame.size.height;
-      float width = root_controller.view.frame.size.width;
-      NSLog(@"height: %f, width: %f", height, width);
-      [bannerView_ setFrame:CGRectMake(0, height-bannerView_.bounds.size.height, bannerView_.bounds.size.width, bannerView_.bounds.size.height)];
-    }
-
-    [root_controller.view addSubview:bannerView_];
-    initialized = true;
-  }
 }
 
 void WeChat::_bind_methods() {
