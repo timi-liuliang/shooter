@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://game_single/game_single.gd" type="Script" id=1]
 [ext_resource path="res://game_single/bg_layer3.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/game_over.tscn" type="PackedScene" id=7]
 [ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=8]
+[ext_resource path="res://ui/head_shot/head_shot.tscn" type="PackedScene" id=9]
 
 [node name="game" type="Node2D"]
 
@@ -149,5 +150,12 @@ align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="head_shot" parent="ui" instance=ExtResource( 9 )]
+
+margin/left = 354.0
+margin/top = 223.0
+margin/right = 394.0
+margin/bottom = 263.0
 
 

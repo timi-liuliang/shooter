@@ -27,6 +27,7 @@ var next_battle_pos = Vector2()
 var column_pos = Vector2()
 var battle_id = int(0)
 var blood_effect = null
+var continue_head_shot_num = 0
 
 func _ready():
 	cam_archer_offset = get_node("camera").get_pos() - get_node("archer").get_pos()
@@ -158,8 +159,12 @@ func check_result():
 			add_child(blood_effect)
 			
 			if collider.get_type()=="head":
-				score += 2
+				continue_head_shot_num+=1
+				var cur_score = min( continue_head_shot_num+1, 5)
+				get_node("ui/head_shot").set_text("HeadShot +"+String(cur_score))
+				score += cur_score
 			else:
+				continue_head_shot_num = 0
 				score +=1
 			
 			get_node("ui/score").set_text(String(score))

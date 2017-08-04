@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://actor/collider_rigid.gd" type="Script" id=1]
 [ext_resource path="res://actor/enemy/bosspit_gold_colossus.png" type="Texture" id=2]
@@ -8,11 +8,28 @@
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="enemy" type="RigidBody2D"]
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="enemy" type="Node2D"]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+
+transform/pos = Vector2( 0.0238188, -57.8684 )
+transform/scale = Vector2( 0.188244, 0.160364 )
+node_a = NodePath("../head")
+node_b = NodePath("../body")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 16.0
+
+[node name="body" type="RigidBody2D" parent="."]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1.25309, 0, 0, 7.64388, 0.369508, -31.7672 )
+shapes/0/transform = Matrix32( 1.25309, 0, 0, 5.45049, 0.369508, -3.25315 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -20,7 +37,7 @@ mode = 0
 mass = 1.0
 friction = 1.0
 bounce = 0.0
-gravity_scale = 3.0
+gravity_scale = 1.0
 custom_integrator = false
 continuous_cd = 0
 contacts_reported = 0
@@ -32,9 +49,12 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 type = "body"
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="body"]
 
 transform/pos = Vector2( -16.3942, -30.9569 )
 transform/scale = Vector2( 0.51217, 0.409679 )
@@ -42,11 +62,51 @@ texture = ExtResource( 2 )
 flip_h = true
 modulate = Color( 0.710938, 0.163849, 0.163849, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
 
-transform/pos = Vector2( 0.369508, -31.7672 )
-transform/scale = Vector2( 1.25309, 7.64388 )
+transform/pos = Vector2( 0.369508, -3.25315 )
+transform/scale = Vector2( 1.25309, 5.45049 )
 shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="head" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 0.307678, -81.4099 )
+transform/scale = Vector2( 1, 1.05867 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 2.24963, 0, -0.515235 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+type = "head"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="head"]
+
+transform/pos = Vector2( 0, -0.515235 )
+transform/scale = Vector2( 1, 2.24963 )
+shape = SubResource( 2 )
 trigger = false
 _update_shape_index = 0
 
