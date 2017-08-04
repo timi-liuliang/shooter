@@ -3,7 +3,7 @@
 #include "core/variant.h"
 #include "core/message_queue.h"
 
-EasyAr* instance = NULL;
+static EasyAr* instance = NULL;
 
 EasyAr::EasyAr() {
     ERR_FAIL_COND(instance != NULL);

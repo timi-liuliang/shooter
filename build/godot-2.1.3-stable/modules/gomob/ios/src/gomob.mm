@@ -1,4 +1,4 @@
-#include "adview.h"
+#include "gomob.h"
 #include "core/globals.h"
 #include "core/variant.h"
 #include "core/message_queue.h"
@@ -11,7 +11,7 @@
 
 Gomob* instance = NULL;
 
-AdView::AdView() {
+Gomob::Gomob() {
     ERR_FAIL_COND(instance != NULL);
     instance = this;
     initialized = false;
@@ -21,28 +21,28 @@ AdView::AdView() {
     //ors
 }
 
-AdView::~AdView() {
+Gomob::~Gomob() {
     instance = NULL;
 }
 
-void AdView::init(const String &adsId) {
+void Gomob::init(const String &adsId) {
   this->adsId = adsId;
 }
 
-void AdView::set_test(bool val) {
+void Gomob::set_test(bool val) {
   this->test = val;
 }
 
-void AdView::set_top(bool val) {
+void Gomob::set_top(bool val) {
   this->bottom = !val;
   this->abc = true;
 }
 
-void AdView::set_bottom(bool val) {
+void Gomob::set_bottom(bool val) {
   this->bottom = val;
 }
 
-void AdView::show() {
+void Gomob::show() {
   if(!initialized) {
     DFPBannerView *bannerView_ = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
 
@@ -79,9 +79,9 @@ void AdView::show() {
 }
 
 void AdView::_bind_methods() {
-    ObjectTypeDB::bind_method("init",&AdView::init);
-    ObjectTypeDB::bind_method("set_test",&AdView::set_test);
-    ObjectTypeDB::bind_method("set_top",&AdView::set_top);
-    ObjectTypeDB::bind_method("set_bottom",&AdView::set_bottom);
-    ObjectTypeDB::bind_method("show",&AdView::show);
+    ObjectTypeDB::bind_method("init",&Gomob::init);
+    ObjectTypeDB::bind_method("set_test",&Gomob::set_test);
+    ObjectTypeDB::bind_method("set_top",&Gomob::set_top);
+    ObjectTypeDB::bind_method("set_bottom",&Gomob::set_bottom);
+    ObjectTypeDB::bind_method("show",&Gomob::show);
 }
