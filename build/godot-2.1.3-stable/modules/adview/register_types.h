@@ -1,2 +1,2 @@
-void register_gomob_types();
-void unregister_gomob_types();
+void register_adview_types();
+void unregister_adview_types();

@@ -9,9 +9,9 @@
 
 #import "app_delegate.h"
 
-Gomob* instance = NULL;
+WeChat* instance = NULL;
 
-Gomob::Gomob() {
+WeChat::WeChat() {
     ERR_FAIL_COND(instance != NULL);
     instance = this;
     initialized = false;
@@ -21,28 +21,28 @@ Gomob::Gomob() {
     //ors
 }
 
-Gomob::~Gomob() {
+WeChat::~WeChat() {
     instance = NULL;
 }
 
-void Gomob::init(const String &adsId) {
+void WeChat::init(const String &adsId) {
   this->adsId = adsId;
 }
 
-void Gomob::set_test(bool val) {
+void WeChat::set_test(bool val) {
   this->test = val;
 }
 
-void Gomob::set_top(bool val) {
+void WeChat::set_top(bool val) {
   this->bottom = !val;
   this->abc = true;
 }
 
-void Gomob::set_bottom(bool val) {
+void WeChat::set_bottom(bool val) {
   this->bottom = val;
 }
 
-void Gomob::show() {
+void WeChat::show() {
   if(!initialized) {
     DFPBannerView *bannerView_ = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
 
@@ -78,10 +78,10 @@ void Gomob::show() {
   }
 }
 
-void Gomob::_bind_methods() {
-    ObjectTypeDB::bind_method("init",&Gomob::init);
-    ObjectTypeDB::bind_method("set_test",&Gomob::set_test);
-    ObjectTypeDB::bind_method("set_top",&Gomob::set_top);
-    ObjectTypeDB::bind_method("set_bottom",&Gomob::set_bottom);
-    ObjectTypeDB::bind_method("show",&Gomob::show);
+void WeChat::_bind_methods() {
+    ObjectTypeDB::bind_method("init",&WeChat::init);
+    ObjectTypeDB::bind_method("set_test",&WeChat::set_test);
+    ObjectTypeDB::bind_method("set_top",&WeChat::set_top);
+    ObjectTypeDB::bind_method("set_bottom",&WeChat::set_bottom);
+    ObjectTypeDB::bind_method("show",&WeChat::show);
 }

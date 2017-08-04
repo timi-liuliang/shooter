@@ -1,6 +1,6 @@
 def can_build(plat):
-	return True #plat == "iphone"
-
+	return True
+	
 def configure(env):
 	#env.disable_module()
 	if env['platform'] == "iphone":

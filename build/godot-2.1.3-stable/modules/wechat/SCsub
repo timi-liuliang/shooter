@@ -2,12 +2,12 @@ Import('env')
 
 sources = [
            'register_types.cpp',
-           'ios/src/gomob.mm'
+           'ios/src/wechat.mm'
            ]
 
 sources_default = [
            'register_types.cpp',
-           'ios/src/gomob.cpp'
+           'ios/src/wechat.cpp'
            ]
 
 if (env["platform"] == "iphone"):

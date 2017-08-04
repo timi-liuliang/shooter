@@ -1,16 +1,16 @@
 Import('env')
 
-sources = [
+sources_ios = [
            'register_types.cpp',
-           'ios/src/gomob.mm'
+           'ios/src/adview.mm'
            ]
 
 sources_default = [
            'register_types.cpp',
-           'ios/src/gomob.cpp'
+           'ios/src/adview.cpp'
            ]
 
 if (env["platform"] == "iphone"):
-    env.add_source_files(env.modules_sources, sources)
+    env.add_source_files(env.modules_sources, sources_ios)
 else:
     env.add_source_files(env.modules_sources, sources_default)

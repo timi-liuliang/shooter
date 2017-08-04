@@ -1,10 +1,10 @@
-#ifndef GOMOB_H
-#define GOMOB_H
+#ifndef ADVIEW_H
+#define ADVIEW_H
 
 #include "reference.h"
 
-class Gomob : public Reference {
-    OBJ_TYPE(Gomob,Reference);
+class AdView : public Reference {
+    OBJ_TYPE(AdView,Reference);
 
     String adsId;
     bool bottom;
@@ -25,8 +25,8 @@ public:
     void set_bottom(bool val);
     void show();
 
-    Gomob();
-    ~Gomob();
+    AdView();
+    ~AdView();
 };
 
 #endif

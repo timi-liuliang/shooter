@@ -1,2 +1,2 @@
-void register_gomob_types();
-void unregister_gomob_types();
+void register_easyar_types();
+void unregister_easyar_types();

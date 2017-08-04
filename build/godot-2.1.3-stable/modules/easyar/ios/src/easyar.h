@@ -1,10 +1,10 @@
-#ifndef GOMOB_H
-#define GOMOB_H
+#ifndef EASYAR_H
+#define EASYAR_H
 
 #include "reference.h"
 
-class Gomob : public Reference {
-    OBJ_TYPE(Gomob,Reference);
+class EasyAr : public Reference {
+    OBJ_TYPE(EasyAr,Reference);
 
     String adsId;
     bool bottom;
@@ -25,8 +25,8 @@ public:
     void set_bottom(bool val);
     void show();
 
-    Gomob();
-    ~Gomob();
+    EasyAr();
+    ~EasyAr();
 };
 
 #endif

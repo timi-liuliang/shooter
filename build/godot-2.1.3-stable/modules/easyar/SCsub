@@ -2,12 +2,12 @@ Import('env')
 
 sources = [
            'register_types.cpp',
-           'ios/src/gomob.mm'
+           'ios/src/easyar.mm'
            ]
 
 sources_default = [
            'register_types.cpp',
-           'ios/src/gomob.cpp'
+           'ios/src/easyar.cpp'
            ]
 
 if (env["platform"] == "iphone"):

@@ -1,4 +1,4 @@
-#include "gomob.h"
+#include "easyar.h"
 #include "core/globals.h"
 #include "core/variant.h"
 #include "core/message_queue.h"
@@ -9,9 +9,9 @@
 
 #import "app_delegate.h"
 
-Gomob* instance = NULL;
+EasyAr* instance = NULL;
 
-Gomob::Gomob() {
+EasyAr::EasyAr() {
     ERR_FAIL_COND(instance != NULL);
     instance = this;
     initialized = false;
@@ -21,28 +21,28 @@ Gomob::Gomob() {
     //ors
 }
 
-Gomob::~Gomob() {
+EasyAr::~EasyAr() {
     instance = NULL;
 }
 
-void Gomob::init(const String &adsId) {
+void EasyAr::init(const String &adsId) {
   this->adsId = adsId;
 }
 
-void Gomob::set_test(bool val) {
+void EasyAr::set_test(bool val) {
   this->test = val;
 }
 
-void Gomob::set_top(bool val) {
+void EasyAr::set_top(bool val) {
   this->bottom = !val;
   this->abc = true;
 }
 
-void Gomob::set_bottom(bool val) {
+void EasyAr::set_bottom(bool val) {
   this->bottom = val;
 }
 
-void Gomob::show() {
+void EasyAr::show() {
   if(!initialized) {
     DFPBannerView *bannerView_ = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
 
@@ -78,10 +78,10 @@ void Gomob::show() {
   }
 }
 
-void Gomob::_bind_methods() {
-    ObjectTypeDB::bind_method("init",&Gomob::init);
-    ObjectTypeDB::bind_method("set_test",&Gomob::set_test);
-    ObjectTypeDB::bind_method("set_top",&Gomob::set_top);
-    ObjectTypeDB::bind_method("set_bottom",&Gomob::set_bottom);
-    ObjectTypeDB::bind_method("show",&Gomob::show);
+void EasyAr::_bind_methods() {
+    ObjectTypeDB::bind_method("init",&EasyAr::init);
+    ObjectTypeDB::bind_method("set_test",&EasyAr::set_test);
+    ObjectTypeDB::bind_method("set_top",&EasyAr::set_top);
+    ObjectTypeDB::bind_method("set_bottom",&EasyAr::set_bottom);
+    ObjectTypeDB::bind_method("show",&EasyAr::show);
 }
