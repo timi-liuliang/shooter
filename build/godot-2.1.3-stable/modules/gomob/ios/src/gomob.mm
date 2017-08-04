@@ -4,6 +4,7 @@
 #include "core/message_queue.h"
 
 #import <GoogleMobileAds/DFPBannerView.h>
+#import <GoogleMobileAds/GADRewardBasedVideoAd.h>
 #import <GoogleMobileAds/GADRequest.h>
 #import <UIKit/UIKit.h>
 
@@ -15,7 +16,7 @@ Gomob::Gomob() {
     ERR_FAIL_COND(instance != NULL);
     instance = this;
     initialized = false;
-    test = true;
+    test = false;
     bottom = true;
     //Kamil
     //ors
@@ -78,10 +79,33 @@ void Gomob::show() {
   }
 }
 
+void Gomob::request_videoad(){
+  NSString* adUnitID = @"ca-app-pub-3940256099942544/1712485313";
+   if(!test) {
+    adUnitID = [NSString stringWithCString:adsId.utf8().get_data() encoding:NSUTF8StringEncoding];
+   }
+ 
+  //[GADRewardBasedVideoAd sharedInstance].delegate = self;
+  [[GADRewardBasedVideoAd sharedInstance] loadRequest:[GADRequest request] withAdUnitID:adUnitID];
+}
+
+void Gomob::is_videoad_ready(){
+  return [[GADRewardBasedVideoAd sharedInstance] isReady];
+}
+
+void Gomob::show_videoad(){
+  if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
+    ViewController * root_controller = (ViewController *)((AppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
+    [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:root_controller];
+  }
+}
+
 void Gomob::_bind_methods() {
     ObjectTypeDB::bind_method("init",&Gomob::init);
     ObjectTypeDB::bind_method("set_test",&Gomob::set_test);
     ObjectTypeDB::bind_method("set_top",&Gomob::set_top);
     ObjectTypeDB::bind_method("set_bottom",&Gomob::set_bottom);
     ObjectTypeDB::bind_method("show",&Gomob::show);
+    ObjectTypeDB::bind_method("request_videoad",&Gomob::request_videoad);
+    ObjectTypeDB::bind_method("show_videoad",&Gomob::show_videoad);
 }

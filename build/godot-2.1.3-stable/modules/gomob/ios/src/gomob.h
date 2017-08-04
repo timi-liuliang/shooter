@@ -24,6 +24,8 @@ public:
     void set_top(bool val);
     void set_bottom(bool val);
     void show();
+    void request_videoad();
+    void show_videoad();
 
     Gomob();
     ~Gomob();
