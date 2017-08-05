@@ -16,7 +16,6 @@ protected:
     static void _bind_methods();
 
 public:
-
     void init(const String &adsId);
     void set_test(bool val);
     void set_top(bool val);
@@ -25,6 +24,8 @@ public:
     void request_videoad();
     bool is_videoad_ready();
     void show_videoad();
+
+    void signal_reward_videoad(const String& type, real_t amount);
 
     Gomob();
     ~Gomob();

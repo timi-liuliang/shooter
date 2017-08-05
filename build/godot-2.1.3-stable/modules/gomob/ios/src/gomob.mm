@@ -25,6 +25,12 @@ Gomob* instance = NULL;
           reward.type,
           [reward.amount doubleValue]];
   NSLog(rewardMessage);
+
+  if(instance){
+    const char* type = [reward.type UTF8String];
+    instance->signal_reward_videoad( type,[reward.amount doubleValue]);
+  }
+ 
 }
 
 - (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
@@ -147,6 +153,10 @@ void Gomob::show_videoad(){
   }
 }
 
+void Gomob::signal_reward_videoad(const String& type, real_t amount){
+  emit_signal( "reward_based_videoad", type, amount);
+}
+
 void Gomob::_bind_methods() {
     ObjectTypeDB::bind_method("init",&Gomob::init);
     ObjectTypeDB::bind_method("set_test",&Gomob::set_test);
@@ -155,4 +165,6 @@ void Gomob::_bind_methods() {
     ObjectTypeDB::bind_method("show",&Gomob::show);
     ObjectTypeDB::bind_method("request_videoad",&Gomob::request_videoad);
     ObjectTypeDB::bind_method("show_videoad",&Gomob::show_videoad);
+
+    ADD_SIGNAL(MethodInfo("reward_based_videoad", PropertyInfo(Variant::STRING, "type"), PropertyInfo(Variant::REAL, "amount")));
 }
