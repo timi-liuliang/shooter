@@ -33,6 +33,11 @@ func _ready():
 	cam_archer_offset = get_node("camera").get_pos() - get_node("archer").get_pos()
 	cam_arrow_offset  = get_node("camera").get_pos() - get_node("archer").get_pos()
 	
+	# request ad
+	if(Globals.has_singleton("Gomob")):
+		var gomob = Globals.get_singleton("Gomob")
+		gomob.request_videoad()
+	
 	set_process(true)
 	
 func _process(delta):

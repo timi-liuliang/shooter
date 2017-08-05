@@ -13,24 +13,25 @@
 
 #import "app_delegate.h"
 
-Gomob* instance = NULL;
+static Gomob* instance = NULL;
 
 @interface ReawardDelegate<GADRewardBasedVideoAdDelegate> : NSObject
 @end
 
 @implementation ReawardDelegate
-- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didRewardUserWithReward:(GADAdReward *)reward {
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+    didRewardUserWithReward:(GADAdReward *)reward{
   NSString *rewardMessage =
-      [NSString stringWithFormat:@"Reward received with currency %@ , amount %lf",
+      [NSString stringWithFormat:@"Reward received with type %@ , amount %lf",
           reward.type,
           [reward.amount doubleValue]];
   NSLog(rewardMessage);
 
   if(instance){
+    NSLog(@"Reward received signal emitted to GDScript.");
     const char* type = [reward.type UTF8String];
     instance->signal_reward_videoad( type,[reward.amount doubleValue]);
   }
- 
 }
 
 - (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
@@ -65,8 +66,6 @@ Gomob::Gomob() {
     initialized = false;
     test = false;
     bottom = true;
-    //Kamil
-    //ors
 }
 
 Gomob::~Gomob() {
