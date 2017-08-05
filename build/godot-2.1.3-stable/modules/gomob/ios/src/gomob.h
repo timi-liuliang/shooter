@@ -12,8 +12,6 @@ class Gomob : public Reference {
 
     bool initialized;
 
-    bool abc;
-
 protected:
     static void _bind_methods();
 
@@ -25,6 +23,7 @@ public:
     void set_bottom(bool val);
     void show();
     void request_videoad();
+    bool is_videoad_ready();
     void show_videoad();
 
     Gomob();

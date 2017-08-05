@@ -6,11 +6,52 @@
 #import <GoogleMobileAds/DFPBannerView.h>
 #import <GoogleMobileAds/GADRewardBasedVideoAd.h>
 #import <GoogleMobileAds/GADRequest.h>
+#import <GoogleMobileAds/GADAdReward.h>
+#import <GoogleMobileAds/GADRewardBasedVideoAdDelegate.h>
+
 #import <UIKit/UIKit.h>
 
 #import "app_delegate.h"
 
 Gomob* instance = NULL;
+
+@interface ReawardDelegate<GADRewardBasedVideoAdDelegate> : NSObject
+@end
+
+@implementation ReawardDelegate
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd didRewardUserWithReward:(GADAdReward *)reward {
+  NSString *rewardMessage =
+      [NSString stringWithFormat:@"Reward received with currency %@ , amount %lf",
+          reward.type,
+          [reward.amount doubleValue]];
+  NSLog(rewardMessage);
+}
+
+- (void)rewardBasedVideoAdDidReceiveAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+  NSLog(@"Reward based video ad is received.");
+}
+
+- (void)rewardBasedVideoAdDidOpen:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+  NSLog(@"Opened reward based video ad.");
+}
+
+- (void)rewardBasedVideoAdDidStartPlaying:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+  NSLog(@"Reward based video ad started playing.");
+}
+
+- (void)rewardBasedVideoAdDidClose:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+  NSLog(@"Reward based video ad is closed.");
+}
+
+- (void)rewardBasedVideoAdWillLeaveApplication:(GADRewardBasedVideoAd *)rewardBasedVideoAd {
+  NSLog(@"Reward based video ad will leave application.");
+}
+
+- (void)rewardBasedVideoAd:(GADRewardBasedVideoAd *)rewardBasedVideoAd
+    didFailToLoadWithError:(NSError *)error {
+  NSLog(@"Reward based video ad failed to load.");
+}
+@end
 
 Gomob::Gomob() {
     ERR_FAIL_COND(instance != NULL);
@@ -23,7 +64,7 @@ Gomob::Gomob() {
 }
 
 Gomob::~Gomob() {
-    instance = NULL;
+  instance = NULL;
 }
 
 void Gomob::init(const String &adsId) {
@@ -36,7 +77,6 @@ void Gomob::set_test(bool val) {
 
 void Gomob::set_top(bool val) {
   this->bottom = !val;
-  this->abc = true;
 }
 
 void Gomob::set_bottom(bool val) {
@@ -80,21 +120,28 @@ void Gomob::show() {
 }
 
 void Gomob::request_videoad(){
-  NSString* adUnitID = @"ca-app-pub-3940256099942544/1712485313";
-   if(!test) {
-    adUnitID = [NSString stringWithCString:adsId.utf8().get_data() encoding:NSUTF8StringEncoding];
-   }
+  if(!is_videoad_ready())
+  {
+    NSString* adUnitID = @"ca-app-pub-3940256099942544/1712485313";
+    if(!test) {
+      adUnitID = [NSString stringWithCString:adsId.utf8().get_data() encoding:NSUTF8StringEncoding];
+    }
  
-  //[GADRewardBasedVideoAd sharedInstance].delegate = self;
-  [[GADRewardBasedVideoAd sharedInstance] loadRequest:[GADRequest request] withAdUnitID:adUnitID];
+    //[GADRewardBasedVideoAd sharedInstance].delegate = self;
+    [[GADRewardBasedVideoAd sharedInstance] loadRequest:[GADRequest request] withAdUnitID:adUnitID];
+  }
 }
 
-void Gomob::is_videoad_ready(){
+bool Gomob::is_videoad_ready(){
   return [[GADRewardBasedVideoAd sharedInstance] isReady];
 }
 
 void Gomob::show_videoad(){
-  if ([[GADRewardBasedVideoAd sharedInstance] isReady]) {
+  if (is_videoad_ready()) {
+    if(![GADRewardBasedVideoAd sharedInstance].delegate){
+      [GADRewardBasedVideoAd sharedInstance].delegate = [[ReawardDelegate alloc] init];
+    }
+
     ViewController * root_controller = (ViewController *)((AppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
     [[GADRewardBasedVideoAd sharedInstance] presentFromRootViewController:root_controller];
   }

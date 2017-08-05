@@ -3,11 +3,11 @@
 #include "core/variant.h"
 #include "core/message_queue.h"
 
-WeChat* instance = NULL;
+//WeChat* instance = NULL;
 
 WeChat::WeChat() {
-    ERR_FAIL_COND(instance != NULL);
-    instance = this;
+   // ERR_FAIL_COND(instance != NULL);
+   // instance = this;
     initialized = false;
     test = true;
     bottom = true;
@@ -16,7 +16,7 @@ WeChat::WeChat() {
 }
 
 WeChat::~WeChat() {
-    instance = NULL;
+    //instance = NULL;
 }
 
 void WeChat::init(const String &adsId) {
