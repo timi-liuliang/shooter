@@ -29,7 +29,7 @@ tracks/0/keys = {
 transform/pos = Vector2( 0.237831, -9.75092 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.163571, 0, 0, 2.06762, -0.106535, 13.0718 )
+shapes/0/transform = Matrix32( 0.163571, 0, 0, 2.06762, 0.893465, 13.0718 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -37,14 +37,21 @@ collision/margin = 0.08
 
 [node name="display" type="Sprite" parent="."]
 
-transform/pos = Vector2( 1.77819, 27.3704 )
+transform/pos = Vector2( 2.77819, 27.3704 )
+transform/rot = 0.655804
 transform/scale = Vector2( 0.18, 0.18 )
 texture = ExtResource( 1 )
 offset = Vector2( -0.0770264, -91.2887 )
 
+[node name="head" type="Node2D" parent="display"]
+
+transform/pos = Vector2( -11.853, -15.1619 )
+transform/rot = -0.655804
+transform/scale = Vector2( 0.558981, 0.642448 )
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.106535, 13.0718 )
+transform/pos = Vector2( 0.893465, 13.0718 )
 transform/scale = Vector2( 0.163571, 2.06762 )
 shape = SubResource( 1 )
 trigger = false

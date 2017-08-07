@@ -85,11 +85,17 @@ func aim(delta):
 		var weapon = get_node("weapon/arrow")
 		weapon.set_pos(character.get_weapon_pos())
 		weapon.set_rot(character.get_weapon_rot())
+		var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
+		
+		# show aiming
+		get_node("aiming_sight").set_hidden(false)
+		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, aim_degree, wind_slow_down, gravity)
 		
 	if !Input.is_action_pressed("touch"):
 		var character = get_node("archer")
 		character.set_weapon_hidden(true)
 		get_node("weapon/arrow").set_hidden(false)
+		get_node("aiming_sight").set_hidden(true)
 		
 		game_state = GameState.GS_SHOOT
 		

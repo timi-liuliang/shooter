@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://actor/weapon/aiming_sight.gd" type="Script" id=1]
+[ext_resource path="res://actor/weapon/point.png" type="Texture" id=2]
+
+[node name="aiming_sight" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="sprite_0" type="Sprite" parent="."]
+
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+[node name="sprite_1" type="Sprite" parent="."]
+
+transform/pos = Vector2( 30, 0 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+[node name="sprite_2" type="Sprite" parent="."]
+
+transform/pos = Vector2( 60, 0 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+[node name="sprite_3" type="Sprite" parent="."]
+
+transform/pos = Vector2( 90, 0 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+[node name="sprite_4" type="Sprite" parent="."]
+
+transform/pos = Vector2( 120, 0 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+[node name="sprite_5" type="Sprite" parent="."]
+
+transform/pos = Vector2( 150, 0 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+[node name="sprite_6" type="Sprite" parent="."]
+
+transform/pos = Vector2( 180, 0 )
+transform/scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+
+
