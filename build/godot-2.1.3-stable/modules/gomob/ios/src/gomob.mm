@@ -89,39 +89,6 @@ void Gomob::set_bottom(bool val) {
 }
 
 void Gomob::show() {
-  if(!initialized) {
-    DFPBannerView *bannerView_ = [[DFPBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-
-    if(test) {
-      bannerView_.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
-    }
-    else {
-      bannerView_.adUnitID = [NSString stringWithCString:adsId.utf8().get_data() encoding:NSUTF8StringEncoding];
-    }
-
-    NSLog(@"adUnitID: %@", bannerView_.adUnitID);
-
-    ViewController * root_controller = (ViewController *)((AppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController;
-
-
-    bannerView_.rootViewController = root_controller;
-
-
-    GADRequest *request = [GADRequest request];
-
-    request.testDevices = @[ @"2077ef9a63d2b398840261c8221a0c9a"];
-    [bannerView_ loadRequest:request];
-
-    if(bottom) {
-      float height = root_controller.view.frame.size.height;
-      float width = root_controller.view.frame.size.width;
-      NSLog(@"height: %f, width: %f", height, width);
-      [bannerView_ setFrame:CGRectMake(0, height-bannerView_.bounds.size.height, bannerView_.bounds.size.width, bannerView_.bounds.size.height)];
-    }
-
-    [root_controller.view addSubview:bannerView_];
-    initialized = true;
-  }
 }
 
 void Gomob::request_videoad(){
