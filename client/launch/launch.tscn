@@ -71,7 +71,6 @@ transform/pos = Vector2( 96, 452 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -96,6 +95,7 @@ params/stretch_mode = 0
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -217,6 +217,25 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
+[node name="wechat" type="Button" parent="ui"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 223.0
+margin/top = 31.0
+margin/right = 353.0
+margin/bottom = 84.0
+custom_fonts/font = ExtResource( 7 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Wechat"
+flat = false
+
 [connection signal="pressed" from="ui/bg/play" to="." method="_on_play_pressed"]
+
+[connection signal="pressed" from="ui/wechat" to="." method="_on_wechat_pressed"]
 
 

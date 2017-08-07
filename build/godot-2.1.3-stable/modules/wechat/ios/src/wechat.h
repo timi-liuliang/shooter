@@ -13,6 +13,8 @@ public:
     void init(const String &appId);
     void send_msg();
 
+    void on_resp(const int type, int errCode, const String& errMsg);
+
     WeChat();
     ~WeChat();
 };
