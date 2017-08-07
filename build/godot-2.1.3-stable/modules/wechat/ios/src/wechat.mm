@@ -51,7 +51,7 @@ void WeChat::send_msg() {
   // 创建发送对象实例
   SendMessageToWXReq* sendReq = [[SendMessageToWXReq alloc] init];
   sendReq.bText = NO;  // use text
-  sendReq.scene = 1;    // 0 = 好友列表 1 = 朋友圈 2 = 收藏
+  sendReq.scene = WXSceneTimeline;    // 0 = 好友列表 1 = 朋友圈 2 = 收藏
 
   // 创建分享内容对象
   WXMediaMessage *urlMessage = [WXMediaMessage message];
