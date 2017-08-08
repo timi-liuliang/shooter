@@ -95,7 +95,6 @@ params/stretch_mode = 0
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -178,10 +177,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.365246
-margin/top = 0.443216
-margin/right = 0.644858
-margin/bottom = 0.608216
+margin/left = 0.365049
+margin/top = 0.441667
+margin/right = 0.64466
+margin/bottom = 0.606667
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -202,6 +201,45 @@ margin/right = 122.0
 margin/bottom = 59.0
 custom_fonts/font = ExtResource( 7 )
 text = "Play"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="vs" type="TextureButton" parent="ui/bg"]
+
+anchor/left = 2
+anchor/top = 2
+anchor/right = 2
+anchor/bottom = 2
+rect/scale = Vector2( 1.0414, 1.0414 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.365049
+margin/top = 0.628333
+margin/right = 0.64466
+margin/bottom = 0.785
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 9 )
+params/resize_mode = 0
+params/scale = Vector2( 1.12726, 1.12726 )
+params/stretch_mode = 0
+
+[node name="Label" type="Label" parent="ui/bg/vs"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 31.0
+margin/top = 22.0
+margin/right = 122.0
+margin/bottom = 59.0
+custom_fonts/font = ExtResource( 7 )
+text = "VS"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -235,6 +273,8 @@ text = "Wechat"
 flat = false
 
 [connection signal="pressed" from="ui/bg/play" to="." method="_on_play_pressed"]
+
+[connection signal="pressed" from="ui/bg/vs" to="." method="_on_vs_pressed"]
 
 [connection signal="pressed" from="ui/wechat" to="." method="_on_wechat_pressed"]
 

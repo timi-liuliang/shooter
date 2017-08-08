@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+var max_blood = 100
+var cur_blood = 100
+
 var cur_anim = ""
 
 func _ready():

@@ -2,6 +2,10 @@ extends Node2D
 
 func _ready():
 	set_process_input(true)
+	var mask = get_node("StaticBody2D").get_collision_mask()
+	var layer = get_node("StaticBody2D").get_collision_
+	var b = 3.0
+	
 	
 func _input(event):
 	if Input.is_action_pressed("touch"):

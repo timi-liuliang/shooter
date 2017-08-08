@@ -127,7 +127,6 @@ offset = Vector2( 1.05603, 15.5748 )
 
 [node name="body" type="Sprite" parent="display"]
 
-transform/pos = Vector2( 0, -6.63271 )
 texture = ExtResource( 3 )
 
 [node name="weapon_sprite" type="Sprite" parent="display/body"]
