@@ -124,7 +124,6 @@ transform/pos = Vector2( 512, 600 )
 [node name="aiming_sight" parent="." instance=ExtResource( 8 )]
 
 visibility/visible = false
-point_num = 20
 
 [node name="ui" type="CanvasLayer" parent="."]
 

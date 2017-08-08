@@ -29,3 +29,6 @@ func get_hand_rot():
 	
 func set_weapon_hidden(hide):
 	get_node("display/body/weapon_sprite").set_hidden(hide)
+	
+func on_attack():
+	cur_blood = max(0, cur_blood - 35)

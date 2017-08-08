@@ -2,8 +2,8 @@ extends Node2D
 
 enum GameState{
 	GS_PREPARE,
-	GS_FOCUS_ENEMY,
-	GS_FOCUS_SELF,
+	GS_SHOW_ENEMY,
+	GS_FOCUS_PLAYER,
 	GS_WAIT_FOR_AIM,
 	GS_SELF_AIM,
 	GS_SELF_SHOOT,
@@ -32,6 +32,8 @@ var battle_id = int(0)
 var blood_effect = null
 var continue_head_shot_num = 0
 var is_player_0 = true
+var main_player_idx = 0			# 主角索引
+var active_player_idx = 0		# 当前活跃玩家
 
 func _ready():
 	players.append(get_node("player_0"))
@@ -56,10 +58,10 @@ func _ready():
 func _process(delta):
 	if game_state == GameState.GS_PREPARE:
 		prepare()
-	if game_state == GameState.GS_FOCUS_ENEMY:
-		focus_enemy()
-	elif game_state == GameState.GS_FOCUS_SELF:
-		focus_self()
+	if game_state == GameState.GS_SHOW_ENEMY:
+		show_enemy()
+	elif game_state == GameState.GS_FOCUS_PLAYER:
+		focus_player(active_player_idx)
 	elif game_state == GameState.GS_WAIT_FOR_AIM:
 		wait_for_aim()
 	elif game_state == GameState.GS_SELF_AIM:
@@ -74,9 +76,9 @@ func _process(delta):
 		failed()
 		
 func prepare():
-	game_state = GameState.GS_FOCUS_ENEMY
+	game_state = GameState.GS_SHOW_ENEMY
 
-func focus_enemy():
+func show_enemy():
 	var enemy_pos = get_enemy().get_pos() + Vector2(0, -150)
 	var camera = get_node("camera")	
 	if camera.get_pos()!= enemy_pos || (camera.get_zoom()-Vector2(1.0, 1.0)).length_squared() > 0.01:
@@ -85,10 +87,10 @@ func focus_enemy():
 		camera.set_zoom( camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.02)
 	else:
 		camera.set_enable_follow_smoothing( true)
-		game_state = GameState.GS_FOCUS_SELF
+		game_state = GameState.GS_FOCUS_PLAYER
 		
-func focus_self():
-	var self_pos = get_self().get_pos() + Vector2(0, -150)
+func focus_player(idx):
+	var self_pos = players[idx].get_pos() + Vector2(0, -150)
 	var camera = get_node("camera")
 	if camera.get_pos()!= self_pos || (camera.get_zoom()-Vector2(1.0, 1.0)).length_squared() > 0.01:
 		if (camera.get_pos()-self_pos).length_squared()<0.1:
@@ -97,8 +99,8 @@ func focus_self():
 			camera.set_pos( camera.get_pos() +(self_pos - camera.get_pos())*0.02)
 		camera.set_zoom( camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.02)
 	else:
-		add_weapon_to(0)
-		get_self().set_weapon_hidden(false)
+		add_weapon_to(idx)
+		players[idx].set_weapon_hidden(false)
 		get_node("weapon/arrow").set_hidden(true)
 		game_state = GameState.GS_WAIT_FOR_AIM
 
@@ -179,56 +181,20 @@ func check_result():
 	var weapon = get_node("weapon/arrow")
 	if weapon.is_colliding():
 		var collider = weapon.get_collider()
-		# 施加力
-		if collider.is_type("RigidBody2D"):	
-			var impulse = Vector2(0.0, 1.0)
-			impulse = impulse.rotated(weapon.get_rot())
-			
-			var weapon_display = weapon.get_node("display")
-			weapon.remove_child(weapon_display)		
-			collider.add_child(weapon_display)
-			var offset = weapon.get_collision_pos() - collider.get_global_pos()
-			collider.apply_impulse( offset, impulse * 150.0)
-			
-			weapon.set_layer_mask(4)
-			weapon.set_collision_mask(4)
-		
-		# 计算得分
-		if collider.get_type()=="body" || collider.get_type()=="head":
-			# 显示血
-			if blood_effect:
-				blood_effect.queue_free()
-				blood_effect = null
-			
-			blood_effect = preload("res://effect/blood.tscn").instance()
-			blood_effect.set_pos( weapon.get_collision_pos())
-			blood_effect.set_rot( weapon.get_rot())
-			blood_effect.get_node("anim").play("play")
-			add_child(blood_effect)
-			
-			if collider.get_type()=="head":
-				continue_head_shot_num+=1
-				var cur_score = min( continue_head_shot_num+1, 5)
-				get_node("ui/head_shot").set_text("HeadShot +"+String(cur_score))
-				score += cur_score
-			else:
-				continue_head_shot_num = 0
-				score +=1
-			
-			get_node("ui/score").set_text(String(score))
-			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP
-		else:
+		if collider.is_type("KinematicBody2D"):	
 			# 箭摇尾
+			collider.on_attack()
 			weapon.get_node("anim").play("attacked")
 			
-			game_state = GameState.GS_Failing
+			update_blood_display()
 
 	if get_self().cur_blood <= 0:
 		game_state = GameState.GS_Failing	
 	elif get_enemy().cur_blood <=0:
 		game_state = GameState.GS_WINING
 	else:
-		game_state = GameState.GS_FOCUS_SELF
+		active_player_idx = (active_player_idx + 1) % players.size() 	
+		game_state = GameState.GS_FOCUS_PLAYER
 	
 func failing():
 	var character = get_self()	
@@ -253,10 +219,7 @@ func get_enemy():
 		return get_node("player_0")
 		
 func get_self():
-	if is_player_0:
-		return get_node("player_0")
-	else:
-		return get_node("player_1")
+	return players[main_player_idx]
 		
 func add_weapon_to( i):
 	var character = players[i]
@@ -273,4 +236,8 @@ func add_weapon_to( i):
 	weapon.set_rot(character.get_weapon_rot())
 	weapon.set_collision_mask(0xFFFFFFFF)
 	weapon.set_collision_mask_bit(i, false)
-		
+	weapon.set_player_idx(i)
+
+func update_blood_display():
+	get_node("ui/blood/player_0").set_value(players[0].cur_blood)
+	get_node("ui/blood/player_1").set_value(players[1].cur_blood)
