@@ -6,7 +6,7 @@
 [ext_resource path="res://game_single/bg_layer0.png" type="Texture" id=4]
 [ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=5]
 [ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actor/weapon/aiming_sight.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actor/aiming/aiming_sight.tscn" type="PackedScene" id=7]
 [ext_resource path="res://ui/game_over.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=9]
 [ext_resource path="res://ui/head_shot/head_shot.tscn" type="PackedScene" id=10]
@@ -15,7 +15,7 @@
 
 script/script = ExtResource( 1 )
 init_speed = 2000.0
-gravity = 1200.0
+gravity = 1500.0
 character_move_speed = 500.0
 wind_slow_down = 800.0
 
@@ -121,6 +121,7 @@ transform/pos = Vector2( 512, 600 )
 [node name="aiming_sight" parent="." instance=ExtResource( 7 )]
 
 visibility/visible = false
+point_num = 20
 
 [node name="ui" type="CanvasLayer" parent="."]
 

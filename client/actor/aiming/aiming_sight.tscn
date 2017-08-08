@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://actor/weapon/aiming_sight.gd" type="Script" id=1]
+
+[node name="aiming_sight" type="Node2D"]
+
+script/script = ExtResource( 1 )
+point_num = 8
+point_scale = 0.2
+delta = 0.015
+
+

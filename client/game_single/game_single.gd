@@ -12,6 +12,7 @@ enum GameState{
 	GS_Failed
 }
 
+var parabola = null
 var game_state =GameState.GS_CREATE_NEXT_BATTLE_MAP
 var score = int(0)
 var cam_archer_offset
@@ -30,6 +31,9 @@ var blood_effect = null
 var continue_head_shot_num = 0
 
 func _ready():
+	# 抛物线
+	parabola = preload("res://global/parabola.gd").new()
+	
 	cam_archer_offset = get_node("camera").get_pos() - get_node("archer").get_pos()
 	cam_arrow_offset  = get_node("camera").get_pos() - get_node("archer").get_pos()
 	
@@ -97,6 +101,10 @@ func aim(delta):
 		get_node("weapon/arrow").set_hidden(false)
 		get_node("aiming_sight").set_hidden(true)
 		
+		# 抛物线
+		var weapon = get_node("weapon/arrow")
+		parabola.set(weapon.get_pos(), aim_degree, init_speed, Vector2(-wind_slow_down, gravity))
+		
 		game_state = GameState.GS_SHOOT
 		
 func shoot(delta):
@@ -105,14 +113,11 @@ func shoot(delta):
 	if !weapon.is_colliding():
 		# 移动武器
 		shoot_time += delta
-		var init_dir = Vector2(0,1).rotated(deg2rad(aim_degree + 90))
-		var init_velocity = (init_speed - shoot_time * wind_slow_down) * init_dir
-		var move_velocity = init_velocity
-		move_velocity.y = init_velocity.y + gravity * shoot_time	
-		weapon.move( delta * move_velocity)
+		var offset = parabola.get_pos(shoot_time) - weapon.get_pos()
+		weapon.move(offset)
 		
 		#  纠正武器朝向
-		var velocity = move_velocity
+		var velocity = parabola.get_velocity(shoot_time)
 		velocity = velocity.normalized()
 		var angle = Vector2(0.0, 1.0).angle_to(velocity)
 		weapon.set_rot(angle)
