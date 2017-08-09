@@ -35,6 +35,7 @@ var continue_head_shot_num = 0
 var is_player_0 = true
 var main_player_idx = 0			# 主角索引
 var active_player_idx = 0		# 当前活跃玩家
+var robot_aim_degree = 0.0
 var robot_target_aim_degree = -90.0
 var robot_init_speed = 300
 
@@ -99,12 +100,16 @@ func show_enemy():
 func focus_player(idx):
 	var player_pos = players[idx].get_pos() + Vector2(0, -150)
 	var camera = get_node("camera")
-	if camera.get_pos()!= player_pos || (camera.get_zoom()-Vector2(1.0, 1.0)).length_squared() > 0.01:
-		if (camera.get_pos()-player_pos).length_squared()<16:
+	if camera.get_pos()!= player_pos:
+		var move_dir = player_pos - camera.get_pos()
+		var length      = move_dir.length()
+		move_dir = move_dir.normalized()
+		if length<10:
 			camera.set_pos(player_pos)
 		else:
-			camera.set_pos( camera.get_pos() +(player_pos - camera.get_pos())*0.02)
-		camera.set_zoom( camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.02)
+			var move_speed = 10
+			var move_len = min(move_speed, length)
+			camera.set_pos( camera.get_pos() + move_dir * move_len)
 	else:
 		add_weapon_to(idx)
 		players[idx].set_weapon_hidden(false)
@@ -153,25 +158,26 @@ func main_player_aim(delta, idx):
 		# 抛物线
 		var weapon = get_node("weapon/arrow")
 		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
-		
+		aim_degree = 0.0
 		game_state = GameState.GS_PLAYER_SHOOT
 		
 func robot_player_aim(delta, idx):
 	if robot_target_aim_degree == -90.0:
-		var riv= parabola.get_init_velocity( players[idx].get_pos(), get_enemy(idx).get_pos(), Vector2(-wind_slow_down, gravity))
+		var rand_offset = randi() % 3 * 200.0 - 200.0
+		var riv= parabola.get_init_velocity( players[idx].get_pos(), get_enemy(idx).get_pos() + Vector2(rand_offset, 0.0), Vector2(-wind_slow_down, gravity))
 		robot_init_speed = riv.length()
 		riv.x = abs(riv.x)
 		riv = riv.normalized()
-		robot_target_aim_degree = rad2deg(Vector2(1.0, 0.0).angle_to(riv)) + randf() * 10.0 - 5.0
+		robot_target_aim_degree = rad2deg(Vector2(1.0, 0.0).angle_to(riv))
 		
-	if abs(aim_degree - robot_target_aim_degree) > 1.0:
-		if robot_target_aim_degree > aim_degree:
-			aim_degree = min( aim_degree+delta*60.0, robot_target_aim_degree)
+	if abs(robot_aim_degree - robot_target_aim_degree) > 1.0:
+		if robot_target_aim_degree > robot_aim_degree:
+			robot_aim_degree = min( robot_aim_degree+delta*60.0, robot_target_aim_degree)
 		else:
-			aim_degree = max( aim_degree-delta*60.0, robot_target_aim_degree)
+			robot_aim_degree = max( robot_aim_degree-delta*60.0, robot_target_aim_degree)
 			
 		var player = players[idx]
-		player.set_hand_rot(deg2rad(aim_degree))
+		player.set_hand_rot(deg2rad(robot_aim_degree))
 		
 		var weapon = get_node("weapon/arrow")
 		weapon.set_pos(player.get_weapon_pos())
@@ -192,6 +198,7 @@ func robot_player_aim(delta, idx):
 		var weapon = get_node("weapon/arrow")
 		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, robot_target_aim_degree), robot_init_speed, Vector2(-wind_slow_down, gravity))
 		robot_target_aim_degree = -90.0
+		robot_aim_degree = 0.0
 		game_state = GameState.GS_PLAYER_SHOOT
 		
 func get_player_aim_degree(idx, origin_degree):
@@ -216,15 +223,15 @@ func shoot(delta):
 		weapon.set_rot(angle)
 		
 		# 摄像机跟随武器
-		if weapon.get_pos().x < cha_pos.x + 924:
+		if true : # weapon.get_pos().x < cha_pos.x + 924:
 			var camera = get_node("camera")
 			var cam_cur_pos = camera.get_pos()
-			var cam_target_pos = weapon.get_pos() + cam_arrow_offset * 0.2
+			var cam_target_pos = weapon.get_pos()# + cam_arrow_offset * 0.2
 			var next_target_pos = (cam_target_pos - cam_cur_pos) * 0.1 + cam_cur_pos
 			var cam_target_zoom = Vector2(max(1.0-shoot_time*0.2, 0.5), max(1.0-shoot_time*0.2, 0.5))
-			var next_zoom = camera.get_zoom() + (cam_target_zoom - camera.get_zoom()) * 0.05
+			#var next_zoom = camera.get_zoom() + (cam_target_zoom - camera.get_zoom()) * 0.05
 			camera.set_pos( next_target_pos)
-			camera.set_zoom(next_zoom)
+			#camera.set_zoom(next_zoom)
 			
 		# 回复射击初始姿势
 		var character = get_self()
@@ -233,7 +240,7 @@ func shoot(delta):
 		character.set_hand_rot( cha_hand_rot)
 		
 	var arrow_pos_x = weapon.get_pos().x	
-	if weapon.is_colliding() || arrow_pos_x > (cha_pos.x + 1124):
+	if weapon.is_colliding():
 		shoot_time = 0.0
 		game_state = GameState.GS_CHECK_SHOOT_RESULT	
 		
