@@ -36,6 +36,7 @@ var is_player_0 = true
 var main_player_idx = 0			# 主角索引
 var active_player_idx = 0		# 当前活跃玩家
 var robot_target_aim_degree = -90.0
+var robot_init_speed = 300
 
 func _ready():
 	players.append(get_node("player_0"))
@@ -85,7 +86,7 @@ func prepare():
 	game_state = GameState.GS_SHOW_ENEMY
 
 func show_enemy():
-	var enemy_pos = get_enemy().get_pos() + Vector2(0, -150)
+	var enemy_pos = get_enemy(main_player_idx).get_pos() + Vector2(0, -150)
 	var camera = get_node("camera")	
 	if camera.get_pos()!= enemy_pos || (camera.get_zoom()-Vector2(1.0, 1.0)).length_squared() > 0.01:
 		camera.set_enable_follow_smoothing( false)
@@ -99,7 +100,7 @@ func focus_player(idx):
 	var player_pos = players[idx].get_pos() + Vector2(0, -150)
 	var camera = get_node("camera")
 	if camera.get_pos()!= player_pos || (camera.get_zoom()-Vector2(1.0, 1.0)).length_squared() > 0.01:
-		if (camera.get_pos()-player_pos).length_squared()<0.1:
+		if (camera.get_pos()-player_pos).length_squared()<16:
 			camera.set_pos(player_pos)
 		else:
 			camera.set_pos( camera.get_pos() +(player_pos - camera.get_pos())*0.02)
@@ -157,7 +158,11 @@ func main_player_aim(delta, idx):
 		
 func robot_player_aim(delta, idx):
 	if robot_target_aim_degree == -90.0:
-		robot_target_aim_degree = randf() * 90.0
+		var riv= parabola.get_init_velocity( players[idx].get_pos(), get_enemy(idx).get_pos(), Vector2(-wind_slow_down, gravity))
+		robot_init_speed = riv.length()
+		riv.x = abs(riv.x)
+		riv = riv.normalized()
+		robot_target_aim_degree = rad2deg(Vector2(1.0, 0.0).angle_to(riv)) + randf() * 10.0 - 5.0
 		
 	if abs(aim_degree - robot_target_aim_degree) > 1.0:
 		if robot_target_aim_degree > aim_degree:
@@ -174,18 +179,18 @@ func robot_player_aim(delta, idx):
 		var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
 		
 		# show aiming
-		get_node("aiming_sight").set_hidden(false)
-		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
+		#get_node("aiming_sight").set_hidden(false)
+		#get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
 		
 	else:
 		var player = players[idx]
 		player.set_weapon_hidden(true)
 		get_node("weapon/arrow").set_hidden(false)
-		get_node("aiming_sight").set_hidden(true)
+		#get_node("aiming_sight").set_hidden(true)
 		
 		# 抛物线
 		var weapon = get_node("weapon/arrow")
-		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, robot_target_aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
+		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, robot_target_aim_degree), robot_init_speed, Vector2(-wind_slow_down, gravity))
 		robot_target_aim_degree = -90.0
 		game_state = GameState.GS_PLAYER_SHOOT
 		
@@ -245,7 +250,7 @@ func check_result():
 
 	if get_self().cur_blood <= 0:
 		game_state = GameState.GS_FAILING	
-	elif get_enemy().cur_blood <=0:
+	elif get_enemy(main_player_idx).cur_blood <=0:
 		game_state = GameState.GS_WINING
 	else:
 		active_player_idx = (active_player_idx + 1) % players.size() 	
@@ -273,11 +278,11 @@ func wining():
 func wined():
 	get_node("ui/vs_win").set_hidden(false)
 	
-func get_enemy():
-	if is_player_0:
-		return get_node("player_1")
+func get_enemy(self_idx):
+	if self_idx == 0:
+		return players[1]
 	else:
-		return get_node("player_0")
+		return players[0]
 		
 func get_self():
 	return players[main_player_idx]

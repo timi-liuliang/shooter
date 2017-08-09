@@ -5,7 +5,7 @@
 [ext_resource path="res://game_single/bg_layer1.png" type="Texture" id=3]
 [ext_resource path="res://game_single/bg_layer0.png" type="Texture" id=4]
 [ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actor/scene/vs_scene_0/vs_scene_0.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actor/aiming/aiming_sight.tscn" type="PackedScene" id=7]
 [ext_resource path="res://game_single_vs/ui_result.tscn" type="PackedScene" id=8]
 [ext_resource path="res://ui/vs_win/vs_win.tscn" type="PackedScene" id=9]
@@ -24,6 +24,7 @@ wind_slow_down = 0.0
 
 [node name="parallax_background" type="ParallaxBackground" parent="."]
 
+editor/display_folded = true
 layer = -1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -110,7 +111,7 @@ collision/mask = 0
 
 [node name="player_1" parent="." instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 571.251, 451.85 )
+transform/pos = Vector2( 1024, 452 )
 transform/scale = Vector2( -1, 1 )
 collision/layers = 2
 collision/mask = 0
@@ -120,8 +121,6 @@ collision/mask = 0
 [node name="ground" type="Node2D" parent="."]
 
 [node name="ground" parent="ground" instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 512, 600 )
 
 [node name="aiming_sight" parent="." instance=ExtResource( 7 )]
 
