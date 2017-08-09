@@ -32,3 +32,9 @@ func set_weapon_hidden(hide):
 	
 func on_attack():
 	cur_blood = max(0, cur_blood - 35)
+
+func is_mirror():
+	if get_scale().x > 0.0:
+		return false 
+	else:
+		return true

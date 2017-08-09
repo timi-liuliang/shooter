@@ -14,7 +14,7 @@ func set( start, degree, speed, acceleration):
 	init_speed = speed
 	acc_velocity = acceleration
 	aim_degree = degree
-	init_dir = Vector2(0,1).rotated(deg2rad(aim_degree + 90))
+	init_dir = Vector2(1,0).rotated(deg2rad(aim_degree))
 	
 func get_pos(shoot_time):
 	var offset = init_speed * init_dir * shoot_time + 0.5 * acc_velocity  * shoot_time * shoot_time

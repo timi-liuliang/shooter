@@ -5,12 +5,13 @@ enum GameState{
 	GS_SHOW_ENEMY,
 	GS_FOCUS_PLAYER,
 	GS_WAIT_FOR_AIM,
-	GS_SELF_AIM,
-	GS_SELF_SHOOT,
+	GS_PLAYER_AIM,
+	GS_PLAYER_SHOOT,
 	GS_CHECK_SHOOT_RESULT,
-	GS_Failing,
-	GS_Failed
+	GS_FAILING,
+	GS_FAILED,
 	GS_WINING,
+	GS_WINED
 }
 
 var players = []
@@ -34,6 +35,7 @@ var continue_head_shot_num = 0
 var is_player_0 = true
 var main_player_idx = 0			# 主角索引
 var active_player_idx = 0		# 当前活跃玩家
+var robot_target_aim_degree = -90.0
 
 func _ready():
 	players.append(get_node("player_0"))
@@ -63,17 +65,21 @@ func _process(delta):
 	elif game_state == GameState.GS_FOCUS_PLAYER:
 		focus_player(active_player_idx)
 	elif game_state == GameState.GS_WAIT_FOR_AIM:
-		wait_for_aim()
-	elif game_state == GameState.GS_SELF_AIM:
-		self_aim(delta)
-	elif game_state == GameState.GS_SELF_SHOOT:
+		wait_for_aim(active_player_idx)
+	elif game_state == GameState.GS_PLAYER_AIM:
+		player_aim(delta, active_player_idx)
+	elif game_state == GameState.GS_PLAYER_SHOOT:
 		shoot(delta)
 	elif game_state == GameState.GS_CHECK_SHOOT_RESULT:
 		check_result()
-	elif game_state == GameState.GS_Failing:
+	elif game_state == GameState.GS_FAILING:
 		failing()
-	elif game_state == GameState.GS_Failed:
+	elif game_state == GameState.GS_FAILED:
 		failed()
+	elif game_state == GameState.GS_WINING:
+		wining()
+	elif game_state == GameState.GS_WINED:
+		wined()
 		
 func prepare():
 	game_state = GameState.GS_SHOW_ENEMY
@@ -90,13 +96,13 @@ func show_enemy():
 		game_state = GameState.GS_FOCUS_PLAYER
 		
 func focus_player(idx):
-	var self_pos = players[idx].get_pos() + Vector2(0, -150)
+	var player_pos = players[idx].get_pos() + Vector2(0, -150)
 	var camera = get_node("camera")
-	if camera.get_pos()!= self_pos || (camera.get_zoom()-Vector2(1.0, 1.0)).length_squared() > 0.01:
-		if (camera.get_pos()-self_pos).length_squared()<0.1:
-			camera.set_pos(self_pos)
+	if camera.get_pos()!= player_pos || (camera.get_zoom()-Vector2(1.0, 1.0)).length_squared() > 0.01:
+		if (camera.get_pos()-player_pos).length_squared()<0.1:
+			camera.set_pos(player_pos)
 		else:
-			camera.set_pos( camera.get_pos() +(self_pos - camera.get_pos())*0.02)
+			camera.set_pos( camera.get_pos() +(player_pos - camera.get_pos())*0.02)
 		camera.set_zoom( camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.02)
 	else:
 		add_weapon_to(idx)
@@ -104,11 +110,20 @@ func focus_player(idx):
 		get_node("weapon/arrow").set_hidden(true)
 		game_state = GameState.GS_WAIT_FOR_AIM
 
-func wait_for_aim():
-	if Input.is_action_pressed("touch"):
-		game_state = GameState.GS_SELF_AIM
+func wait_for_aim(idx):
+	if idx == main_player_idx:
+		if Input.is_action_pressed("touch"):
+			game_state = GameState.GS_PLAYER_AIM
+	else:
+		game_state = GameState.GS_PLAYER_AIM
 	
-func self_aim(delta):
+func player_aim(delta, idx):
+	if idx == main_player_idx:
+		main_player_aim(delta, idx)
+	else:
+		robot_player_aim(delta, idx)
+	
+func main_player_aim(delta, idx):
 	if Input.is_action_pressed("touch"):	
 		aim_degree += delta * 60.0 * aim_adjust_dir
 		if aim_degree > 89.0:
@@ -116,29 +131,69 @@ func self_aim(delta):
 		if aim_degree <0.0:
 			aim_adjust_dir = 1.0
 			
-		var character = get_self()
-		character.set_hand_rot(deg2rad(aim_degree))
+		var player = players[idx]
+		player.set_hand_rot(deg2rad(aim_degree))
 		
 		var weapon = get_node("weapon/arrow")
-		weapon.set_pos(character.get_weapon_pos())
-		weapon.set_rot(character.get_weapon_rot())
+		weapon.set_pos(player.get_weapon_pos())
+		weapon.set_rot(player.get_weapon_rot())
 		var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
 		
 		# show aiming
 		get_node("aiming_sight").set_hidden(false)
-		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, aim_degree, wind_slow_down, gravity)
+		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
 		
 	if !Input.is_action_pressed("touch"):
-		var character = get_self()
-		character.set_weapon_hidden(true)
+		var player = players[idx]
+		player.set_weapon_hidden(true)
 		get_node("weapon/arrow").set_hidden(false)
 		get_node("aiming_sight").set_hidden(true)
 		
 		# 抛物线
 		var weapon = get_node("weapon/arrow")
-		parabola.set(weapon.get_pos(), aim_degree, init_speed, Vector2(-wind_slow_down, gravity))
+		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
 		
-		game_state = GameState.GS_SELF_SHOOT
+		game_state = GameState.GS_PLAYER_SHOOT
+		
+func robot_player_aim(delta, idx):
+	if robot_target_aim_degree == -90.0:
+		robot_target_aim_degree = randf() * 90.0
+		
+	if abs(aim_degree - robot_target_aim_degree) > 1.0:
+		if robot_target_aim_degree > aim_degree:
+			aim_degree = min( aim_degree+delta*60.0, robot_target_aim_degree)
+		else:
+			aim_degree = max( aim_degree-delta*60.0, robot_target_aim_degree)
+			
+		var player = players[idx]
+		player.set_hand_rot(deg2rad(aim_degree))
+		
+		var weapon = get_node("weapon/arrow")
+		weapon.set_pos(player.get_weapon_pos())
+		weapon.set_rot(player.get_weapon_rot())
+		var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
+		
+		# show aiming
+		get_node("aiming_sight").set_hidden(false)
+		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
+		
+	else:
+		var player = players[idx]
+		player.set_weapon_hidden(true)
+		get_node("weapon/arrow").set_hidden(false)
+		get_node("aiming_sight").set_hidden(true)
+		
+		# 抛物线
+		var weapon = get_node("weapon/arrow")
+		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, robot_target_aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
+		robot_target_aim_degree = -90.0
+		game_state = GameState.GS_PLAYER_SHOOT
+		
+func get_player_aim_degree(idx, origin_degree):
+	if players[idx].is_mirror():
+		return 180.0 - origin_degree
+	else:
+		return origin_degree
 		
 func shoot(delta):
 	var weapon = get_node("weapon/arrow")
@@ -189,7 +244,7 @@ func check_result():
 			update_blood_display()
 
 	if get_self().cur_blood <= 0:
-		game_state = GameState.GS_Failing	
+		game_state = GameState.GS_FAILING	
 	elif get_enemy().cur_blood <=0:
 		game_state = GameState.GS_WINING
 	else:
@@ -207,10 +262,16 @@ func failing():
 		camera.set_pos( next_target_pos)
 		camera.set_zoom(next_zoom)
 	else:
-		game_state = GameState.GS_Failed
+		game_state = GameState.GS_FAILED
 	
 func failed():
 	get_node("ui/game_over").set_hidden(false)
+	
+func wining():
+	game_state = GameState.GS_WINED
+	
+func wined():
+	get_node("ui/vs_win").set_hidden(false)
 	
 func get_enemy():
 	if is_player_0:
