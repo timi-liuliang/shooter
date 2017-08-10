@@ -41,6 +41,10 @@ func _ready():
 	if(Globals.has_singleton("Gomob")):
 		var gomob = Globals.get_singleton("Gomob")
 		gomob.request_videoad()
+		
+	# 金币数量
+	var coin_num = get_node("/root/data").get_coin_num()
+	get_node("ui/coin").set_text(String(coin_num))
 	
 	set_process(true)
 	
@@ -174,16 +178,21 @@ func check_result():
 			blood_effect.get_node("anim").play("play")
 			add_child(blood_effect)
 			
+			var data = get_node("/root/data")
 			if collider.get_type()=="head":
 				continue_head_shot_num+=1
 				var cur_score = min( continue_head_shot_num+1, 5)
 				get_node("ui/head_shot").set_text("HeadShot +"+String(cur_score))
 				score += cur_score
+				
+				data.add_coin(cur_score)
 			else:
 				continue_head_shot_num = 0
 				score +=1
+				data.add_coin(1)
 			
 			get_node("ui/score").set_text(String(score))
+			get_node("ui/coin").set_text(String(data.get_coin_num()))
 			game_state = GameState.GS_CREATE_NEXT_BATTLE_MAP
 		else:
 			# 箭摇尾
