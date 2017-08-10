@@ -40,10 +40,14 @@ func check_version():
 	create_dir("user://download")
 	
 	var http = preload("res://update/http.gd").new()
-	http.connect("loading", self, "_on_loading")
+	http.connect("loading", self, "_on_loading_version")
 	http.connect("loaded", self, "_on_loaded_version")
 	http.get(http_domin, http_url+http_version_file, 80, false, "user://download/" + http_version_file)
 	
+func _on_loading_version(loaded, total):
+	var percent = loaded * 5 / total 
+	set_progress_val(percent)
+
 func _on_loaded_version(result):
 	var directory = Directory.new()
 	if !directory.file_exists("user://download/" + http_version_file):

@@ -1,6 +1,7 @@
 extends Node
 
 var t = Thread.new()
+var file_save_path = ""
 
 func _init():
 	var arg_bytes_loaded = {"name":"bytes_loaded","type":TYPE_INT}
@@ -12,7 +13,8 @@ func _init():
 func get(domain,url,port,ssl, save_path):
 	if(t.is_active()):
 		return
-		
+	
+	file_save_path = save_path
 	t.start(self,"_load",{"domain":domain,"url":url,"port":port,"ssl":ssl})
 	
 func _load(params):
@@ -51,7 +53,7 @@ func _load(params):
 	http.close()
 	
 	var cur_down_file = File.new()
-	cur_down_file.open("user://dlc/update.pck", File.WRITE)
+	cur_down_file.open(file_save_path, File.WRITE)
 	cur_down_file.store_var(rb)
 	cur_down_file.close()
 	
@@ -62,5 +64,4 @@ func _send_loading_signal(l,t):
 
 func _send_loaded_signal():
 	var r = t.wait_to_finish()
-	print("wo")
 	emit_signal("loaded",r)
