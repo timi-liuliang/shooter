@@ -7,7 +7,7 @@
 [ext_resource path="res://launch/bg.png" type="Texture" id=5]
 [ext_resource path="res://launch/jinbi.png" type="Texture" id=6]
 [ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=7]
-[ext_resource path="res://launch/xuanzhe_moshi.png" type="Texture" id=8]
+[ext_resource path="res://icon.png" type="Texture" id=8]
 [ext_resource path="res://launch/button_chuangguan_active.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]

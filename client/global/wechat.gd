@@ -3,6 +3,7 @@ extends Node
 var wechat = null
 
 func _ready():
+	print("2222222")
 	if(Globals.has_singleton("WeChat")):
 		wechat = Globals.get_singleton("WeChat")
 		wechat.init("wx0123213")
