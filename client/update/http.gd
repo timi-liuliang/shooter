@@ -50,7 +50,6 @@ func _load(params):
 	call_deferred("_send_loaded_signal")
 	http.close()
 	
-	print("cao")
 	var cur_down_file = File.new()
 	cur_down_file.open("user://dlc/update.pck", File.WRITE)
 	cur_down_file.store_var(rb)
@@ -63,4 +62,5 @@ func _send_loading_signal(l,t):
 
 func _send_loaded_signal():
 	var r = t.wait_to_finish()
+	print("wo")
 	emit_signal("loaded",r)

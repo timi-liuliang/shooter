@@ -1,17 +1,55 @@
 extends Node2D
 
+var http_domin        = "http://albertlab-huanan.oss-cn-shenzhen.aliyuncs.com"
+var http_url          = "/Software/shooter/update/"
+var http_version_file = "version.meta" 
+
+var is_inited = false
 var cur_down_file_name = ""
 
 func _ready():
-	print(OS.get_data_dir())
-	var directory = Directory.new()
-	if directory.file_exists("user://dlc/update.pck"):
-		print("a")
-	else:
-		create_dir("user://dlc")
-		download( "http://albertlab-huanan.oss-cn-shenzhen.aliyuncs.com", "/Software/shooter/update/", "update.pck", "user://dlc/update.pck")
+	set_process(true)
+	
+func _process(delta):
+	if !is_inited:
+		check_version()
 		
-	#load_dlc()
+#		var directory = Directory.new()
+#		if !directory.file_exists("x.pck"):
+#			_on_launch_pressed()
+#			print("xxxxxxxxxxxxx")
+		
+
+#		if directory.file_exists("user://dlc/update.pck"):
+#			print("a")
+#		else:
+#			download( "http://albertlab-huanan.oss-cn-shenzhen.aliyuncs.com", "/Software/shooter/update/", "update.pck", "user://dlc/update.pck")
+		
+#		load_dlc()
+
+		is_inited = true
+
+func set_progress_val(value):
+	get_node("progress").set_val(value)	
+	
+func set_text(text):
+	get_node("note").set_text(text)
+		
+func check_version():
+	create_dir("user://dlc")
+	create_dir("user://download")
+	
+	var http = preload("res://update/http.gd").new()
+	http.connect("loading", self, "_on_loading")
+	http.connect("loaded", self, "_on_loaded_version")
+	http.get(http_domin, http_url+http_version_file, 80, false, "user://download/" + http_version_file)
+	
+func _on_loaded_version(result):
+	var directory = Directory.new()
+	if !directory.file_exists("user://download/" + http_version_file):
+		set_text("check update failed, please check network.")
+	else:
+		set_progress_val(5)
 	
 func download( domin, url, file_name, save_path):
 	cur_down_file_name = file_name
@@ -25,6 +63,7 @@ func _on_loading(loaded, total):
 	print(percent)
 	
 func _on_loaded(result):
+	print("haha")
 	var result_string = result.get_string_from_ascii()
 	cur_down_file_name = ""
 	
@@ -36,7 +75,7 @@ func create_dir(dir):
 func load_dlc():
 	Globals.load_resource_pack("user://dlc/update.pck")	
 
-func _on_Button_pressed():
+func _on_launch_pressed():
 	# 实例化全局脚本
 	var global = preload("res://global/global.gd").new()
 	global.set_name("global")

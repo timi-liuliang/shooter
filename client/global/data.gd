@@ -6,7 +6,6 @@ var total_kill_enemy_num = 0
 var gold_coin_num		 = 0
 
 func _ready():
-	print("first first")
 	config_file = ConfigFile.new()
 	if config_file.load(file_name) == OK:
 		gold_coin_num = config_file.get_value("data", "coin", 0)

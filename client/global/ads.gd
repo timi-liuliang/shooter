@@ -1,8 +1,6 @@
 extends Node
 
 func _ready():
-	print("33333333333333333333333")
-	
 	if(Globals.has_singleton("Gomob")):
 		var gomob = Globals.get_singleton("Gomob")
 		gomob.init("ca-app-pub-9963645369065369/5009998113")
