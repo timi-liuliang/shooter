@@ -14,10 +14,10 @@ func _process(delta):
 	if !is_inited:
 		check_version()
 		
-#		var directory = Directory.new()
-#		if !directory.file_exists("x.pck"):
-#			_on_launch_pressed()
-#			print("xxxxxxxxxxxxx")
+		var directory = Directory.new()
+		if directory.file_exists("res://apps/shooter/data.pck"):
+			#_on_launch_pressed()
+			print("xxxxxxxxxxxxx")
 		
 
 #		if directory.file_exists("user://dlc/update.pck"):
@@ -81,6 +81,6 @@ func load_dlc():
 
 func _on_launch_pressed():
 	# 实例化全局脚本
-	var global = preload("res://global/global.gd").new()
+	var global = load("res://global/global.gd").new()
 	global.set_name("global")
 	get_tree().get_root().add_child(global)
