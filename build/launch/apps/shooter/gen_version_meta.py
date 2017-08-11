@@ -22,8 +22,8 @@ version_file.writelines("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
 version_file.writelines("<pcks domain=\"%s\" url=\"%s\">\n" % (http_domain, http_url))
 
 def gen_version_info( file):
-    print("generate verison info for file [%s]" % file)
     md5_str = md5(root_path, file)
+    print("generate verison info for file [%s] md5 [%s]" % (file, md5_str))
     version_file.writelines("\t<pck name=\"%s\" md5=\"%s\" />\n" % (file, md5_str))
 
 dirs = os.listdir(root_path)

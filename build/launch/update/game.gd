@@ -75,7 +75,9 @@ func checkupdate():
 	http.get(http_domain, http_url+http_version_file, 80, false, download_dir + http_version_file)
 	
 func _on_loading_version(loaded, total):
-	pass
+	var percent = min(loaded * 100 / total,60)
+	print(percent)
+	get_node("progress").set_val(percent)
 
 func _on_loaded_version(result, file_save_path):
 	var directory = Directory.new()
@@ -94,15 +96,40 @@ func _on_loaded_version(result, file_save_path):
 				var local_pck = local_meta.get_pck_by_name(remote_pck.name)
 				if local_pck.md5 != remote_pck.md5:
 					need_update_pcks.append(remote_pck)	
+					
+		get_node("progress").set_val(100)
 	
 	if need_update_pcks.size()>0:
 		download_pcks()
 	else:
 		update_progress_val()
+		print(download_percent)
+		
+func is_pck_downloaded(pck):
+	var dir = Directory.new()
+	if dir.file_exists(download_dir + pck.name):
+		return true
+	else:
+		return false
+	
+func is_pck_md5_match(pck_name):
+	var pck = remote_meta.get_pck_by_name(pck_name)
+	var md5 = ""
+	var file = File.new()
+	md5 = file.get_md5(download_dir + pck_name)
+	if md5==pck.md5:
+		return true
+	else:
+		return false	
 	
 func download_pcks():
 	for pck in need_update_pcks:
-		down_load_pck(pck.name)
+		if is_pck_downloaded(pck) && is_pck_md5_match(pck.name):
+			set_percent(pck.name, 100)
+			if download_percent==100:
+				copy_from_downloaddir_to_gamedir()
+		else:
+			down_load_pck(pck.name)		
 		
 func down_load_pck( pck_name):
 	var http = preload("res://update/http.gd").new()
@@ -114,7 +141,7 @@ func down_load_pck( pck_name):
 	http.get(http_domain, http_url+pck_name, 80, false, download_dir + pck_name)
 	
 func _on_loading_pck(loaded, total, file_save_path):
-	var percent = loaded * 100 / total 
+	var percent = min(loaded * 100 / total, 99)
 	set_percent(file_save_path, percent)
 
 func _on_loaded_pck(result, file_save_path):
@@ -122,9 +149,15 @@ func _on_loaded_pck(result, file_save_path):
 	if !directory.file_exists(file_save_path):
 		set_text("check update failed, please check network.")
 	else:
-		set_percent(file_save_path, 100)
-		if download_percent==100:
-			copy_from_downloaddir_to_gamedir()
+		if is_pck_md5_match(file_save_path.get_file()):
+			set_percent(file_save_path, 100)
+			if download_percent==100:
+				copy_from_downloaddir_to_gamedir()
+		else:
+			# md5 不匹配，删除重新下载
+			directory.remove(file_save_path)
+			set_percent(file_save_path, 0)
+			down_load_pck(file_save_path.get_file())
 	
 func set_percent( full_name, percent):
 	var name = full_name.get_file()
@@ -195,4 +228,3 @@ func list_files_in_directory(path):
 			
 	dir.list_dir_end()
 	return files
-	

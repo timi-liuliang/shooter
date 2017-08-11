@@ -57,3 +57,10 @@ func get_pck_by_name(name):
 			return pcks[i]
 			
 	return null
+
+func get_md5_by_name(name):
+	var pck = get_pck_by_name(name)
+	if pck:
+		return pck.md5
+	else:
+		return ""
