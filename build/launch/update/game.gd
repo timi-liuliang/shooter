@@ -9,16 +9,20 @@ var remote_meta = null
 var http_version_file = "version.meta"
 var need_update_pcks = Array()
 var download_percent = 0
-var is_res_copied = false
 var is_ready_for_start = false
 var auto_start = true
+var is_mounted = false
 
 func _ready():
 	set_process(true)
 	
 func _process(delta):
 	# 启动游戏 
-	if is_ready_for_start and auto_start:
+	if is_ready_for_start and auto_start and not is_mounted:
+		mount_res()
+		is_mounted = true
+		
+	if is_mounted and is_mount_res_finished():	
 		start_game()
 	
 func set_game_name(name):
@@ -82,7 +86,7 @@ func checkupdate():
 	http.connect("loaded", self, "_on_loaded_version")
 	http.get(http_domain, http_url+http_version_file, 80, false, download_dir + http_version_file)
 	
-func _on_loading_version(loaded, total):
+func _on_loading_version(loaded, total, file_save_path):
 	var percent = min(loaded * 100 / total,60)
 	print(percent)
 	get_node("progress").set_val(percent)
@@ -183,10 +187,8 @@ func update_progress_val():
 		for pck in need_update_pcks:
 			download += pck.percent
 		
-		download_percent = download  * 95 / total
-		if is_res_copied:
-			download_percent = min(download_percent+10, 100)
-		
+		download_percent = download  * 100 / total
+	
 	get_node("progress").set_val(download_percent)
 	
 	if download_percent >=100:
@@ -204,8 +206,6 @@ func copy_from_downloaddir_to_gamedir():
 			
 	clear_dir(download_dir)
 	clear_nousedpck_in_game_dir()
-	
-	is_res_copied = true
 	
 func clear_nousedpck_in_game_dir():
 	var version_meta = load("res://update/version_meta.gd").new()
@@ -243,17 +243,47 @@ func list_files_in_directory(path):
 	dir.list_dir_end()
 	return files
 
-func start_game():
+func mount_res():
 	# 加载资源
 	var version_meta = load("res://update/version_meta.gd").new()
 	version_meta.parse( game_dir + "version.meta")	
 	for i in range(version_meta.get_pck_size()):
 		var pck = version_meta.get_pck(i)
-		print(game_dir + pck.name)
-		Globals.load_resource_pack(game_dir + pck.name)	
+		Globals.load_resource_pack(game_dir + pck.name)
+		print( "mount game dlc " + pck.name)
+		
+		var files = list_files_in_directory("res://")
+		for file in files:
+			print(file)
+			
+		var dir = Directory.new()
+		if dir.file_exists("res://launch/launch.tscn"):
+			print("+++++++++++++++++++")
+		print("------------------------")	
+		files = list_files_in_directory("res://launch/")
+		for file in files:
+			print(file)
+		
+		print("--------------------------")
+		
+		files = list_files_in_directory("user://")
+		for file in files:
+			print(file)
+		
+func is_mount_res_finished():
+	var dir = Directory.new()
+	if dir.file_exists("res://launch/launch.tscn.converted.scn"):		
+		return true
+	else:
+		return false
+
+func start_game():
+	# 移除更新场景
+	var update_scene = get_node("/root/update")
+	get_tree().get_root().remove_child(update_scene)
+	update_scene.queue_free()
 
 	# 启动主场景
-	var launch_scene = load("res://launch/launch.tscn").instance()
+	var launch_scene = load("res://launch/launch.tscn.converted.scn").instance()
 	get_tree().get_root().add_child(launch_scene)
 	
-	get_node("/root/update").queue_free()
