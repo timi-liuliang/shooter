@@ -24,12 +24,3 @@ func show_games():
 		dir.list_dir_end()
 	else:
 		print("An error occured [show_games]")
-	
-#func load_dlc():
-#	Globals.load_resource_pack("user://dlc/update.pck")	
-
-#func _on_launch_pressed():
-	# 实例化全局脚本
-#	var global = load("res://global/global.gd").new()
-#	global.set_name("global")
-#	get_tree().get_root().add_child(global)

@@ -9,9 +9,17 @@ var remote_meta = null
 var http_version_file = "version.meta"
 var need_update_pcks = Array()
 var download_percent = 0
+var is_res_copied = false
+var is_ready_for_start = false
+var auto_start = true
 
 func _ready():
-	pass
+	set_process(true)
+	
+func _process(delta):
+	# 启动游戏 
+	if is_ready_for_start and auto_start:
+		start_game()
 	
 func set_game_name(name):
 	game_name = name
@@ -103,7 +111,6 @@ func _on_loaded_version(result, file_save_path):
 		download_pcks()
 	else:
 		update_progress_val()
-		print(download_percent)
 		
 func is_pck_downloaded(pck):
 	var dir = Directory.new()
@@ -176,9 +183,14 @@ func update_progress_val():
 		for pck in need_update_pcks:
 			download += pck.percent
 		
-		download_percent = download  * 100 / total
+		download_percent = download  * 95 / total
+		if is_res_copied:
+			download_percent = min(download_percent+10, 100)
 		
 	get_node("progress").set_val(download_percent)
+	
+	if download_percent >=100:
+		is_ready_for_start = true
 			
 func set_text(text):
 	get_node("progress/note").set_text(text)
@@ -192,6 +204,8 @@ func copy_from_downloaddir_to_gamedir():
 			
 	clear_dir(download_dir)
 	clear_nousedpck_in_game_dir()
+	
+	is_res_copied = true
 	
 func clear_nousedpck_in_game_dir():
 	var version_meta = load("res://update/version_meta.gd").new()
@@ -228,3 +242,18 @@ func list_files_in_directory(path):
 			
 	dir.list_dir_end()
 	return files
+
+func start_game():
+	# 加载资源
+	var version_meta = load("res://update/version_meta.gd").new()
+	version_meta.parse( game_dir + "version.meta")	
+	for i in range(version_meta.get_pck_size()):
+		var pck = version_meta.get_pck(i)
+		print(game_dir + pck.name)
+		Globals.load_resource_pack(game_dir + pck.name)	
+
+	# 启动主场景
+	var launch_scene = load("res://launch/launch.tscn").instance()
+	get_tree().get_root().add_child(launch_scene)
+	
+	get_node("/root/update").queue_free()
