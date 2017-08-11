@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pcks>
-	<pck name="data.pck" md5="dc210da884a1421d811740b2da02682a" />
+<pcks domain="http://albertlab-huanan.oss-cn-shenzhen.aliyuncs.com" url="/Software/shooter/update/">
+	<pck name="data.pck" md5="69ce6a52971d6301d3bffa8463aa643" />
 </pcks>

@@ -8,12 +8,6 @@ func _ready():
 	
 	# 加载全局脚本
 	load_global_scripts()
-	
-	# 切换场景
-	launch()
-	
-func launch():
-	set_scene("res://launch/launch.tscn")
 
 # switch to scene by name
 func set_scene(name):

@@ -1,10 +1,8 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://update/update.gd" type="Script" id=1]
 [ext_resource path="res://update/bg.jpg" type="Texture" id=2]
-[ext_resource path="res://update/ui_progress_bg.png" type="Texture" id=3]
-[ext_resource path="res://update/ui_progress.png" type="Texture" id=4]
-[ext_resource path="res://update/font/comic_bold.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://update/game.tscn" type="PackedScene" id=3]
 
 [node name="update" type="Node2D"]
 
@@ -23,61 +21,8 @@ margin/bottom = 631.0
 texture = ExtResource( 2 )
 stretch_mode = 0
 
-[node name="progress" type="TextureProgress" parent="."]
+[node name="game" parent="." instance=ExtResource( 3 )]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 392.0
-margin/top = 521.0
-margin/right = 642.0
-margin/bottom = 546.0
-range/min = 0.0
-range/max = 100.0
-range/step = 1.0
-range/page = 0.0
-range/value = 1.0
-range/exp_edit = false
-range/rounded = false
-texture/under = ExtResource( 3 )
-texture/over = null
-texture/progress = ExtResource( 4 )
-radial_fill/fill_degrees = 360.0
-radial_fill/center_offset = Vector2( 0, 0 )
-
-[node name="launch" type="Button" parent="."]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 103.0
-margin/top = 53.0
-margin/right = 297.0
-margin/bottom = 217.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-flat = false
-
-[node name="note" type="Label" parent="."]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 125.0
-margin/top = 483.0
-margin/right = 906.0
-margin/bottom = 520.0
-custom_fonts/font = ExtResource( 5 )
-text = "update"
-align = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[connection signal="pressed" from="launch" to="." method="_on_launch_pressed"]
+transform/pos = Vector2( 305.643, 268.899 )
 
 

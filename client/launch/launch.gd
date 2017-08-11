@@ -1,7 +1,13 @@
 extends Node2D
 
 func _ready():
-	pass
+	set_process(true)
+	
+func _process(delta):
+	if !has_node("/root/global"):
+		var global = preload("res://global/global.gd").new()
+		global.set_name("global")
+		get_tree().get_root().add_child(global)
 
 func _on_play_pressed():
 	get_node("/root/global").set_scene("res://game_single/game_single.tscn")

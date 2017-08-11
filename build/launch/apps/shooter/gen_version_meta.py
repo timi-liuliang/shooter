@@ -3,6 +3,9 @@ import shutil
 import json
 import hashlib
 
+http_domain = "http://albertlab-huanan.oss-cn-shenzhen.aliyuncs.com"
+http_url    = "/Software/shooter/update/"
+
 def md5( dir, file):
     fname = dir + file
     hash_md5 = hashlib.md5()
@@ -16,7 +19,7 @@ root_path = os.getcwd() + '/'
 version_file_name = root_path + "version.meta"
 version_file = open(version_file_name, "w+")
 version_file.writelines("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")
-version_file.writelines("<pcks>\n")
+version_file.writelines("<pcks domain=\"%s\" url=\"%s\">\n" % (http_domain, http_url))
 
 def gen_version_info( file):
     print("generate verison info for file [%s]" % file)

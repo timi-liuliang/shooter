@@ -54,14 +54,14 @@ func _load(params):
 	
 	var cur_down_file = File.new()
 	cur_down_file.open(file_save_path, File.WRITE)
-	cur_down_file.store_var(rb)
+	cur_down_file.store_buffer(rb)
 	cur_down_file.close()
 	
 	return rb	
 	
 func _send_loading_signal(l,t):
-	emit_signal("loading",l,t)
+	emit_signal("loading",l,t, file_save_path)
 
 func _send_loaded_signal():
 	var r = t.wait_to_finish()
-	emit_signal("loaded",r)
+	emit_signal("loaded",r, file_save_path)
