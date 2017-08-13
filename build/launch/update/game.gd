@@ -249,7 +249,8 @@ func mount_res():
 	version_meta.parse( game_dir + "version.meta")	
 	for i in range(version_meta.get_pck_size()):
 		var pck = version_meta.get_pck(i)
-		Globals.load_resource_pack(game_dir + pck.name)	
+		Globals.load_resource_pack(game_dir + pck.name)
+		Globals.reload_settings_binary("res://engine.cfb")
 		
 func is_mount_res_finished():
 	var dir = Directory.new()

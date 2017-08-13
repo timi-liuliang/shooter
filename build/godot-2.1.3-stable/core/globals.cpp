@@ -29,6 +29,7 @@
 /*************************************************************************/
 #include "globals.h"
 #include "path_remap.h"
+#include "input_map.h"
 #include "os/dir_access.h"
 #include "os/file_access.h"
 
@@ -238,30 +239,6 @@ bool Globals::_load_resource_pack(const String &p_pack) {
 	//if data.pck is found, all directory access will be from here
 	DirAccess::make_default<DirAccessPack>(DirAccess::ACCESS_RESOURCES);
 	using_datapack = true;
-
-	_load_resource_pack_remaps();
-
-	return true;
-}
-
-bool Globals::_load_resource_pack_remaps()
-{
-	_load_settings_remap("res://engine.cfb");
-
-	// default remaps first
-	DVector<String> remaps = Globals::get_singleton()->get("remap/all");
-	{
-		int rlen = remaps.size();
-
-		//ERR_FAIL_COND(rlen % 2);
-		DVector<String>::Read r = remaps.read();
-		for (int i = 0; i < rlen / 2; i++) {
-
-			String from = r[i * 2 + 0];
-			String to = r[i * 2 + 1];
-			PathRemap::get_singleton()->add_remap(from, to);
-		}
-	}
 
 	return true;
 }
@@ -791,7 +768,7 @@ Error Globals::_load_settings_binary(const String p_path) {
 	return OK;
 }
 
-Error Globals::_load_settings_remap(const String p_path) {
+Error Globals::_reload_settings_binary(const String p_path) {
 
 	Error err;
 	FileAccess *f = FileAccess::open(p_path, FileAccess::READ, &err);
@@ -830,13 +807,30 @@ Error Globals::_load_settings_remap(const String p_path) {
 		Error err = decode_variant(value, d.ptr(), d.size());
 		ERR_EXPLAIN("Error decoding property: " + key);
 		ERR_CONTINUE(err != OK);
-		if (key == "remap/all"){
+		if (key == "remap/all" || key.begins_with("input/")){
 			set(key, value);
 			set_persisting(key, true);
 		}
 	}
 
 	set_registering_order(true);
+
+	// remaps first
+	DVector<String> remaps = Globals::get_singleton()->get("remap/all");
+	{
+		int rlen = remaps.size();
+
+		//ERR_FAIL_COND(rlen % 2);
+		DVector<String>::Read r = remaps.read();
+		for (int i = 0; i < rlen / 2; i++) {
+
+			String from = r[i * 2 + 0];
+			String to = r[i * 2 + 1];
+			PathRemap::get_singleton()->add_remap(from, to);
+		}
+	}
+
+	InputMap::get_singleton()->load_from_globals();
 
 	return OK;
 }
@@ -1441,6 +1435,7 @@ void Globals::_bind_methods() {
 	ObjectTypeDB::bind_method(_MD("has_singleton", "name"), &Globals::has_singleton);
 	ObjectTypeDB::bind_method(_MD("get_singleton", "name"), &Globals::get_singleton_object);
 	ObjectTypeDB::bind_method(_MD("load_resource_pack", "pack"), &Globals::_load_resource_pack);
+	ObjectTypeDB::bind_method(_MD("reload_settings_binary", "cfg"), &Globals::_reload_settings_binary);
 
 	ObjectTypeDB::bind_method(_MD("save_custom", "file"), &Globals::_save_custom_bnd);
 }
