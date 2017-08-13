@@ -97,6 +97,7 @@ protected:
 
 	Error _load_settings(const String p_path);
 	Error _load_settings_binary(const String p_path);
+	Error _load_settings_remap(const String p_path);
 
 	Error _save_settings_text(const String &p_file, const Map<String, List<String> > &props, const CustomMap &p_custom = CustomMap());
 	Error _save_settings_binary(const String &p_file, const Map<String, List<String> > &props, const CustomMap &p_custom = CustomMap());
@@ -106,6 +107,8 @@ protected:
 	Error _save_custom_bnd(const String &p_file);
 
 	bool _load_resource_pack(const String &p_pack);
+
+	bool _load_resource_pack_remaps();
 
 	void _add_property_info_bind(const Dictionary &p_info);
 

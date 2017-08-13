@@ -5,7 +5,7 @@ func _ready():
 	
 func _process(delta):
 	if !has_node("/root/global"):
-		var global = preload("res://global/global.gd").new()
+		var global = load("res://global/global.gd").new()
 		global.set_name("global")
 		get_tree().get_root().add_child(global)
 

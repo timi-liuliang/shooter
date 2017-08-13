@@ -249,41 +249,24 @@ func mount_res():
 	version_meta.parse( game_dir + "version.meta")	
 	for i in range(version_meta.get_pck_size()):
 		var pck = version_meta.get_pck(i)
-		Globals.load_resource_pack(game_dir + pck.name)
-		print( "mount game dlc " + pck.name)
-		
-		var files = list_files_in_directory("res://")
-		for file in files:
-			print(file)
-			
-		var dir = Directory.new()
-		if dir.file_exists("res://launch/launch.tscn"):
-			print("+++++++++++++++++++")
-		print("------------------------")	
-		files = list_files_in_directory("res://launch/")
-		for file in files:
-			print(file)
-		
-		print("--------------------------")
-		
-		files = list_files_in_directory("user://")
-		for file in files:
-			print(file)
+		Globals.load_resource_pack(game_dir + pck.name)	
 		
 func is_mount_res_finished():
 	var dir = Directory.new()
-	if dir.file_exists("res://launch/launch.tscn.converted.scn"):		
+	if dir.file_exists("res://launch/launch.tscn"):		
 		return true
 	else:
-		return false
+		return true
 
 func start_game():
-	# 移除更新场景
-	var update_scene = get_node("/root/update")
-	get_tree().get_root().remove_child(update_scene)
-	update_scene.queue_free()
-
-	# 启动主场景
-	var launch_scene = load("res://launch/launch.tscn.converted.scn").instance()
-	get_tree().get_root().add_child(launch_scene)
+	set_scene("res://launch/launch.tscn")
 	
+# switch to scene by name
+func set_scene(name):
+	var curScene = get_tree().get_root().get_child(0)
+	
+	var sceneRes = ResourceLoader.load(name)
+	get_tree().get_root().add_child(sceneRes.instance())
+	
+	if curScene:
+		curScene.queue_free()

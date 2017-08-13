@@ -23,6 +23,7 @@ stretch_mode = 0
 
 [node name="game" parent="." instance=ExtResource( 3 )]
 
+visibility/visible = false
 transform/pos = Vector2( 305.643, 268.899 )
 
 
