@@ -1,0 +1,110 @@
+[gd_scene format=1]
+
+[node name="login" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="account" type="TextEdit" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 332.0
+margin/top = 214.0
+margin/right = 603.0
+margin/bottom = 258.0
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Label" type="Label" parent="account"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -115.0
+margin/top = 16.0
+margin/right = -63.0
+margin/bottom = 42.0
+text = "Account"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="password" type="TextEdit" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 332.0
+margin/top = 280.0
+margin/right = 603.0
+margin/bottom = 324.0
+syntax_highlighting = false
+show_line_numbers = false
+highlight_all_occurrences = false
+caret/block_caret = false
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Label" type="Label" parent="password"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -115.0
+margin/top = 16.0
+margin/right = -63.0
+margin/bottom = 42.0
+text = "Password"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="login" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 474.0
+margin/top = 342.0
+margin/right = 601.0
+margin/bottom = 387.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Login"
+flat = false
+
+[node name="register" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 336.0
+margin/top = 341.0
+margin/right = 454.0
+margin/bottom = 388.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Register"
+flat = false
+
+

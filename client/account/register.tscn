@@ -1,0 +1,121 @@
+[gd_scene format=1]
+
+[node name="Register" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+
+[node name="account" type="LineEdit" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 379.0
+margin/top = 203.0
+margin/right = 636.0
+margin/bottom = 248.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Label" type="Label" parent="account"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -80.0
+margin/top = 15.0
+margin/right = -17.0
+margin/bottom = 39.0
+text = "Account"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="password" type="LineEdit" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 382.0
+margin/top = 270.0
+margin/right = 632.0
+margin/bottom = 315.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Label" type="Label" parent="password"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -80.0
+margin/top = 15.0
+margin/right = -17.0
+margin/bottom = 39.0
+text = "Password"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="password_confirm" type="LineEdit" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 382.0
+margin/top = 336.0
+margin/right = 632.0
+margin/bottom = 381.0
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="Label" type="Label" parent="password_confirm"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -80.0
+margin/top = 15.0
+margin/right = -17.0
+margin/bottom = 39.0
+text = "Password"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="register" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 433.0
+margin/top = 415.0
+margin/right = 577.0
+margin/bottom = 458.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "register"
+flat = false
+
+

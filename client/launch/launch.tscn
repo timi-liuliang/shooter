@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://launch/launch.gd" type="Script" id=1]
 [ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=8]
 [ext_resource path="res://launch/button_chuangguan_active.png" type="Texture" id=9]
+[ext_resource path="res://account/account.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -216,10 +217,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.365049
-margin/top = 0.628333
-margin/right = 0.64466
-margin/bottom = 0.785
+margin/left = 0.153398
+margin/top = 0.65
+margin/right = 0.431068
+margin/bottom = 0.808333
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -240,6 +241,45 @@ margin/right = 122.0
 margin/bottom = 59.0
 custom_fonts/font = ExtResource( 7 )
 text = "VS"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="vs_online" type="TextureButton" parent="ui/bg"]
+
+anchor/left = 2
+anchor/top = 2
+anchor/right = 2
+anchor/bottom = 2
+rect/scale = Vector2( 1.0414, 1.0414 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.543689
+margin/top = 0.651667
+margin/right = 0.821359
+margin/bottom = 0.81
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 9 )
+params/resize_mode = 0
+params/scale = Vector2( 1.12726, 1.12726 )
+params/stretch_mode = 0
+
+[node name="Label" type="Label" parent="ui/bg/vs_online"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 20.0
+margin/top = 25.0
+margin/right = 128.0
+margin/bottom = 62.0
+custom_fonts/font = ExtResource( 7 )
+text = "VS_OL"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -272,9 +312,13 @@ shortcut = null
 text = "Wechat"
 flat = false
 
+[node name="account" parent="ui" instance=ExtResource( 10 )]
+
 [connection signal="pressed" from="ui/bg/play" to="." method="_on_play_pressed"]
 
-[connection signal="pressed" from="ui/bg/vs" to="." method="_on_vs_pressed"]
+[connection signal="pressed" from="ui/bg/vs" to="ui/bg/vs_online" method="_on_vs_pressed"]
+
+[connection signal="pressed" from="ui/bg/vs_online" to="ui/account" method="_on_vs_online_pressed"]
 
 [connection signal="pressed" from="ui/wechat" to="." method="_on_wechat_pressed"]
 
