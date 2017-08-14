@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://update/update.gd" type="Script" id=1]
-[ext_resource path="res://update/bg.jpg" type="Texture" id=2]
+[ext_resource path="res://update/bg.png" type="Texture" id=2]
 [ext_resource path="res://update/game.tscn" type="PackedScene" id=3]
 
 [node name="update" type="Node2D"]
@@ -14,16 +14,16 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -134.0
-margin/top = -137.0
-margin/right = 1232.0
-margin/bottom = 631.0
+margin/left = -168.0
+margin/top = -24.0
+margin/right = 1166.0
+margin/bottom = 726.0
 texture = ExtResource( 2 )
 stretch_mode = 0
 
 [node name="game" parent="." instance=ExtResource( 3 )]
 
-visibility/visible = false
-transform/pos = Vector2( 305.643, 268.899 )
+transform/pos = Vector2( 119.953, 457.863 )
+transform/scale = Vector2( 0.8, 0.8 )
 
 

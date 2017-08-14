@@ -12,6 +12,7 @@ var download_percent = 0
 var is_ready_for_start = false
 var auto_start = true
 var is_mounted = false
+var auto_update = true
 
 func _ready():
 	set_process(true)
@@ -22,7 +23,7 @@ func _process(delta):
 		mount_res()
 		is_mounted = true
 		
-	if is_mounted and is_mount_res_finished():	
+	if is_mounted and is_mount_res_finished():
 		start_game()
 	
 func set_game_name(name):
@@ -30,7 +31,9 @@ func set_game_name(name):
 	game_dir = "user://apps/" + game_name + "/"
 	game_res_dir = "res://apps/" + game_name + "/"
 	download_dir = "user://apps/" + game_name + "/download/"
-	get_node("name").set_text(game_name)
+	
+	if auto_update:
+		_on_launch_pressed()
 
 func _on_launch_pressed():
 	if !is_game_exist_in_user_dir():
@@ -190,6 +193,7 @@ func update_progress_val():
 		download_percent = download  * 100 / total
 	
 	get_node("progress").set_val(download_percent)
+	set_text("%d" % download_percent + "%")
 	
 	if download_percent >=100:
 		is_ready_for_start = true
