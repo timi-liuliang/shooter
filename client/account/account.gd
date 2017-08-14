@@ -40,3 +40,8 @@ func _on_vs_online_pressed():
 		login()
 	else:
 		game_room_match()
+
+func _on_register_pressed():
+	get_node("login").set_hidden(true)
+	get_node("register").set_hidden(false)
+	
