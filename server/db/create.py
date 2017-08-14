@@ -1,7 +1,7 @@
 import psycopg2
 import sys
 
-dbName   = "td"
+dbName   = "shooter"
 userName = 'postgres'
 userPW   = 'Q19870816q'
 
@@ -62,6 +62,8 @@ def createTable(tableName, sqlCMD):
 #createDB()
 
 # create table pageView if not exist
-createTable('account', '(Id serial, account VARCHAR(128) PRIMARY KEY, password VARCHAR(128), info json)')
-createTable('player', '(Id serial, account VARCHAR(128) PRIMARY KEY, name VARCHAR(128), info json)')
+createDB()
+createTable('account_bind', '(account VARCHAR(128) PRIMARY KEY, account_id bigint')
+createTable('account_info', '(account_id bigserial, password VARCHAR(128), info json)')
+createTable('player', '(player_id bigserial, account_id bigint PRIMARY KEY, name VARCHAR(128), info json)')
 

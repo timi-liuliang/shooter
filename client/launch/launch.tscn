@@ -96,6 +96,7 @@ params/stretch_mode = 0
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
