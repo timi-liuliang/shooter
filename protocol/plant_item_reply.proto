@@ -1,0 +1,6 @@
+{
+    "item_id" : "int",
+	"pos_x" : "float",
+	"pos_y" : "float",
+	"pos_z" : "float"
+}

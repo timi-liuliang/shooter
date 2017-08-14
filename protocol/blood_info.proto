@@ -1,0 +1,4 @@
+{
+    "cur_blood" : "int",
+    "max_blood" : "int"
+}
