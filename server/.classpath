@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="E:/td/server/jar/netty-all-4.1.13.Final.jar"/>
+	<classpathentry kind="lib" path="E:/td/server/jar/netty-all-4.1.13.Final.jar" sourcepath="jar/netty-all-4.1.13.Final-sources.jar"/>
 	<classpathentry kind="lib" path="E:/td/server/jar/postgresql-42.1.1.jar"/>
 	<classpathentry kind="lib" path="E:/td/server/jar/netty-all-4.1.13.Final-sources.jar"/>
 	<classpathentry kind="lib" path="E:/td/server/jar/gson-2.8.1.jar"/>

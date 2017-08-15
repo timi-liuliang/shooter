@@ -1,5 +1,6 @@
 package net;
 
+import java.net.InetSocketAddress;
 import java.util.HashMap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -55,12 +56,23 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		ctx.flush();
 	}
 	
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+    	InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+        String clientIP = insocket.getAddress().getHostAddress();
+    	System.out.println(String.format("Accept connect from client [%s]", clientIP));
+    	
+        ctx.fireChannelActive();
+    }
+	
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx)throws Exception {
 		// channel失效异常，客户端下线或者强制退出等触发。
 		player.Player.disconnectPlayer(ctx);
 		
-		//super.channelInactive(ctx);
+		System.out.println(String.format("Disconnect from client"));
+		
+		ctx.fireChannelInactive();
 	}
 	
 	@Override
