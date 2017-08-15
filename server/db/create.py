@@ -66,3 +66,19 @@ def createTable(tableName, sqlCMD):
 createTable('account', '(account_id bigserial PRIMARY KEY, password VARCHAR(128), info jsonb)')
 createTable('player', '(player_id bigserial PRIMARY KEY, account_id bigint, info jsonb)')
 
+# 玩家可以三种方式创建账号
+# 1.osid 操作系统id,其中ios android 平台拥有唯一标识。以此种方式注册无需密码
+# 2.email 邮箱,以邮箱注册需提供密码
+# 3.phone num 手机号，以手机号注册需提供密码
+
+# 玩家可通过四种方式登录账号
+# 1.以osid登录,无需密码
+# 2.以account_id 登录，需要密码
+# 3.以邮箱登录，需要密码
+# 4.以手机号登录，需要密码 
+
+# 注，osid与account_id绑定关系一旦确定，无法更改。不过，此机器还可通过 account_id, email, phone_num 登录非此机器对应os_id的账号。
+
+# 账号转正方式：设置密码，绑定邮箱，绑定手机号。
+
+
