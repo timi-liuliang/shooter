@@ -62,8 +62,7 @@ def createTable(tableName, sqlCMD):
 #createDB()
 
 # create table pageView if not exist
-createDB()
-createTable('account_bind', '(account VARCHAR(128) PRIMARY KEY, account_id bigint')
-createTable('account_info', '(account_id bigserial, password VARCHAR(128), info json)')
-createTable('player', '(player_id bigserial, account_id bigint PRIMARY KEY, name VARCHAR(128), info json)')
+#createDB()
+createTable('account', '(account_id bigserial PRIMARY KEY, password VARCHAR(128), info jsonb)')
+createTable('player', '(player_id bigserial PRIMARY KEY, account_id bigint, info jsonb)')
 
