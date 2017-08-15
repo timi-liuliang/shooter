@@ -3,25 +3,27 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class resurgence extends message {
+public class register_by_os_id extends message {
 
-	public int type = 0;
+	public int account = 0;
+	public int password = 0;
 	@Override
 
 	public int id(){
-		 return 12;
+		 return 14;
 	}
 
 	@Override
 	public int length(){
-		 return 4;
+		 return 8;
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		byteBuffer.writeInt(type);
+		byteBuffer.writeInt(account);
+		byteBuffer.writeInt(password);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -29,6 +31,7 @@ public class resurgence extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		type = byteBuffer.readInt();
+		account = byteBuffer.readInt();
+		password = byteBuffer.readInt();
 	}
 }

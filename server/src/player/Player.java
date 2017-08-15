@@ -161,13 +161,6 @@ public class Player {
 		mInfo.backpack.collectItem(id, count, type, mChannelCtx);
 	}
 	
-	public void plantItem( int slot_idx, float pos_x, float pos_y, float pos_z) {
-		Cell cell = mInfo.backpack.useItem(slot_idx, mChannelCtx);
-		if(cell!=null) {
-			sendPlantItemReply( cell.item_id, pos_x, pos_y, pos_z);
-		}
-	}
-	
 	public void onEatItem(int slotIdx) {
 		Cell cell = mInfo.backpack.useItem(slotIdx, mChannelCtx);
 		if(cell!=null) {
@@ -213,14 +206,5 @@ public class Player {
 	// send info to client
 	public void sendBackpackInfo(){
 		mInfo.backpack.sendBackpackInfo(mChannelCtx);
-	}
-	
-	public void sendPlantItemReply(int itemId, float posx, float posy, float posz) {
-		protocol.plant_item_reply msg = new protocol.plant_item_reply();
-		msg.item_id = itemId;
-		msg.pos_x = posx;
-		msg.pos_y = posy;
-		msg.pos_z = posz;
-		mChannelCtx.write(msg.data());
 	}
 }

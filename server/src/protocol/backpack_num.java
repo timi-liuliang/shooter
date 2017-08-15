@@ -9,7 +9,7 @@ public class backpack_num extends message {
 	@Override
 
 	public int id(){
-		 return 3;
+		 return 2;
 	}
 
 	@Override

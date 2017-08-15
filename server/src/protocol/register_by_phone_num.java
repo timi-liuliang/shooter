@@ -3,25 +3,27 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class add_game_time extends message {
+public class register_by_phone_num extends message {
 
-	public int time = 0;
+	public int account = 0;
+	public int password = 0;
 	@Override
 
 	public int id(){
-		 return 1;
+		 return 15;
 	}
 
 	@Override
 	public int length(){
-		 return 4;
+		 return 8;
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		byteBuffer.writeInt(time);
+		byteBuffer.writeInt(account);
+		byteBuffer.writeInt(password);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -29,6 +31,7 @@ public class add_game_time extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		time = byteBuffer.readInt();
+		account = byteBuffer.readInt();
+		password = byteBuffer.readInt();
 	}
 }
