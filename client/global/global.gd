@@ -32,3 +32,11 @@ func load_global_scripts():
 	ads.set_name("ads")
 	get_tree().get_root().add_child(ads)
 	
+	var network = preload("res://global/network.gd").new()
+	network.set_name("network")
+	get_tree().get_root().add_child(network)
+	
+	var items = preload("res://global/items.gd").new()
+	items.set_name("items")
+	get_tree().get_root().add_child(items)
+	

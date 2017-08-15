@@ -43,7 +43,7 @@ public class SocketServer {
 	}
 	
 	private void initData(){
-		port = 8700;
+		port = 8800;
 	}
 	
 	public static void main(String[] args){	
@@ -89,7 +89,7 @@ public class SocketServer {
 		try{
 			future = bootstrap.bind(port).sync();
 			if(future.isSuccess()){
-				System.out.println("bind port 8700 succeed");
+				System.out.println(String.format("bind port %d succeed", port));
 			}
 		}
 		catch(InterruptedException e){
