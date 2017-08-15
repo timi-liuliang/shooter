@@ -12,3 +12,6 @@ func _on_double_money_pressed():
 
 func _on_restart_pressed():
 	get_node("/root/global").setScene("res://game_single_vs/game_single_vs.tscn")
+
+func _on_return_launch_pressed():
+	get_node("/root/global").setScene("res://launch/launch.tscn")

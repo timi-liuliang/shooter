@@ -49,8 +49,26 @@ textures/normal = ExtResource( 2 )
 params/resize_mode = 0
 params/stretch_mode = 0
 
+[node name="return_launch" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 667.0
+margin/top = 385.0
+margin/right = 882.0
+margin/bottom = 453.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Home"
+flat = false
+
 [connection signal="pressed" from="restart" to="." method="_on_restart_pressed"]
 
 [connection signal="pressed" from="double_money" to="." method="_on_double_money_pressed"]
+
+[connection signal="pressed" from="return_launch" to="." method="_on_return_launch_pressed"]
 
 

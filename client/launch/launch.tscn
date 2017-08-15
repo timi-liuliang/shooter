@@ -96,7 +96,6 @@ params/stretch_mode = 0
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
-editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -317,7 +316,7 @@ flat = false
 
 [connection signal="pressed" from="ui/bg/play" to="." method="_on_play_pressed"]
 
-[connection signal="pressed" from="ui/bg/vs" to="ui/bg/vs_online" method="_on_vs_pressed"]
+[connection signal="pressed" from="ui/bg/vs" to="." method="_on_vs_pressed"]
 
 [connection signal="pressed" from="ui/bg/vs_online" to="ui/account" method="_on_vs_online_pressed"]
 
