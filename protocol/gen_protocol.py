@@ -41,16 +41,20 @@ def gen_protocol_java( file, id):
 
     # get_size
     length = 0
+    strings = ''
     for key in data.keys():
         if data[key]=='int':
             length += 4
         if data[key]=='float':
             length += 4
+        if data[key]=='string':
+            length += 4
+            strings += "+sizeof(" + key + ")" 
 
     java_file.writelines("\n")
     java_file.writelines("\t@Override\n")
     java_file.writelines("\tpublic int length(){\n")
-    java_file.writelines("\t\t return %d;\n" % length)
+    java_file.writelines("\t\t return %d %s;\n" % (length, strings))
     java_file.writelines("\t}\n")
 
     # data
@@ -64,6 +68,8 @@ def gen_protocol_java( file, id):
             java_file.writelines("\t\tbyteBuffer.writeInt(%s);\n" % key)
         if data[key]=='float':
             java_file.writelines("\t\tbyteBuffer.writeFloat(%s);\n" % key)
+        if data[key]=='string':
+            java_file.writelines("\t\tbyteBuffer.writeString(%s);\n" % key)
 
     java_file.writelines("\t\tbyteBuffer.writeByte(64);\n")
     java_file.writelines("\t\tbyteBuffer.writeByte(64);\n")
@@ -79,6 +85,8 @@ def gen_protocol_java( file, id):
             java_file.writelines("\t\t%s = byteBuffer.readInt();\n" % key)
         if data[key]=='float':
             java_file.writelines("\t\t%s = byteBuffer.readFloat();\n" % key)
+        if data[key]=='string':
+            java_file.writelines("\t\t%s = byteBuffer.readString();\n" % key)
     
     java_file.writelines("\t}\n")
 
@@ -116,15 +124,19 @@ def gen_protocol_godot(file, id):
 
     # length
     length = 0
+    strings = ''
     for key in data.keys():
         if data[key]=='int':
             length += 4
         if data[key]=='float':
             length += 4
+        if data[key]=='string':
+            length += 4
+            strings += "+sizeof(" + key + ")" 
 
     gd_file.writelines("\n")
     gd_file.writelines("func length():\n")
-    gd_file.writelines("\treturn %d\n" % length)
+    gd_file.writelines("\t\t return %d %s;\n" % (length, strings))
     gd_file.writelines("\n")
 
     # send data
@@ -137,6 +149,8 @@ def gen_protocol_godot(file, id):
             gd_file.writelines("\tbuf.write_i32(%s)\n" % key)
         if data[key]=='float':
             gd_file.writelines("\tbuf.write_float(%s)\n" % key)
+        if data[key]=='string':
+            gd_file.writelines("\t\tbuf.write_string(%s);\n" % key)
 
     gd_file.writelines("\tbuf.write_byte(64)\n")
     gd_file.writelines("\tbuf.write_byte(64)\n")
@@ -151,6 +165,8 @@ def gen_protocol_godot(file, id):
             gd_file.writelines("\t%s = byteBuffer.read_i32();\n" % key)
         if data[key]=='float':
             gd_file.writelines("\t%s = byteBuffer.read_float();\n" % key)
+        if data[key]=='string':
+            gd_file.writelines("\t\t%s = byteBuffer.read_string();\n" % key)
 
     gd_file.close()
 

@@ -15,11 +15,16 @@ public:
     ~ByteBuf();
 
 	void write_byte(uint8_t p_val);
+    uint8_t read_byte(); 
+
     void write_i32(int32_t p_val);
     int32_t read_i32();
 
 	void write_float(float p_val);
 	float read_float();
+
+    void write_string(const String& str);
+    String read_string();
 
 	DVector<uint8_t>& raw_data();
 

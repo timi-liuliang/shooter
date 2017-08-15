@@ -14,6 +14,14 @@ void ByteBuf::write_byte(uint8_t p_val)
 	writeIdx += 1;
 }
 
+uint8_t ByteBuf::read_byte()
+{
+	uint8_t * buf = &(data.write().ptr()[readIdx]);
+	readIdx += 1;
+
+	return buf[0];
+}
+
 void ByteBuf::write_i32(int32_t p_val)
 {
 	//big_endian
@@ -54,6 +62,28 @@ float ByteBuf::read_float() {
 	float r = decode_float(buf);
 	readIdx += 4;
 	return r;
+}
+
+void ByteBuf::write_string(const String& str)
+{
+	int size = str.size();
+	write_i32(size);
+
+	for(int i=0; i<size; i++)
+		write_byte(str[i]);
+}
+    
+String ByteBuf::read_string()
+{
+	char result[2048];
+
+	int32_t size = read_i32();
+	for(int i=0; i<size; i++)
+		result[i] = read_byte()
+
+	result[size] = '\0';
+
+	return result;
 }
 
 DVector<uint8_t>& ByteBuf::raw_data()
