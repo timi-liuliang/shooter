@@ -97,7 +97,6 @@ protected:
 
 	Error _load_settings(const String p_path);
 	Error _load_settings_binary(const String p_path);
-	Error _reload_settings_binary(const String p_path);
 
 	Error _save_settings_text(const String &p_file, const Map<String, List<String> > &props, const CustomMap &p_custom = CustomMap());
 	Error _save_settings_binary(const String &p_file, const Map<String, List<String> > &props, const CustomMap &p_custom = CustomMap());
