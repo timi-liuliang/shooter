@@ -28,7 +28,7 @@ class Info{
 public class Player {
 	public static HashMap<Integer, Player>  players = new HashMap<Integer, Player>();
 	public ChannelHandlerContext 		   	mChannelCtx = null;
-	protected Account						mAccount;
+	protected Account						mAccount = new Account();
 	protected long							mPlayer;						// Íæ¼ÒID
 	protected String					   	mJsonData = "{}";			// info in json format
 	protected Info					   		mInfo = new Info();

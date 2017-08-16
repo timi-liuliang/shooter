@@ -20,9 +20,6 @@ class register_by_email_process implements ProtocolProcess{
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {
 		protocol.register_by_email msg = (protocol.register_by_email)proto;
 		
-		System.out.println(msg.email);
-		System.out.println(msg.password);
-		
 		Player player = Player.get(ctx);
 		player.registerByEmail( msg.email, msg.password);
 	}

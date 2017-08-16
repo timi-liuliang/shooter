@@ -53,8 +53,8 @@ public class db {
 	
 	// 邮箱是否已被使用
 	public boolean isEmailUsed(String email) {
-		String sql = String.format("SELECT COUNT(id) AS rows FROM account WHERE info @> \'\"email\":%s\';", email);	
-		
+		//String sql = String.format("SELECT COUNT(account) AS rows FROM account WHERE info @> \'{\"email\":%s}\';", email);	
+		String sql = String.format("SELECT COUNT(account) AS rows FROM account");// WHERE info @> \'{\"email\":%s}\';", email);
 		return isExist(sql);
 	}
 	
@@ -63,7 +63,7 @@ public class db {
 		try {
 			Statement st = con.createStatement();
 			
-			String sql = String.format("INSERT INTO account(password, info) VALUES(\'%s\', \'%s\');", password, json);
+			String sql = String.format("INSERT INTO account(password,info) VALUES(\'%s\', \'%s\');", password, json);
 			
 			System.out.println("db:" + sql);
 			st.executeUpdate(sql);
@@ -79,7 +79,7 @@ public class db {
 		try{	
 			Statement st = con.createStatement();
 			
-			String sql = String.format("SELECT * FROM account WHERE info @> \'\"email\":%s\';", email);
+			String sql = String.format("SELECT * FROM account WHERE info @> \'{\"email\":%s}\';", email);
 			ResultSet rs = st.executeQuery(sql);
 			if(rs.next()) {
 				table.account  = rs.getLong("account");
@@ -99,7 +99,7 @@ public class db {
 	
 	
 	public boolean isPlayerExist(long player) {
-		String sql = String.format("SELECT COUNT(id) AS rows FROM player WHERE player=\'%d\';", player);	
+		String sql = String.format("SELECT COUNT(player) AS rows FROM player WHERE player=\'%d\';", player);	
 		
 		return isExist(sql);
 	}
@@ -108,7 +108,7 @@ public class db {
 		try {
 			Statement st = con.createStatement();
 			
-			String sql = String.format("INSERT INTO player(account_id, info) VALUES(\'%d\', \'%s\', \'%s\');", account, json);
+			String sql = String.format("INSERT INTO player(account, info) VALUES(\'%d\', \'%s\');", account, json);
 			
 			System.out.println("db:" + sql);
 			st.executeUpdate(sql);

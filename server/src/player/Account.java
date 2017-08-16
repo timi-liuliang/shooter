@@ -16,8 +16,8 @@ class AccountInfo{
 }
 
 public class Account {
-	public account_table table;
-	public AccountInfo 	 info;
+	public account_table table = new account_table();
+	public AccountInfo 	 info  = new AccountInfo();
 	
 	//  π”√” œ‰√‹¬Î◊¢≤·
 	public void registerByEmail(String email, String password) {
@@ -28,23 +28,18 @@ public class Account {
 			table.password = password;
 			info.email = email;
 			
-			refreshPlayerToJson();
+			refreshPlayerToJson();	
+			db.instance().saveNewAccount( password, table.info);
 			
-			db.instance().saveNewAccount( password, table.info);		
+			loadAccountByEmail(email);
+			
+			System.out.println(String.format("add new account [%d]", table.account));
 		}
 	}
 	
-	protected boolean refreshPlayerToJson() {
+	protected void refreshPlayerToJson() {
 		Gson gson = new Gson();
-		String new_json = gson.toJson(info);	
-		if(table.info!=new_json)
-		{
-			table.info = new_json;
-			
-			return true;
-		}
-			
-		return false;
+		table.info = gson.toJson(info);	
 	}
 	
 	public void loadAccountByEmail(String email) {
