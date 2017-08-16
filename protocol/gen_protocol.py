@@ -30,7 +30,10 @@ def gen_protocol_java( file, id):
     data_file = open(file)
     data = json.load(data_file) 
     for key in data.keys():
-        java_file.writelines("\tpublic " + data[key] +" " + key + " = 0;\n")
+        if data[key]=='string':
+            java_file.writelines("\tpublic String " + key + ";\n")
+        else:
+            java_file.writelines("\tpublic " + data[key] +" " + key + " = 0;\n")
 
     # get_id
     java_file.writelines("\t@Override\n")
@@ -49,7 +52,7 @@ def gen_protocol_java( file, id):
             length += 4
         if data[key]=='string':
             length += 4
-            strings += "+sizeof(" + key + ")" 
+            strings += "+" + key + ".length()" 
 
     java_file.writelines("\n")
     java_file.writelines("\t@Override\n")
@@ -69,7 +72,7 @@ def gen_protocol_java( file, id):
         if data[key]=='float':
             java_file.writelines("\t\tbyteBuffer.writeFloat(%s);\n" % key)
         if data[key]=='string':
-            java_file.writelines("\t\tbyteBuffer.writeString(%s);\n" % key)
+            java_file.writelines("\t\twrite_string(byteBuffer, %s);\n" % key)
 
     java_file.writelines("\t\tbyteBuffer.writeByte(64);\n")
     java_file.writelines("\t\tbyteBuffer.writeByte(64);\n")
@@ -86,7 +89,7 @@ def gen_protocol_java( file, id):
         if data[key]=='float':
             java_file.writelines("\t\t%s = byteBuffer.readFloat();\n" % key)
         if data[key]=='string':
-            java_file.writelines("\t\t%s = byteBuffer.readString();\n" % key)
+            java_file.writelines("\t\t%s = read_string(byteBuffer);\n" % key)
     
     java_file.writelines("\t}\n")
 
@@ -108,7 +111,10 @@ def gen_protocol_godot(file, id):
     with open(file) as data_file:
         data = json.load(data_file) 
         for key in data.keys():
-            gd_file.writelines("var " + key + " = " + data[key] +"(0)\n")
+            if data[key] == 'string':
+                gd_file.writelines("var " + key + " = String("")\n")
+            else:
+                gd_file.writelines("var " + key + " = " + data[key] +"(0)\n")
 
     gd_file.writelines("\n")
     gd_file.writelines("func _ready():\n")
@@ -132,11 +138,11 @@ def gen_protocol_godot(file, id):
             length += 4
         if data[key]=='string':
             length += 4
-            strings += "+sizeof(" + key + ")" 
+            strings += "+" + key + ".length()" 
 
     gd_file.writelines("\n")
     gd_file.writelines("func length():\n")
-    gd_file.writelines("\t\t return %d %s;\n" % (length, strings))
+    gd_file.writelines("\treturn %d %s;\n" % (length, strings))
     gd_file.writelines("\n")
 
     # send data
@@ -150,7 +156,7 @@ def gen_protocol_godot(file, id):
         if data[key]=='float':
             gd_file.writelines("\tbuf.write_float(%s)\n" % key)
         if data[key]=='string':
-            gd_file.writelines("\t\tbuf.write_string(%s);\n" % key)
+            gd_file.writelines("\tbuf.write_string(%s)\n" % key)
 
     gd_file.writelines("\tbuf.write_byte(64)\n")
     gd_file.writelines("\tbuf.write_byte(64)\n")
@@ -166,7 +172,7 @@ def gen_protocol_godot(file, id):
         if data[key]=='float':
             gd_file.writelines("\t%s = byteBuffer.read_float();\n" % key)
         if data[key]=='string':
-            gd_file.writelines("\t\t%s = byteBuffer.read_string();\n" % key)
+            gd_file.writelines("\t%s = byteBuffer.read_string();\n" % key)
 
     gd_file.close()
 
@@ -196,6 +202,24 @@ def generate_msg_jave_base_class():
     java_file.writelines("\n")
     java_file.writelines("\tpublic void parse_data(ByteBuf byteBuffer){\n")
     java_file.writelines("\t\tSystem.out.println(\"parse_data method hasn't implementation.\");\n")
+    java_file.writelines("\t}\n")
+
+    # write string
+    java_file.writelines("\n")
+    java_file.writelines("\tpublic void write_string(ByteBuf byteBuffer, String str){\n")
+    java_file.writelines("\t\tbyteBuffer.writeInt(str.length());\n")
+    java_file.writelines("\t\tbyteBuffer.writeBytes(str.getBytes());\n")
+    java_file.writelines("\t}\n")
+
+    # read string
+    java_file.writelines("\n")
+    java_file.writelines("\tpublic String read_string(ByteBuf byteBuffer){\n")
+    java_file.writelines("\t\tString result = \"\";\n");
+    java_file.writelines("\t\tint length = byteBuffer.readInt();\n")
+    java_file.writelines("\t\tfor(int i=0; i<length; i++){\n")
+    java_file.writelines("\t\t\tresult = result + Byte.toString(byteBuffer.readByte());\n")
+    java_file.writelines("\t\t}\n")
+    java_file.writelines("\t\treturn result;\n")
     java_file.writelines("\t}\n")
 
     # end

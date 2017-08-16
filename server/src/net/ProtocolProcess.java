@@ -7,10 +7,26 @@ interface ProtocolProcess {
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx);
 	
 	public static void bind() {
+		SocketServerHandler.bind(new protocol.register_by_email(), new register_by_email_process());
 		SocketServerHandler.bind(new protocol.login(), new login_process());
 		SocketServerHandler.bind(new protocol.collect_item(), new collect_item_process());
 		SocketServerHandler.bind(new protocol.on_attacked(),  new on_attacked_process());
 		SocketServerHandler.bind(new protocol.eat_item(), new eat_item_process());
+	}
+}
+
+class register_by_email_process implements ProtocolProcess{
+	@Override
+	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {
+		protocol.register_by_email msg = (protocol.register_by_email)proto;
+		
+		System.out.println(msg.email);
+		System.out.println(msg.password);
+		
+		//Player player = Player.get(ctx);
+		//player.setAccount("qq79402005", "aqi");
+		//player.sendBaseInfo();
+		//player.sendBackpackInfo();
 	}
 }
 

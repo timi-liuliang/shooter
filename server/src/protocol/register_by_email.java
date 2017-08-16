@@ -5,8 +5,8 @@ import io.netty.buffer.Unpooled;
 
 public class register_by_email extends message {
 
-	public int account = 0;
-	public int password = 0;
+	public String password;
+	public String email;
 	@Override
 
 	public int id(){
@@ -15,15 +15,15 @@ public class register_by_email extends message {
 
 	@Override
 	public int length(){
-		 return 8;
+		 return 8 +password.length()+email.length();
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		byteBuffer.writeInt(account);
-		byteBuffer.writeInt(password);
+		write_string(byteBuffer, password);
+		write_string(byteBuffer, email);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -31,7 +31,7 @@ public class register_by_email extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		account = byteBuffer.readInt();
-		password = byteBuffer.readInt();
+		password = read_string(byteBuffer);
+		email = read_string(byteBuffer);
 	}
 }

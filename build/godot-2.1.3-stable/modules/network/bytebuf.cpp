@@ -79,7 +79,7 @@ String ByteBuf::read_string()
 
 	int32_t size = read_i32();
 	for(int i=0; i<size; i++)
-		result[i] = read_byte()
+		result[i] = read_byte();
 
 	result[size] = '\0';
 
@@ -98,5 +98,7 @@ void ByteBuf::_bind_methods()
 	ObjectTypeDB::bind_method(_MD("read_i32"), &ByteBuf::read_i32);
 	ObjectTypeDB::bind_method(_MD("write_float", "value"), &ByteBuf::write_float);
 	ObjectTypeDB::bind_method(_MD("read_float"), &ByteBuf::read_float);
+	ObjectTypeDB::bind_method(_MD("write_string", "value"), &ByteBuf::write_string);
+	ObjectTypeDB::bind_method(_MD("read_string"), &ByteBuf::read_string);
     ObjectTypeDB::bind_method(_MD("raw_data"), &ByteBuf::raw_data);
 }

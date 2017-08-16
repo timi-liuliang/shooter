@@ -11,7 +11,7 @@ func id():
 	return 6
 
 func length():
-	return 4
+	return 4 ;
 
 func send(stream):
 	var buf = ByteBuf.new()

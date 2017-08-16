@@ -38,11 +38,18 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 				int len = buff.readInt();
 				if( protocols.containsKey(id)) {
 					ProtocolInfo protoInfo = protocols.get( id);
-					if(len == protoInfo.protocol.length()) {
-						protoInfo.protocol.parse_data(buff);
+					protoInfo.protocol.parse_data(buff);
+					if(len == protoInfo.protocol.length()) {	
 						protoInfo.process.on_accept( protoInfo.protocol, ctx);
 					}
+					else{
+						// 断开链接
+						ctx.disconnect();
+						System.out.println(String.format("proto id [%d] data length is unmatched", id));
+					}
 				}else {
+					// 断开链接
+					ctx.disconnect();
 					System.out.println(String.format("Unhandled proto id [%d]", id));
 				}
 			}

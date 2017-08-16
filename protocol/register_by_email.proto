@@ -1,4 +1,4 @@
 {
-    "account" : "int",
-    "password": "int"
+    "email" : "string",
+    "password": "string"
 }

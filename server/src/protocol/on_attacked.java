@@ -14,7 +14,7 @@ public class on_attacked extends message {
 
 	@Override
 	public int length(){
-		 return 4;
+		 return 4 ;
 	}
 
 	public ByteBuf data(){

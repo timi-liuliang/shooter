@@ -16,9 +16,6 @@ func _ready():
 	
 func _process(delta):
 	elapsedTime = elapsedTime + delta;	
-	if streamPeerTCP.is_connected():
-		print("connect server")
-
 	elapsedTime = 0.0
 		
 	# parse msg	
@@ -58,6 +55,13 @@ func process_net_package(buf):
 	var msg_cb = msg_bind[msg_id][1]	
 	msg.parse_data(buf)
 	msg_cb.call_func(msg)
+	
+func register_by_email(email, password):
+	if streamPeerTCP.is_connected():
+		var msg = preload("res://global/protocol/register_by_email.pb.gd").new()
+		msg.email = email
+		msg.password = password
+		msg.send(streamPeerTCP)
 	
 func login():
 	if streamPeerTCP.is_connected():	

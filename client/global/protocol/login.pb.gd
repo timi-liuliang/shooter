@@ -12,7 +12,7 @@ func id():
 	return 7
 
 func length():
-	return 8
+	return 8 ;
 
 func send(stream):
 	var buf = ByteBuf.new()
