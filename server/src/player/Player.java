@@ -73,7 +73,7 @@ public class Player {
 			initBackpack();
 			
 			refreshPlayerToJson();
-			db.instance().saveNewPlayer(this.mAccount.id, this.mJsonData);
+			db.instance().saveNewPlayer(this.mAccount.table.account, this.mJsonData);
 		}else {
 			// disconnect same name player
 			disconnectPlayer(mPlayer);
@@ -156,7 +156,7 @@ public class Player {
 	
 	public void loadFromDB() {
 		Gson gson = new Gson();
-		mJsonData = db.instance().getPlayerInfo( mAccount.id, mPlayer);
+		mJsonData = db.instance().getPlayerInfo( mAccount.table.account, mPlayer);
 		mInfo = gson.fromJson( mJsonData, Info.class);
 	}
 	

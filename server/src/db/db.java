@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
+
 // data base manager
 public class db {
 	protected static db inst = null;
@@ -50,11 +51,52 @@ public class db {
 		return true;
 	}
 	
+	// 邮箱是否已被使用
 	public boolean isEmailUsed(String email) {
-		String sql = String.format("SELECT COUNT(id) AS rows FROM account WHERE player=\'%s\';", email);	
+		String sql = String.format("SELECT COUNT(id) AS rows FROM account WHERE info @> \'\"email\":%s\';", email);	
 		
 		return isExist(sql);
 	}
+	
+	// 根据邮箱密码新建账号
+	public void saveNewAccount(String password, String json) {
+		try {
+			Statement st = con.createStatement();
+			
+			String sql = String.format("INSERT INTO account(password, info) VALUES(\'%s\', \'%s\');", password, json);
+			
+			System.out.println("db:" + sql);
+			st.executeUpdate(sql);
+			st.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public account_table getAccountTableByEmail(String email) {	
+		account_table table = new account_table();
+		try{	
+			Statement st = con.createStatement();
+			
+			String sql = String.format("SELECT * FROM account WHERE info @> \'\"email\":%s\';", email);
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) {
+				table.account  = rs.getLong("account");
+				table.password = rs.getString("password");
+				table.info = rs.getString("info");
+				System.out.println("db:" + sql);
+			}
+			rs.close();
+			st.close();
+					
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return table;
+	}
+	
 	
 	public boolean isPlayerExist(long player) {
 		String sql = String.format("SELECT COUNT(id) AS rows FROM player WHERE player=\'%d\';", player);	
