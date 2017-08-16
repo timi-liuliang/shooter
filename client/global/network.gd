@@ -57,6 +57,9 @@ func process_net_package(buf):
 	msg_cb.call_func(msg)
 	
 func register_by_email(email, password):
+	var x = "aa"
+	var len = x.length()
+	
 	if streamPeerTCP.is_connected():
 		var msg = preload("res://global/protocol/register_by_email.pb.gd").new()
 		msg.email = email

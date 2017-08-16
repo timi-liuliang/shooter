@@ -66,7 +66,7 @@ float ByteBuf::read_float() {
 
 void ByteBuf::write_string(const String& str)
 {
-	int size = str.size();
+	int size = str.length();
 	write_i32(size);
 
 	for(int i=0; i<size; i++)

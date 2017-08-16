@@ -214,12 +214,13 @@ def generate_msg_jave_base_class():
     # read string
     java_file.writelines("\n")
     java_file.writelines("\tpublic String read_string(ByteBuf byteBuffer){\n")
-    java_file.writelines("\t\tString result = \"\";\n");
     java_file.writelines("\t\tint length = byteBuffer.readInt();\n")
+    java_file.writelines("\t\tbyte[] result = new byte[length];\n");
     java_file.writelines("\t\tfor(int i=0; i<length; i++){\n")
-    java_file.writelines("\t\t\tresult = result + Byte.toString(byteBuffer.readByte());\n")
+    java_file.writelines("\t\t\tresult[i] = byteBuffer.readByte();\n")
     java_file.writelines("\t\t}\n")
-    java_file.writelines("\t\treturn result;\n")
+    #java_file.writelines("\t\tresult[length] = '\\0';\n")
+    java_file.writelines("\t\treturn new String(result);\n")
     java_file.writelines("\t}\n")
 
     # end

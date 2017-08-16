@@ -23,11 +23,11 @@ public class message {
 	}
 
 	public String read_string(ByteBuf byteBuffer){
-		String result = "";
 		int length = byteBuffer.readInt();
+		byte[] result = new byte[length];
 		for(int i=0; i<length; i++){
-			result = result + Byte.toString(byteBuffer.readByte());
+			result[i] = byteBuffer.readByte();
 		}
-		return result;
+		return new String(result);
 	}
 }
