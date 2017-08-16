@@ -27,12 +27,10 @@ public class db {
 		return inst;
 	}
 	
-	public boolean isPlayerExist(String name) {
+	protected boolean isExist(String sql) {
 		try {
 			int rows = 0;
 			Statement st = con.createStatement();
-			
-			String sql = String.format("SELECT COUNT(id) AS rows FROM player WHERE name=\'%s\';", name);
 			ResultSet rs = st.executeQuery(sql);
 			if(rs.next()) {
 				rows = rs.getInt("rows");
@@ -52,11 +50,23 @@ public class db {
 		return true;
 	}
 	
-	public void saveNewPlayer(String account, String name, String json) {
+	public boolean isEmailUsed(String email) {
+		String sql = String.format("SELECT COUNT(id) AS rows FROM account WHERE player=\'%s\';", email);	
+		
+		return isExist(sql);
+	}
+	
+	public boolean isPlayerExist(long player) {
+		String sql = String.format("SELECT COUNT(id) AS rows FROM player WHERE player=\'%d\';", player);	
+		
+		return isExist(sql);
+	}
+	
+	public void saveNewPlayer(long account, String json) {
 		try {
 			Statement st = con.createStatement();
 			
-			String sql = String.format("INSERT INTO player(account,name,info) VALUES(\'%s\', \'%s\', \'%s\');", account, name, json);
+			String sql = String.format("INSERT INTO player(account_id, info) VALUES(\'%d\', \'%s\', \'%s\');", account, json);
 			
 			System.out.println("db:" + sql);
 			st.executeUpdate(sql);
@@ -67,11 +77,11 @@ public class db {
 		}
 	}
 	
-	public void savePlayer(String account, String name, String json) {
+	public void savePlayer(long player, String json) {
 		try {
 			Statement st = con.createStatement();
 			
-			String sql = String.format("UPDATE player SET info=\'%s\' WHERE account=\'%s\' AND name=\'%s\';", json, account, name);		
+			String sql = String.format("UPDATE player SET info=\'%s\' WHERE player=\'%d\';", json, player);		
 			System.out.println("db:" + sql);
 			st.executeUpdate(sql);
 			st.close();
@@ -81,12 +91,12 @@ public class db {
 		}
 	}
 	
-	public String getPlayerInfo(String account, String name) {	
+	public String getPlayerInfo(long account, long player) {	
 		String jsonData = "";
 		try{	
 			Statement st = con.createStatement();
 			
-			String sql = String.format("SELECT * FROM player WHERE account=\'%s\' AND name=\'%s\';", account, name);	
+			String sql = String.format("SELECT * FROM player WHERE account=\'%d\' AND player=\'%d\';", account, player);	
 			ResultSet rs = st.executeQuery(sql);
 			if(rs.next()) {
 				jsonData = rs.getString("info");

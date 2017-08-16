@@ -23,10 +23,8 @@ class register_by_email_process implements ProtocolProcess{
 		System.out.println(msg.email);
 		System.out.println(msg.password);
 		
-		//Player player = Player.get(ctx);
-		//player.setAccount("qq79402005", "aqi");
-		//player.sendBaseInfo();
-		//player.sendBackpackInfo();
+		Player player = Player.get(ctx);
+		player.registerByEmail( msg.email, msg.password);
 	}
 }
 
@@ -35,9 +33,9 @@ class login_process implements ProtocolProcess{
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {
 		protocol.login msg = (protocol.login)proto;		
 		Player player = Player.get(ctx);
-		player.setAccount("qq79402005", "aqi");
-		player.sendBaseInfo();
-		player.sendBackpackInfo();
+		//player.setAccount("qq79402005", "aqi");
+		//player.sendBaseInfo();
+		//player.sendBackpackInfo();
 	}
 }
 

@@ -28,8 +28,8 @@ class Info{
 public class Player {
 	public static HashMap<Integer, Player>  players = new HashMap<Integer, Player>();
 	public ChannelHandlerContext 		   	mChannelCtx = null;
-	protected String 					   	mAccount;
-	protected String					   	mName;			// player name
+	protected Account						mAccount;
+	protected long							mPlayer;						// ÕÊº“ID
 	protected String					   	mJsonData = "{}";			// info in json format
 	protected Info					   		mInfo = new Info();
 	protected long							mLastTickTime = 0;
@@ -57,21 +57,26 @@ public class Player {
 		}		
 	}
 	
-	public void setAccount(String account, String name) {
+	//  π”√” œ‰√‹¬Î◊¢≤·
+	public void registerByEmail(String email, String password) {
+		mAccount.registerByEmail(email, password);
+	}
+	
+	public void setAccount(long account, long player) {
 		// load player data from database
-		this.mAccount = account;
-		this.mName = name;
+		//this.mAccount = account;
+		this.mPlayer = player;
 		
 		// disconnect same account
-		if(!db.instance().isPlayerExist(name)) {
+		if(!db.instance().isPlayerExist(mPlayer)) {
 			
 			initBackpack();
 			
 			refreshPlayerToJson();
-			db.instance().saveNewPlayer(this.mAccount, name, this.mJsonData);
+			db.instance().saveNewPlayer(this.mAccount.id, this.mJsonData);
 		}else {
 			// disconnect same name player
-			disconnectPlayer(mName);
+			disconnectPlayer(mPlayer);
 			
 			// init this player
 			loadFromDB();
@@ -80,10 +85,10 @@ public class Player {
 		}
 	}
 	
-	protected void disconnectPlayer(String name) {
+	protected void disconnectPlayer(long playerid) {
 		for(HashMap.Entry<Integer, Player> entry : players.entrySet()) {
 			Player player = entry.getValue();
-			if (player.mName==name) {
+			if (player.mPlayer==playerid) {
 				player.saveToDB();
 				player.mChannelCtx.disconnect();
 				
@@ -98,7 +103,7 @@ public class Player {
 		if( players.containsKey(ctx.hashCode())) {
 			Player player = players.get(ctx.hashCode());
 
-			System.out.println(String.format("Player [%s] offline, CurrentPlayers [%d]", player.mName, players.size()-1));
+			System.out.println(String.format("Player [%d] offline, CurrentPlayers [%d]", player.mPlayer, players.size()-1));
 			
 			player.saveToDB();
 			player.mChannelCtx.disconnect();	
@@ -144,14 +149,14 @@ public class Player {
 	
 	public void saveToDB() {
 		if(refreshPlayerToJson()) {
-			db.instance().savePlayer(mAccount, mName, mJsonData);
-			System.out.println(String.format("account [%s] player [%s] save to db", mAccount,mName));
+			db.instance().savePlayer(mPlayer, mJsonData);
+			System.out.println(String.format("account [%s] player [%d] save to db", mAccount, mPlayer));
 		}
 	}
 	
 	public void loadFromDB() {
 		Gson gson = new Gson();
-		mJsonData = db.instance().getPlayerInfo( mAccount, mName);
+		mJsonData = db.instance().getPlayerInfo( mAccount.id, mPlayer);
 		mInfo = gson.fromJson( mJsonData, Info.class);
 	}
 	
