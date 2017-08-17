@@ -28,6 +28,8 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 #include "globals.h"
+#include "path_remap.h"
+#include "input_map.h"
 #include "os/dir_access.h"
 #include "os/file_access.h"
 
@@ -765,6 +767,74 @@ Error Globals::_load_settings_binary(const String p_path) {
 
 	return OK;
 }
+
+Error Globals::_reload_settings_binary(const String p_path) {
+
+	Error err;
+	FileAccess *f = FileAccess::open(p_path, FileAccess::READ, &err);
+	if (err != OK) {
+		return err;
+	}
+
+	uint8_t hdr[4];
+	f->get_buffer(hdr, 4);
+	if (hdr[0] != 'E' || hdr[1] != 'C' || hdr[2] != 'F' || hdr[3] != 'G') {
+
+		memdelete(f);
+		ERR_EXPLAIN("Corrupted header in binary engine.cfb (not ECFG)");
+		ERR_FAIL_V(ERR_FILE_CORRUPT;)
+	}
+
+	set_registering_order(false);
+
+	uint32_t count = f->get_32();
+
+	for (int i = 0; i < count; i++) {
+
+		uint32_t slen = f->get_32();
+		CharString cs;
+		cs.resize(slen + 1);
+		cs[slen] = 0;
+		f->get_buffer((uint8_t *)cs.ptr(), slen);
+		String key;
+		key.parse_utf8(cs.ptr());
+
+		uint32_t vlen = f->get_32();
+		Vector<uint8_t> d;
+		d.resize(vlen);
+		f->get_buffer(d.ptr(), vlen);
+		Variant value;
+		Error err = decode_variant(value, d.ptr(), d.size());
+		ERR_EXPLAIN("Error decoding property: " + key);
+		ERR_CONTINUE(err != OK);
+		if (key == "remap/all" || key.begins_with("input/")){
+			set(key, value);
+			set_persisting(key, true);
+		}
+	}
+
+	set_registering_order(true);
+
+	// remaps first
+	DVector<String> remaps = Globals::get_singleton()->get("remap/all");
+	{
+		int rlen = remaps.size();
+
+		//ERR_FAIL_COND(rlen % 2);
+		DVector<String>::Read r = remaps.read();
+		for (int i = 0; i < rlen / 2; i++) {
+
+			String from = r[i * 2 + 0];
+			String to = r[i * 2 + 1];
+			PathRemap::get_singleton()->add_remap(from, to);
+		}
+	}
+
+	InputMap::get_singleton()->load_from_globals();
+
+	return OK;
+}
+
 Error Globals::_load_settings(const String p_path) {
 
 	Error err;
@@ -1365,6 +1435,7 @@ void Globals::_bind_methods() {
 	ObjectTypeDB::bind_method(_MD("has_singleton", "name"), &Globals::has_singleton);
 	ObjectTypeDB::bind_method(_MD("get_singleton", "name"), &Globals::get_singleton_object);
 	ObjectTypeDB::bind_method(_MD("load_resource_pack", "pack"), &Globals::_load_resource_pack);
+	ObjectTypeDB::bind_method(_MD("reload_settings_binary", "cfg"), &Globals::_reload_settings_binary);
 
 	ObjectTypeDB::bind_method(_MD("save_custom", "file"), &Globals::_save_custom_bnd);
 }
