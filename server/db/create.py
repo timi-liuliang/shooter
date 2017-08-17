@@ -63,5 +63,5 @@ def createTable(tableName, sqlCMD):
 
 # create table pageView if not exist
 #createDB()
-createTable('account', '(account SERIAL, password VARCHAR(128), info JSONB)')
+createTable('account', '(account BIGSERIAL PRIMARY KEY, password VARCHAR(128), info JSONB)')
 createTable('player', '(player BIGSERIAL PRIMARY KEY, account BIGINT, info JSONB)')

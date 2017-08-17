@@ -21,6 +21,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 
+import db.db;
+
 
 public class SocketServer {
 	
@@ -46,7 +48,7 @@ public class SocketServer {
 		port = 8800;
 	}
 	
-	public static void main(String[] args){	
+	public static void main(String[] args){		
 		// 数据保存计时器
 		Timer dbSaveTimer = new Timer();
 		dbSaveTimer.scheduleAtFixedRate(new TimerTask() {

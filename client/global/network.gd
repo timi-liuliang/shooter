@@ -23,6 +23,11 @@ func _process(delta):
 	while availableBytes > 0:
 		process_net_byte(streamPeerTCP.get_u8())
 		availableBytes = streamPeerTCP.get_available_bytes()
+		
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		if streamPeerTCP.is_connected():
+			streamPeerTCP.disconnect()
 	
 func bind( msg):
 	var msgInst = msg.new()
@@ -57,9 +62,6 @@ func process_net_package(buf):
 	msg_cb.call_func(msg)
 	
 func register_by_email(email, password):
-	var x = "aa"
-	var len = x.length()
-	
 	if streamPeerTCP.is_connected():
 		var msg = preload("res://global/protocol/register_by_email.pb.gd").new()
 		msg.email = email

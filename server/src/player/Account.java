@@ -33,7 +33,7 @@ public class Account {
 			
 			loadAccountByEmail(email);
 			
-			System.out.println(String.format("add new account [%d]", table.account));
+			System.out.println(String.format("account [%d] registerByEmail succeed.", table.account));
 		}
 	}
 	
