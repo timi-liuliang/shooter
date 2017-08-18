@@ -1,15 +1,15 @@
 extends Node
 
-var account = int(0)
-var result = int(0)
+var cur_blood = int(0)
+var max_blood = int(0)
 
 func _ready():
 	pass
 
 func name():
-	return 'login_result'
+	return 'player_base_info'
 func id():
-	return 9
+	return 11
 
 func length():
 	return 8 ;
@@ -18,13 +18,13 @@ func send(stream):
 	var buf = ByteBuf.new()
 	buf.write_i32(int(id()))
 	buf.write_i32(int(length()))
-	buf.write_i32(account)
-	buf.write_i32(result)
+	buf.write_i32(cur_blood)
+	buf.write_i32(max_blood)
 	buf.write_byte(64)
 	buf.write_byte(64)
 	stream.put_data(buf.raw_data())
 
 func parse_data( byteBuffer):
-	account = byteBuffer.read_i32();
-	result = byteBuffer.read_i32();
+	cur_blood = byteBuffer.read_i32();
+	max_blood = byteBuffer.read_i32();
 	pass

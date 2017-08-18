@@ -27,3 +27,4 @@ func send(stream):
 func parse_data( byteBuffer):
 	cur_blood = byteBuffer.read_i32();
 	max_blood = byteBuffer.read_i32();
+	pass

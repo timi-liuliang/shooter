@@ -11,6 +11,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import room.Room;
+import room.RoomMgr;
 
 class Info{
 	protected BaseInfo						baseInfo = null;
@@ -222,5 +224,22 @@ public class Player {
 	// send info to client
 	public void sendBackpackInfo(){
 		info.backpack.sendBackpackInfo(mChannelCtx);
+	}
+	
+	// --------------------search room-------------------------
+	public void search_room_begin() {
+		if(RoomMgr.instance().add_player(table.player)) {
+			protocol.search_room_result msg = new protocol.search_room_result();
+			msg.result = 1;
+			mChannelCtx.write(msg.data());
+		}
+	}
+	
+	public void search_room_end() {
+		if(RoomMgr.instance().add_player(table.player)) {
+			protocol.search_room_result msg = new protocol.search_room_result();
+			msg.result = 0;
+			mChannelCtx.write(msg.data());
+		}
 	}
 }

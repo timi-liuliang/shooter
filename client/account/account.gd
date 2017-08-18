@@ -1,6 +1,6 @@
 extends Node
 
-var file_name = "user://apps/shooter/pw.bin"
+var file_name = "user://shooter_pw.bin"
 var config_file = null
 var account = ""
 var password = ""
@@ -34,7 +34,7 @@ func login():
 		get_node("/root/network").login_by_osid(unique_id)
 			
 func game_room_match():
-	print("search enemy")
+	get_node("/root/network").search_room_begin();
 
 # 快速匹配
 func _on_vs_online_pressed():
@@ -43,6 +43,7 @@ func _on_vs_online_pressed():
 	if account=="":
 		login()
 	else:
+		login()
 		game_room_match()
 
 func _on_register_pressed():

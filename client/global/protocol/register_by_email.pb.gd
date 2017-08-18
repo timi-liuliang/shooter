@@ -9,7 +9,7 @@ func _ready():
 func name():
 	return 'register_by_email'
 func id():
-	return 11
+	return 12
 
 func length():
 	return 8 +password.length()+email.length();
@@ -27,3 +27,4 @@ func send(stream):
 func parse_data( byteBuffer):
 	password = byteBuffer.read_string();
 	email = byteBuffer.read_string();
+	pass

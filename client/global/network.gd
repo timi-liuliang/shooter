@@ -10,8 +10,7 @@ var cur_package = ByteBuf.new()
 
 func _ready():
 	bind_msgs()
-	streamPeerTCP = StreamPeerTCP.new()
-	streamPeerTCP.connect('localhost', 8800)
+	connect_server()
 	set_process(true)
 	
 func _process(delta):
@@ -19,10 +18,17 @@ func _process(delta):
 	elapsedTime = 0.0
 		
 	# parse msg	
-	var availableBytes = streamPeerTCP.get_available_bytes()
-	while availableBytes > 0:
-		process_net_byte(streamPeerTCP.get_u8())
-		availableBytes = streamPeerTCP.get_available_bytes()
+	if streamPeerTCP.is_connected():
+		var availableBytes = streamPeerTCP.get_available_bytes()
+		while availableBytes > 0:
+			process_net_byte(streamPeerTCP.get_u8())
+			availableBytes = streamPeerTCP.get_available_bytes()
+	else:
+		connect_server()
+	
+func connect_server():
+	streamPeerTCP = StreamPeerTCP.new()
+	streamPeerTCP.connect('localhost', 8800)
 		
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
@@ -81,6 +87,17 @@ func login_by_osid():
 		login_msg.account = 1
 		login_msg.password = 9
 		login_msg.send(streamPeerTCP)
+		
+# 搜寻房间
+func search_room_begin():
+	if streamPeerTCP.is_connected():
+		var search_room_msg = preload("res://global/protocol/search_room_begin.pb.gd").new()
+		search_room_msg.send(streamPeerTCP)
+		
+func search_room_end():
+	if streamPeerTCP.is_connected():
+		var search_room_msg = preload("res://global/protocol/search_room_end.pb.gd").new()
+		search_room_msg.send(streamPeerTCP)
 
 func collect_item(id):
 	if streamPeerTCP.is_connected():	
@@ -106,6 +123,7 @@ func on_attacked(damage):
 func bind_msgs():
 	bind(preload("res://global/protocol/register_result.pb.gd"))
 	bind(preload("res://global/protocol/login_result.pb.gd"))
+	bind(preload("res://global/protocol/search_room_result.pb.gd"))
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
 	bind(preload("res://global/protocol/blood_info.pb.gd"))
@@ -118,6 +136,12 @@ func on_msg_register_result( msg):
 func on_msg_login_result( msg):
 	if has_node("/root/launch/ui/account"):
 		get_node("/root/launch/ui/account").on_receive_login_result(msg)
+		
+func on_msg_search_room_result(msg):
+	if msg.result==1:
+		get_node("/root/global").set_scene("res://room_match/room_match.tscn")
+	elif msg.result==0:
+		get_node("/root/global").set_scene("res://launch/launch.tscn")
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

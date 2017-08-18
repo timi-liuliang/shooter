@@ -24,3 +24,4 @@ func send(stream):
 
 func parse_data( byteBuffer):
 	time = byteBuffer.read_i32();
+	pass

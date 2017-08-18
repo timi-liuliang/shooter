@@ -3,14 +3,14 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class register_result extends message {
+public class player_base_info extends message {
 
-	public int account = 0;
-	public int result = 0;
+	public int cur_blood = 0;
+	public int max_blood = 0;
 	@Override
 
 	public int id(){
-		 return 13;
+		 return 11;
 	}
 
 	@Override
@@ -22,8 +22,8 @@ public class register_result extends message {
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		byteBuffer.writeInt(account);
-		byteBuffer.writeInt(result);
+		byteBuffer.writeInt(cur_blood);
+		byteBuffer.writeInt(max_blood);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -31,7 +31,7 @@ public class register_result extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		account = byteBuffer.readInt();
-		result = byteBuffer.readInt();
+		cur_blood = byteBuffer.readInt();
+		max_blood = byteBuffer.readInt();
 	}
 }

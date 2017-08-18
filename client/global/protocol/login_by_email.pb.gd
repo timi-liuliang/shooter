@@ -27,3 +27,4 @@ func send(stream):
 func parse_data( byteBuffer):
 	password = byteBuffer.read_string();
 	email = byteBuffer.read_string();
+	pass

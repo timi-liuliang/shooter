@@ -30,3 +30,4 @@ func parse_data( byteBuffer):
 	item_id = byteBuffer.read_i32();
 	index = byteBuffer.read_i32();
 	item_num = byteBuffer.read_i32();
+	pass

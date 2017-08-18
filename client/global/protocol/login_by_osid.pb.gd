@@ -24,3 +24,4 @@ func send(stream):
 
 func parse_data( byteBuffer):
 	osid = byteBuffer.read_string();
+	pass

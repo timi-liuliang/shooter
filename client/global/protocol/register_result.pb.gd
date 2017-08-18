@@ -9,7 +9,7 @@ func _ready():
 func name():
 	return 'register_result'
 func id():
-	return 12
+	return 13
 
 func length():
 	return 8 ;
@@ -27,3 +27,4 @@ func send(stream):
 func parse_data( byteBuffer):
 	account = byteBuffer.read_i32();
 	result = byteBuffer.read_i32();
+	pass
