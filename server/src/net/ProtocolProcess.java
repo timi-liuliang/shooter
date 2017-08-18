@@ -8,7 +8,8 @@ interface ProtocolProcess {
 	
 	public static void bind() {
 		SocketServerHandler.bind(new protocol.register_by_email(), new register_by_email_process());
-		SocketServerHandler.bind(new protocol.login(), new login_process());
+		SocketServerHandler.bind(new protocol.login_by_email(), new login_by_email_process());
+		SocketServerHandler.bind(new protocol.login_by_osid(), new login_by_osid_process());
 		SocketServerHandler.bind(new protocol.collect_item(), new collect_item_process());
 		SocketServerHandler.bind(new protocol.on_attacked(),  new on_attacked_process());
 		SocketServerHandler.bind(new protocol.eat_item(), new eat_item_process());
@@ -25,14 +26,23 @@ class register_by_email_process implements ProtocolProcess{
 	}
 }
 
-class login_process implements ProtocolProcess{
+class login_by_email_process implements ProtocolProcess{
 	@Override
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {
-		protocol.login msg = (protocol.login)proto;		
+		protocol.login_by_email msg = (protocol.login_by_email)proto;	
+		
 		Player player = Player.get(ctx);
-		//player.setAccount("qq79402005", "aqi");
-		//player.sendBaseInfo();
-		//player.sendBackpackInfo();
+		player.loginByEmail(msg.email, msg.password);
+	}
+}
+
+class login_by_osid_process implements ProtocolProcess{
+	@Override
+	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {
+		protocol.login_by_osid msg = (protocol.login_by_osid)proto;	
+		
+		Player player = Player.get(ctx);
+		player.loginByOSID(msg.osid);
 	}
 }
 

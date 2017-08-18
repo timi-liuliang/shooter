@@ -1,29 +1,26 @@
 extends Node
 
-var account = int(0)
-var password = int(0)
+var osid = String()
 
 func _ready():
 	pass
 
 func name():
-	return 'register_by_phone_num'
+	return 'login_by_osid'
 func id():
-	return 13
+	return 8
 
 func length():
-	return 8 ;
+	return 4 +osid.length();
 
 func send(stream):
 	var buf = ByteBuf.new()
 	buf.write_i32(int(id()))
 	buf.write_i32(int(length()))
-	buf.write_i32(account)
-	buf.write_i32(password)
+	buf.write_string(osid)
 	buf.write_byte(64)
 	buf.write_byte(64)
 	stream.put_data(buf.raw_data())
 
 func parse_data( byteBuffer):
-	account = byteBuffer.read_i32();
-	password = byteBuffer.read_i32();
+	osid = byteBuffer.read_string();

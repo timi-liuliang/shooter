@@ -1,6 +1,7 @@
 package player;
 
 import db.db;
+import db.player_table;
 import java.util.HashMap;
 import java.util.Iterator;
 import io.netty.channel.ChannelHandlerContext;
@@ -28,11 +29,10 @@ class Info{
 public class Player {
 	public static HashMap<Integer, Player>  players = new HashMap<Integer, Player>();
 	public ChannelHandlerContext 		   	mChannelCtx = null;
-	protected Account						mAccount = new Account();
-	protected long							mPlayer;						// 玩家ID
-	protected String					   	mJsonData = "{}";			// info in json format
-	protected Info					   		mInfo = new Info();
 	protected long							mLastTickTime = 0;
+	protected Account						mAccount = new Account();
+	protected player_table					table = new player_table();						// 玩家表信息
+	protected Info					   		info = new Info();
 	
 	public Player(ChannelHandlerContext channelCtx) {
 			
@@ -62,21 +62,31 @@ public class Player {
 		mAccount.registerByEmail(email, password, mChannelCtx);
 	}
 	
-	public void setAccount(long account, long player) {
-		// load player data from database
-		//this.mAccount = account;
-		this.mPlayer = player;
-		
+	// 使用邮箱密码登录
+	public void loginByEmail(String email, String password) {
+		if (mAccount.loginByEmail(email, password, mChannelCtx)){
+			setAccount(mAccount.table.account);
+		}
+	}
+	
+	// 使用唯一ID登录
+	public void loginByOSID(String osid) {
+		if (mAccount.loginByOSID(osid, mChannelCtx)){
+			setAccount(mAccount.table.account);
+		}
+	}
+	
+	public void setAccount(long account) {	
 		// disconnect same account
-		if(!db.instance().isPlayerExist(mPlayer)) {
-			
-			initBackpack();
+		if(!db.instance().isPlayerExist(account)) {
 			
 			refreshPlayerToJson();
-			db.instance().saveNewPlayer(this.mAccount.table.account, this.mJsonData);
+			db.instance().saveNewPlayer(this.mAccount.table.account, table.info);
+			
+			loadFromDB();	
 		}else {
 			// disconnect same name player
-			disconnectPlayer(mPlayer);
+			disconnectPlayer(account);
 			
 			// init this player
 			loadFromDB();
@@ -85,10 +95,10 @@ public class Player {
 		}
 	}
 	
-	protected void disconnectPlayer(long playerid) {
+	protected void disconnectPlayer(long account) {
 		for(HashMap.Entry<Integer, Player> entry : players.entrySet()) {
 			Player player = entry.getValue();
-			if (player.mPlayer==playerid) {
+			if (player.mAccount.table.account==account) {
 				player.saveToDB();
 				player.mChannelCtx.disconnect();
 				
@@ -103,7 +113,7 @@ public class Player {
 		if( players.containsKey(ctx.hashCode())) {
 			Player player = players.get(ctx.hashCode());
 
-			System.out.println(String.format("Player [%d] offline, CurrentPlayers [%d]", player.mPlayer, players.size()-1));
+			System.out.println(String.format("Player [%d] offline, CurrentPlayers [%d]", player.table.player, players.size()-1));
 			
 			player.saveToDB();
 			player.mChannelCtx.disconnect();	
@@ -125,7 +135,7 @@ public class Player {
 				int counter = Integer.parseInt( strCount);		
 				int id     = Integer.parseInt( strId);
 				
-				mInfo.backpack.AddItem(id, counter, 0);
+				info.backpack.AddItem(id, counter, 0);
 			}	
 		} catch(DocumentException e){
 			e.printStackTrace();
@@ -134,12 +144,12 @@ public class Player {
 		return true;
 	}
 	
-	protected boolean refreshPlayerToJson() {
-		Gson gson = new Gson();
-		String new_json = gson.toJson(mInfo);	
-		if(mJsonData!=new_json)
+	protected boolean refreshPlayerToJson() {	
+		Gson gson = new Gson();	
+		String new_json = gson.toJson(info);	
+		if(!table.info.equals(new_json))
 		{
-			mJsonData = new_json;
+			table.info = new_json;
 			
 			return true;
 		}
@@ -149,40 +159,41 @@ public class Player {
 	
 	public void saveToDB() {
 		if(refreshPlayerToJson()) {
-			db.instance().savePlayer(mPlayer, mJsonData);
-			System.out.println(String.format("account [%s] player [%d] save to db", mAccount, mPlayer));
+			db.instance().savePlayer(table.player, table.info);
+			System.out.println(String.format("account [%s] player [%d] save to db", table.account, table.player));
 		}
 	}
 	
 	public void loadFromDB() {
+		table = db.instance().getPlayerTable( mAccount.table.account);
+		
 		Gson gson = new Gson();
-		mJsonData = db.instance().getPlayerInfo( mAccount.table.account, mPlayer);
-		mInfo = gson.fromJson( mJsonData, Info.class);
+		info = gson.fromJson( table.info, Info.class);
 	}
 	
 	// ---------------------receive---------------------
 	
 	public void collectItem(int id, int count, int type) {
-		mInfo.backpack.collectItem(id, count, type, mChannelCtx);
+		info.backpack.collectItem(id, count, type, mChannelCtx);
 	}
 	
 	public void onEatItem(int slotIdx) {
-		Cell cell = mInfo.backpack.useItem(slotIdx, mChannelCtx);
+		Cell cell = info.backpack.useItem(slotIdx, mChannelCtx);
 		if(cell!=null) {
-			mInfo.baseInfo.onCure( 25);
-			mInfo.baseInfo.sendBloodInfo(mChannelCtx);
+			info.baseInfo.onCure( 25);
+			info.baseInfo.sendBloodInfo(mChannelCtx);
 		}
 	}
 	
 	public void onAttacked(int damage) {
-		mInfo.baseInfo.onAttacked(damage);
-		mInfo.baseInfo.sendBloodInfo(mChannelCtx);
+		info.baseInfo.onAttacked(damage);
+		info.baseInfo.sendBloodInfo(mChannelCtx);
 	}
 	
 	public void onResurgence(int type){
 		if( type==0) {
-			mInfo.baseInfo.curBlood = mInfo.baseInfo.maxBlood;
-			mInfo.baseInfo.sendBloodInfo(mChannelCtx);
+			info.baseInfo.curBlood = info.baseInfo.maxBlood;
+			info.baseInfo.sendBloodInfo(mChannelCtx);
 		}
 	}
 	
@@ -195,8 +206,8 @@ public class Player {
 			elapsedTime = Math.min(elapsedTime, 5);
 		}
 			
-		mInfo.baseInfo.addGameTime(elapsedTime);
-		mInfo.baseInfo.sendGameTime(mChannelCtx);
+		info.baseInfo.addGameTime(elapsedTime);
+		info.baseInfo.sendGameTime(mChannelCtx);
 		
 		mLastTickTime = curTime;
 	}
@@ -204,12 +215,12 @@ public class Player {
 	// ---------------------send---------------------
 	
 	public void sendBaseInfo() {
-		mInfo.baseInfo.sendBloodInfo(mChannelCtx);
-		mInfo.baseInfo.sendGameTime(mChannelCtx);
+		info.baseInfo.sendBloodInfo(mChannelCtx);
+		info.baseInfo.sendGameTime(mChannelCtx);
 	}
 	
 	// send info to client
 	public void sendBackpackInfo(){
-		mInfo.backpack.sendBackpackInfo(mChannelCtx);
+		info.backpack.sendBackpackInfo(mChannelCtx);
 	}
 }

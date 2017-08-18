@@ -9,7 +9,7 @@ func _ready():
 func name():
 	return 'register_result'
 func id():
-	return 14
+	return 12
 
 func length():
 	return 8 ;

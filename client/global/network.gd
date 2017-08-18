@@ -105,6 +105,7 @@ func on_attacked(damage):
 
 func bind_msgs():
 	bind(preload("res://global/protocol/register_result.pb.gd"))
+	bind(preload("res://global/protocol/login_result.pb.gd"))
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
 	bind(preload("res://global/protocol/blood_info.pb.gd"))
@@ -113,6 +114,10 @@ func bind_msgs():
 func on_msg_register_result( msg):
 	if has_node("/root/launch/ui/account"):
 		get_node("/root/launch/ui/account").on_receive_register_result(msg)
+		
+func on_msg_login_result( msg):
+	if has_node("/root/launch/ui/account"):
+		get_node("/root/launch/ui/account").on_receive_login_result(msg)
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

@@ -50,7 +50,7 @@ public class Account {
 			info.email = email;
 			
 			refreshPlayerToJson();	
-			db.instance().saveNewAccount( password, table.info);
+			db.instance().saveNewAccount( table.password, table.info);
 			
 			loadAccountByEmail(email);
 			
@@ -62,6 +62,49 @@ public class Account {
 		}
 	}
 	
+	//  π”√Œ®“ª◊¢≤·
+	public void registerByOSID(String osid) {
+		if(!db.instance().isOSIDUsed(osid)) {
+			table.password = "";
+			info.osid = osid;
+			
+			refreshPlayerToJson();	
+			db.instance().saveNewAccount( table.password, table.info);
+		}
+	}
+	
+	//  π”√” œ‰√‹¬Îµ«¬º
+	public boolean loginByEmail(String email, String password, ChannelHandlerContext ctx) {
+		if(db.instance().isEmailUsed(email)) {
+			loadAccountByEmail(email);
+			if(password.equals(table.password)) {
+				protocol.login_result lr = new protocol.login_result();
+				lr.result = 0;
+				ctx.write(lr.data());
+				return true;
+			}
+		}
+		
+		// µ«¬º ß∞‹ 
+		protocol.login_result lr = new protocol.login_result();
+		lr.result = 1;
+		ctx.write(lr.data());	
+		return false;
+	}
+	
+	//  π”√Œ®“ªIDµ«¬º
+	public boolean loginByOSID(String osid, ChannelHandlerContext ctx) {
+		if(!db.instance().isOSIDUsed(osid)) {
+			registerByOSID(osid);
+		}
+		
+		loadAccountByOSID(osid);
+		protocol.login_result lr = new protocol.login_result();
+		lr.result = 0;
+		ctx.write(lr.data());
+		return true;
+	}
+	
 	protected void refreshPlayerToJson() {
 		Gson gson = new Gson();
 		table.info = gson.toJson(info);	
@@ -69,6 +112,13 @@ public class Account {
 	
 	public void loadAccountByEmail(String email) {
 		table = db.instance().getAccountTableByEmail( email);
+		
+		Gson gson = new Gson();
+		info = gson.fromJson( table.info, AccountInfo.class);
+	}
+	
+	public void loadAccountByOSID(String osid) {
+		table = db.instance().getAccountTableByOSID( osid);
 		
 		Gson gson = new Gson();
 		info = gson.fromJson( table.info, AccountInfo.class);

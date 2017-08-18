@@ -111,6 +111,7 @@ stretch_mode = 0
 
 [node name="jinbi" type="TextureFrame" parent="ui/bg"]
 
+editor/display_folded = true
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -140,6 +141,7 @@ max_lines_visible = -1
 
 [node name="xuanzhe_label" type="TextureFrame" parent="ui/bg"]
 
+editor/display_folded = true
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -169,6 +171,7 @@ max_lines_visible = -1
 
 [node name="play" type="TextureButton" parent="ui/bg"]
 
+editor/display_folded = true
 anchor/left = 2
 anchor/top = 2
 anchor/right = 2
@@ -208,6 +211,7 @@ max_lines_visible = -1
 
 [node name="vs" type="TextureButton" parent="ui/bg"]
 
+editor/display_folded = true
 anchor/left = 2
 anchor/top = 2
 anchor/right = 2

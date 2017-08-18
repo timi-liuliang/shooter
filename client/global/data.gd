@@ -1,5 +1,7 @@
 extends Node
 
+var is_logined = false
+
 var file_name = "user://data.in"
 var config_file = null
 var total_kill_enemy_num = 0

@@ -54,7 +54,12 @@ public class db {
 	// 邮箱是否已被使用
 	public boolean isEmailUsed(String email) {
 		String sql = String.format("SELECT COUNT(account) AS rows FROM account WHERE info @> \'{\"email\":\"%s\"}\';", email);	
-		//String sql = String.format("SELECT COUNT(account) AS rows FROM account");// WHERE info @> \'{\"email\":%s}\';", email);
+		return isExist(sql);
+	}
+	
+	// OSID是否已被使用
+	public boolean isOSIDUsed(String osid) {
+		String sql = String.format("SELECT COUNT(account) AS rows FROM account WHERE info @> \'{\"osid\":\"%s\"}\';", osid);	
 		return isExist(sql);
 	}
 	
@@ -97,9 +102,32 @@ public class db {
 		return table;
 	}
 	
+	public account_table getAccountTableByOSID(String osid) {	
+		account_table table = new account_table();
+		try{	
+			Statement st = con.createStatement();
+			
+			String sql = String.format("SELECT * FROM account WHERE info @> \'{\"osid\":\"%s\"}\';", osid);
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) {
+				table.account  = rs.getLong("account");
+				table.password = rs.getString("password");
+				table.info = rs.getString("info");
+				System.out.println("db:" + sql);
+			}
+			rs.close();
+			st.close();
+					
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return table;
+	}
 	
-	public boolean isPlayerExist(long player) {
-		String sql = String.format("SELECT COUNT(player) AS rows FROM player WHERE player=\'%d\';", player);	
+	
+	public boolean isPlayerExist(long account) {
+		String sql = String.format("SELECT COUNT(player) AS rows FROM player WHERE account=\'%d\';", account);	
 		
 		return isExist(sql);
 	}
@@ -133,15 +161,17 @@ public class db {
 		}
 	}
 	
-	public String getPlayerInfo(long account, long player) {	
-		String jsonData = "";
+	public player_table getPlayerTable(long account) {	
+		player_table table = new player_table();
 		try{	
 			Statement st = con.createStatement();
 			
-			String sql = String.format("SELECT * FROM player WHERE account=\'%d\' AND player=\'%d\';", account, player);	
+			String sql = String.format("SELECT * FROM player WHERE account=\'%d\';", account);	
 			ResultSet rs = st.executeQuery(sql);
 			if(rs.next()) {
-				jsonData = rs.getString("info");
+				table.player = rs.getLong("player");
+				table.account = rs.getLong("account");
+				table.info = rs.getString("info");
 				System.out.println("db:" + sql);
 			}
 			rs.close();
@@ -151,6 +181,6 @@ public class db {
 			e.printStackTrace();
 		}
 		
-		return jsonData;
+		return table;
 	}
 }
