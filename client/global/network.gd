@@ -1,30 +1,58 @@
 extends Node
 
-var streamPeerTCP = null
-var elapsedTime = 0
+# 网络状态
+enum NetState{
+	DISCONNECTED = 0,
+	CONNECTED,
+	LOGINED,
+	SEARCHING,
+	IN_BATTLE_ROOM
+}
 
+var streamPeerTCP = null
 var msg_bind = []
 var end_flag = 64
 var last_byte = 0
 var cur_package = ByteBuf.new()
+var time_out = -1
+var cur_net_state = NetState.DISCONNECTED
+var target_net_state = NetState.DISCONNECTED
 
 func _ready():
 	bind_msgs()
-	connect_server()
 	set_process(true)
 	
 func _process(delta):
-	elapsedTime = elapsedTime + delta;	
-	elapsedTime = 0.0
-		
 	# parse msg	
-	if streamPeerTCP.is_connected():
+	if streamPeerTCP and streamPeerTCP.is_connected():
 		var availableBytes = streamPeerTCP.get_available_bytes()
 		while availableBytes > 0:
 			process_net_byte(streamPeerTCP.get_u8())
 			availableBytes = streamPeerTCP.get_available_bytes()
 	else:
-		connect_server()
+		cur_net_state = NetState.DISCONNECTED
+		
+	update_net_state(delta)
+		
+func update_net_state(delta):
+	if cur_net_state < target_net_state:
+		time_out -= delta
+		if cur_net_state==NetState.DISCONNECTED and time_out<=0:
+			connect_server()
+			time_out = 10
+			
+		if cur_net_state==NetState.DISCONNECTED and streamPeerTCP.is_connected():
+			cur_net_state = NetState.CONNECTED
+			
+		if cur_net_state==NetState.CONNECTED and time_out<=0:
+			get_node("/root/account").login()
+			time_out=10
+	
+func set_target_net_state(state):
+	if state == NetState.DISCONNECTED:
+		streamPeerTCP.disconnected()
+	
+	target_net_state = state
 	
 func connect_server():
 	streamPeerTCP = StreamPeerTCP.new()
@@ -135,6 +163,9 @@ func on_msg_register_result( msg):
 		
 func on_msg_login_result( msg):
 	if has_node("/root/launch/ui/account"):
+		if msg.result==0:
+			cur_net_state = NetState.LOGINED
+			
 		get_node("/root/launch/ui/account").on_receive_login_result(msg)
 		
 func on_msg_search_room_result(msg):

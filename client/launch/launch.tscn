@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://launch/launch.gd" type="Script" id=1]
 [ext_resource path="res://actor/ground/ground.tscn" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=7]
 [ext_resource path="res://icon.png" type="Texture" id=8]
 [ext_resource path="res://launch/button_chuangguan_active.png" type="Texture" id=9]
-[ext_resource path="res://account/account.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -316,13 +315,11 @@ shortcut = null
 text = "Wechat"
 flat = false
 
-[node name="account" parent="ui" instance=ExtResource( 10 )]
-
 [connection signal="pressed" from="ui/bg/play" to="." method="_on_play_pressed"]
 
 [connection signal="pressed" from="ui/bg/vs" to="." method="_on_vs_pressed"]
 
-[connection signal="pressed" from="ui/bg/vs_online" to="ui/account" method="_on_vs_online_pressed"]
+[connection signal="pressed" from="ui/bg/vs_online" to="." method="_on_vs_online_pressed"]
 
 [connection signal="pressed" from="ui/wechat" to="." method="_on_wechat_pressed"]
 

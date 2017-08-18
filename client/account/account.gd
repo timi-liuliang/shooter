@@ -36,16 +36,6 @@ func login():
 func game_room_match():
 	get_node("/root/network").search_room_begin();
 
-# 快速匹配
-func _on_vs_online_pressed():
-		# 当前是否有ID
-	var account = get_account()
-	if account=="":
-		login()
-	else:
-		login()
-		game_room_match()
-
 func _on_register_pressed():
 	get_node("login").set_hidden(true)
 	get_node("register").set_hidden(false)
