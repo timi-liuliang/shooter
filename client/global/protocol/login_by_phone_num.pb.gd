@@ -9,7 +9,7 @@ func _ready():
 func name():
 	return 'login_by_phone_num'
 func id():
-	return 11
+	return 9
 
 func length():
 	return 8 ;

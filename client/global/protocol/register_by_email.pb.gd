@@ -9,7 +9,7 @@ func _ready():
 func name():
 	return 'register_by_email'
 func id():
-	return 13
+	return 11
 
 func length():
 	return 8 +password.length()+email.length();

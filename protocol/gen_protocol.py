@@ -48,6 +48,8 @@ def gen_protocol_java( file, id):
     for key in data.keys():
         if data[key]=='int':
             length += 4
+        if data[key]=='long':
+            length += 8
         if data[key]=='float':
             length += 4
         if data[key]=='string':
@@ -69,6 +71,8 @@ def gen_protocol_java( file, id):
     for key in data.keys():
         if data[key]=='int':
             java_file.writelines("\t\tbyteBuffer.writeInt(%s);\n" % key)
+        if data[key]=='long':
+            java_file.writelines("\t\tbyteBuffer.writeLong(%s);\n" % key)
         if data[key]=='float':
             java_file.writelines("\t\tbyteBuffer.writeFloat(%s);\n" % key)
         if data[key]=='string':
@@ -86,6 +90,8 @@ def gen_protocol_java( file, id):
     for key in data.keys():
         if data[key]=='int':
             java_file.writelines("\t\t%s = byteBuffer.readInt();\n" % key)
+        if data[key]=='long':
+             java_file.writelines("\t\t%s = byteBuffer.readLong();\n" % key)
         if data[key]=='float':
             java_file.writelines("\t\t%s = byteBuffer.readFloat();\n" % key)
         if data[key]=='string':
@@ -134,6 +140,8 @@ def gen_protocol_godot(file, id):
     for key in data.keys():
         if data[key]=='int':
             length += 4
+        if data[key]=='long':
+            length += 8
         if data[key]=='float':
             length += 4
         if data[key]=='string':
@@ -153,6 +161,8 @@ def gen_protocol_godot(file, id):
     for key in data.keys():
         if data[key]=='int':
             gd_file.writelines("\tbuf.write_i32(%s)\n" % key)
+        if data[key]=='long':
+            gd_file.writelines("\tbuf.write_i64(%s)\n" % key)
         if data[key]=='float':
             gd_file.writelines("\tbuf.write_float(%s)\n" % key)
         if data[key]=='string':
@@ -169,6 +179,8 @@ def gen_protocol_godot(file, id):
     for key in data.keys():
         if data[key]=='int':
             gd_file.writelines("\t%s = byteBuffer.read_i32();\n" % key)
+        if data[key]=='long':
+            gd_file.writelines("\t%s = byteBuffer.read_i64();\n" % key)
         if data[key]=='float':
             gd_file.writelines("\t%s = byteBuffer.read_float();\n" % key)
         if data[key]=='string':

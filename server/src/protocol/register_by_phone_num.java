@@ -10,7 +10,7 @@ public class register_by_phone_num extends message {
 	@Override
 
 	public int id(){
-		 return 15;
+		 return 13;
 	}
 
 	@Override

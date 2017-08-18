@@ -8,7 +8,7 @@ func _ready():
 func name():
 	return 'on_attacked'
 func id():
-	return 12
+	return 10
 
 func length():
 	return 4 ;

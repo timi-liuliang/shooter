@@ -10,7 +10,7 @@ public class login_by_phone_num extends message {
 	@Override
 
 	public int id(){
-		 return 11;
+		 return 9;
 	}
 
 	@Override

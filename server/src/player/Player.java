@@ -59,7 +59,7 @@ public class Player {
 	
 	// Ê¹ÓÃÓÊÏäÃÜÂë×¢²á
 	public void registerByEmail(String email, String password) {
-		mAccount.registerByEmail(email, password);
+		mAccount.registerByEmail(email, password, mChannelCtx);
 	}
 	
 	public void setAccount(long account, long player) {

@@ -67,10 +67,17 @@ func register_by_email(email, password):
 		msg.email = email
 		msg.password = password
 		msg.send(streamPeerTCP)
-	
-func login():
+		
+func login_by_email( email, password):
 	if streamPeerTCP.is_connected():	
-		var login_msg = preload("res://global/protocol/login.pb.gd").new()
+		var login_msg = preload("res://global/protocol/login_by_email.pb.gd").new()
+		login_msg.email = email
+		login_msg.password = password
+		login_msg.send(streamPeerTCP)
+	
+func login_by_osid():
+	if streamPeerTCP.is_connected():	
+		var login_msg = preload("res://global/protocol/login_by_osid.pb.gd").new()
 		login_msg.account = 1
 		login_msg.password = 9
 		login_msg.send(streamPeerTCP)
@@ -97,10 +104,15 @@ func on_attacked(damage):
 		on_attacked_msg.send(streamPeerTCP)
 
 func bind_msgs():
+	bind(preload("res://global/protocol/register_result.pb.gd"))
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
 	bind(preload("res://global/protocol/blood_info.pb.gd"))
 	bind(preload("res://global/protocol/game_time.pb.gd"))
+	
+func on_msg_register_result( msg):
+	if has_node("/root/launch/ui/account"):
+		get_node("/root/launch/ui/account").on_receive_register_result(msg)
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

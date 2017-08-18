@@ -10,7 +10,7 @@ public class register_by_email extends message {
 	@Override
 
 	public int id(){
-		 return 13;
+		 return 11;
 	}
 
 	@Override
