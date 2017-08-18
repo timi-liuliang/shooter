@@ -186,6 +186,8 @@ def gen_protocol_godot(file, id):
         if data[key]=='string':
             gd_file.writelines("\t%s = byteBuffer.read_string();\n" % key)
 
+    gd_file.writelines("\tpass\n")
+
     gd_file.close()
 
     print("generate " + gd_file_name + " succeed")
