@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items>
-	<item id="0100001" name="flower_1" type="flower" icon="res://actor/flowers/flower_1.png" res="res://actor/flowers/flower_1.tscn" is_can_eat="1" add_blood="35" />
+	<!--item id="0100001" name="flower_1" type="flower" icon="res://actor/flowers/flower_1.png" res="res://actor/flowers/flower_1.tscn" is_can_eat="1" add_blood="35" />
 	<item id="0100002" name="flower_2" type="flower" icon="" res="res://actor/flowers/flower_2.tscn" />
 	<item id="0100003" name="flower_3" type="flower" icon="" res="res://actor/flowers/flower_3.tscn" />
 	<item id="0100004" name="flower_4" type="flower" icon="" res="res://actor/flowers/flower_4.tscn" />
@@ -13,5 +13,5 @@
 	<item id="0200001" name="marble" type="tree" icon="res://ui/inventory/equip_212.tex" res="res://actor/marble_trees/marble_tree.tscn" />
 	<item id="0200002" name="bajiao" type="tree" icon="res://ui/inventory/checkbox_01.tex" res="res://actor/tree/tree_bajiao.tscn" />
 
-	<item id="0300001" name="blue marshroom" type="monster" icon="" res="res://actor/monster/blob/blob.tscn" />
+	<item id="0300001" name="blue marshroom" type="monster" icon="" res="res://actor/monster/blob/blob.tscn" /-->
 </items>

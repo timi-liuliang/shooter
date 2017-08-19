@@ -38,21 +38,36 @@ func update_net_state(delta):
 	if cur_net_state < target_net_state:
 		time_out -= delta
 		if cur_net_state==NetState.DISCONNECTED and time_out<=0:
+			print("update net state A")
 			connect_server()
 			time_out = 10
 			
 		if cur_net_state==NetState.DISCONNECTED and streamPeerTCP.is_connected():
-			cur_net_state = NetState.CONNECTED
+			set_cur_net_state( NetState.CONNECTED)
+			print("update net state B")
 			
 		if cur_net_state==NetState.CONNECTED and time_out<=0:
-			get_node("/root/account").login()
+			get_node("/root/account_mgr").login()
+			print("update net state C")
 			time_out=10
-	
+		
+		if cur_net_state==NetState.LOGINED and time_out < 0:
+			search_room_begin()	
+			
+		#print("update net state E")
+
+func set_cur_net_state(state):
+	cur_net_state = state
+	time_out = 0.0
+			
 func set_target_net_state(state):
 	if state == NetState.DISCONNECTED:
 		streamPeerTCP.disconnected()
 	
+	time_out = 0.0
 	target_net_state = state
+	
+	print("set_target_net_state")
 	
 func connect_server():
 	streamPeerTCP = StreamPeerTCP.new()
@@ -162,17 +177,18 @@ func on_msg_register_result( msg):
 		get_node("/root/launch/ui/account").on_receive_register_result(msg)
 		
 func on_msg_login_result( msg):
-	if has_node("/root/launch/ui/account"):
-		if msg.result==0:
-			cur_net_state = NetState.LOGINED
+	if msg.result==0:
+		set_cur_net_state(NetState.LOGINED)
 			
-		get_node("/root/launch/ui/account").on_receive_login_result(msg)
+	get_node("/root/account").on_receive_login_result(msg)
 		
 func on_msg_search_room_result(msg):
 	if msg.result==1:
 		get_node("/root/global").set_scene("res://room_match/room_match.tscn")
+		set_cur_net_state(NetState.SEARCHING)
 	elif msg.result==0:
 		get_node("/root/global").set_scene("res://launch/launch.tscn")
+		set_cur_net_state(NetState.LOGINED)
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

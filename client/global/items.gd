@@ -16,6 +16,8 @@ class Item:
 		pass
 
 func _ready():
+	return
+	
 	var parser = XMLParser.new()
 	parser.open("res://global/cfg/items.xml")
 	while not parser.read():

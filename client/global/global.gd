@@ -40,7 +40,7 @@ func load_global_scripts():
 	items.set_name("items")
 	get_tree().get_root().add_child(items)
 	
-	var account = preload("res://global/account.gd").new()
-	account.set_name("account")
+	var account = preload("res://global/account_mgr.gd").new()
+	account.set_name("account_mgr")
 	get_tree().get_root().add_child(account)
 	
