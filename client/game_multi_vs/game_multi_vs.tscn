@@ -1,6 +1,6 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=15 format=1]
 
-[ext_resource path="res://game_single_vs/game_single_vs.gd" type="Script" id=1]
+[ext_resource path="res://game_multi_vs/game_multi_vs.gd" type="Script" id=1]
 [ext_resource path="res://game_single/bg_layer3.png" type="Texture" id=2]
 [ext_resource path="res://game_single/bg_layer1.png" type="Texture" id=3]
 [ext_resource path="res://game_single/bg_layer0.png" type="Texture" id=4]
@@ -13,14 +13,15 @@
 [ext_resource path="res://ui/head_shot/head_shot.tscn" type="PackedScene" id=11]
 [ext_resource path="res://ui/blood/ui_blood_bg.png" type="Texture" id=12]
 [ext_resource path="res://ui/blood/ui_blood.png" type="Texture" id=13]
+[ext_resource path="res://ui/room_match/room_match.tscn" type="PackedScene" id=14]
 
 [node name="game" type="Node2D"]
 
 script/script = ExtResource( 1 )
-init_speed = 2000.0
-gravity = 1500.0
-character_move_speed = 500.0
-wind_slow_down = 0.0
+init_speed = 300
+gravity = 100
+character_move_speed = 100
+wind_slow_down = 100
 
 [node name="parallax_background" type="ParallaxBackground" parent="."]
 
@@ -225,5 +226,7 @@ texture/over = null
 texture/progress = ExtResource( 13 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
+
+[node name="room_match" parent="ui" instance=ExtResource( 14 )]
 
 

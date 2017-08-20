@@ -126,6 +126,7 @@ func login_by_email( email, password):
 	
 func login_by_osid():
 	if streamPeerTCP.is_connected():	
+		print("heheeiheieieei")
 		var login_msg = preload("res://global/protocol/login_by_osid.pb.gd").new()
 		login_msg.account = 1
 		login_msg.password = 9
@@ -133,6 +134,7 @@ func login_by_osid():
 		
 # 搜寻房间
 func search_room_begin():
+	print("search room begin")
 	if streamPeerTCP.is_connected():
 		var search_room_msg = preload("res://global/protocol/search_room_begin.pb.gd").new()
 		search_room_msg.send(streamPeerTCP)
@@ -185,12 +187,14 @@ func on_msg_login_result( msg):
 		
 func on_msg_search_room_result(msg):
 	if msg.result==1:
-		get_node("/root/global").set_scene("res://room_match/room_match.tscn")
+		get_node("/root/global").set_scene("res://game_multi_vs/game_multi_vs.tscn")
 		set_cur_net_state(NetState.SEARCHING)
+		print("battle searching")
 	elif msg.result==0:
 		get_node("/root/global").set_scene("res://launch/launch.tscn")
 		set_cur_net_state(NetState.LOGINED)
 		set_target_net_state(NetState.LOGINED)
+		print("quite battle")
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)
