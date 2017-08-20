@@ -2,6 +2,7 @@ package room;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import player.Player;
 
 class PlayerState{
@@ -20,7 +21,6 @@ public class RoomMgr {
 	public HashMap<Long, PlayerState>  players_searching = new HashMap<Long, PlayerState>();
 	public HashMap<Long, PlayerState>  players_in_battle = new HashMap<Long, PlayerState>();
 	
-	
 	public static RoomMgr instance() {
 		if(inst==null)
 			inst = new RoomMgr();
@@ -28,14 +28,31 @@ public class RoomMgr {
 		return inst;
 	}
 	
-	public void process() {
+	public static void update(){
+		RoomMgr.instance().process(1.f);
+	}
+	
+	public void process(float delta) {
 		// 匹配
 		if(players_searching.size()>2) {
+			Iterator it = players_searching.entrySet().iterator();
+			HashMap.Entry pair = (HashMap.Entry)it.next();
+			Long player0 = (Long) pair.getKey();
+			it.remove();
 			
+			pair = (HashMap.Entry)it.next();
+			Long player1 = (Long) pair.getKey();
+			it.remove();
+			
+			new_room(player0, player1);
 		}
 		
-		// 更新房间 
-		//for()
+		// 更新房间
+		Iterator it = rooms.entrySet().iterator();
+		while(it.hasNext()){
+			HashMap.Entry pair = (HashMap.Entry)it.next();
+			((Room) pair.getValue()).process(delta);
+		}
 	}
 	
 	public void new_room(long player0, long player1) {
@@ -51,11 +68,22 @@ public class RoomMgr {
 	}
 	
 	public boolean add_player(long player) {
-		if(players_in_battle.containsKey(player)) {
+		if(players_searching.containsKey(player)) {
 			return false;
 		}
 		else {
+			players_searching.put(player, new PlayerState(player, 0));
 			return true;
+		}
+	}
+	
+	public boolean remove_player(long player){
+		if(players_searching.containsKey(player)) {
+			players_searching.remove(player);
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 }

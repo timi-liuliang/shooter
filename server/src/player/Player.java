@@ -236,7 +236,7 @@ public class Player {
 	}
 	
 	public void search_room_end() {
-		if(RoomMgr.instance().add_player(table.player)) {
+		if(RoomMgr.instance().remove_player(table.player)) {
 			protocol.search_room_result msg = new protocol.search_room_result();
 			msg.result = 0;
 			mChannelCtx.write(msg.data());

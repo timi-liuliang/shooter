@@ -173,14 +173,15 @@ func bind_msgs():
 	bind(preload("res://global/protocol/game_time.pb.gd"))
 	
 func on_msg_register_result( msg):
-	if has_node("/root/launch/ui/account"):
-		get_node("/root/launch/ui/account").on_receive_register_result(msg)
+	if has_node("/root/account"):
+		get_node("/root/account").on_receive_register_result(msg)
 		
 func on_msg_login_result( msg):
 	if msg.result==0:
 		set_cur_net_state(NetState.LOGINED)
-			
-	get_node("/root/account").on_receive_login_result(msg)
+	
+	if has_node("/root/account"):		
+		get_node("/root/account").on_receive_login_result(msg)
 		
 func on_msg_search_room_result(msg):
 	if msg.result==1:
@@ -189,6 +190,7 @@ func on_msg_search_room_result(msg):
 	elif msg.result==0:
 		get_node("/root/global").set_scene("res://launch/launch.tscn")
 		set_cur_net_state(NetState.LOGINED)
+		set_target_net_state(NetState.LOGINED)
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

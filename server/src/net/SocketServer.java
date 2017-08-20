@@ -58,6 +58,15 @@ public class SocketServer {
 			}
 		}, 5*60*1000, 5*50*1000);
 		
+		// 数据保存计时器
+		Timer roomUpdateTimer = new Timer();
+		roomUpdateTimer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				room.RoomMgr.update();
+			}
+		}, 0, 1000);
+		
 		// 启动服务
 		SocketServer server = getInstance();
 		server.start();
