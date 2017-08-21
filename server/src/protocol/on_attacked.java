@@ -9,7 +9,7 @@ public class on_attacked extends message {
 	@Override
 
 	public int id(){
-		 return 10;
+		 return 14;
 	}
 
 	@Override

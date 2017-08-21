@@ -10,7 +10,7 @@ func _ready():
 func name():
 	return 'collect_item'
 func id():
-	return 4
+	return 8
 
 func length():
 	return 12 ;

@@ -7,7 +7,7 @@ func _ready():
 func name():
 	return 'search_room_begin'
 func id():
-	return 14
+	return 18
 
 func length():
 	return 0 ;

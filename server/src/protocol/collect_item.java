@@ -11,7 +11,7 @@ public class collect_item extends message {
 	@Override
 
 	public int id(){
-		 return 4;
+		 return 8;
 	}
 
 	@Override

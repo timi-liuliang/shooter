@@ -3,12 +3,12 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class search_room_end extends message {
+public class battle_player_operate extends message {
 
 	@Override
 
 	public int id(){
-		 return 19;
+		 return 6;
 	}
 
 	@Override

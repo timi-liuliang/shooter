@@ -8,7 +8,7 @@ func _ready():
 func name():
 	return 'login_by_osid'
 func id():
-	return 8
+	return 12
 
 func length():
 	return 4 +osid.length();

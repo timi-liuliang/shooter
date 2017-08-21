@@ -18,8 +18,8 @@ class PlayerState{
 public class RoomMgr {
 	protected static RoomMgr inst = null;
 	public static HashMap<Integer, Room>  rooms 			= new HashMap<Integer, Room>();
-	public HashMap<Long, PlayerState>  players_searching = new HashMap<Long, PlayerState>();
-	public HashMap<Long, PlayerState>  players_in_battle = new HashMap<Long, PlayerState>();
+	public HashMap<Integer, PlayerState>  players_searching = new HashMap<Integer, PlayerState>();
+	public HashMap<Integer, PlayerState>  players_in_battle = new HashMap<Integer, PlayerState>();
 	
 	public static RoomMgr instance() {
 		if(inst==null)
@@ -37,11 +37,11 @@ public class RoomMgr {
 		if(players_searching.size()>2) {
 			Iterator it = players_searching.entrySet().iterator();
 			HashMap.Entry pair = (HashMap.Entry)it.next();
-			Long player0 = (Long) pair.getKey();
+			Integer player0 = (Integer) pair.getKey();
 			it.remove();
 			
 			pair = (HashMap.Entry)it.next();
-			Long player1 = (Long) pair.getKey();
+			Integer player1 = (Integer) pair.getKey();
 			it.remove();
 			
 			new_room(player0, player1);
@@ -55,7 +55,7 @@ public class RoomMgr {
 		}
 	}
 	
-	public void new_room(long player0, long player1) {
+	public void new_room(Integer player0, Integer player1) {
 		Room room = new Room();
 		
 		PlayerState ps0 = new PlayerState(player0, room.hashCode());
@@ -64,10 +64,11 @@ public class RoomMgr {
 		PlayerState ps1 = new PlayerState(player0, room.hashCode());
 		players_in_battle.put(player1, ps1);
 		
+		room.addPlayer( player0, player1);
 		rooms.put(room.hashCode(), room);
 	}
 	
-	public boolean add_player(long player) {
+	public boolean add_player(Integer player) {
 		if(players_searching.containsKey(player)) {
 			return false;
 		}
@@ -77,7 +78,7 @@ public class RoomMgr {
 		}
 	}
 	
-	public boolean remove_player(long player){
+	public boolean remove_player(Integer player){
 		if(players_searching.containsKey(player)) {
 			players_searching.remove(player);
 			return true;

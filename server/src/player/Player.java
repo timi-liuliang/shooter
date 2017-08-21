@@ -4,6 +4,8 @@ import db.db;
 import db.player_table;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import com.google.gson.Gson;
 import java.util.Timer;
@@ -56,6 +58,15 @@ public class Player {
 			Player player = new Player(ctx);		
 			
 			return player;
+		}		
+	}
+	
+	public static Player get(Integer ctxID) {
+		if( players.containsKey(ctxID)) {
+			return players.get(ctxID);
+		}
+		else {
+			return null;
 		}		
 	}
 	
@@ -226,9 +237,13 @@ public class Player {
 		info.backpack.sendBackpackInfo(mChannelCtx);
 	}
 	
+	public void sendMsg(ByteBuf buf) {
+		mChannelCtx.write(buf);
+	}
+	
 	// --------------------search room-------------------------
 	public void search_room_begin() {
-		RoomMgr.instance().add_player(table.player);
+		RoomMgr.instance().add_player(mChannelCtx.hashCode());
 			
 		protocol.search_room_result msg = new protocol.search_room_result();
 		msg.result = 1;
@@ -236,7 +251,7 @@ public class Player {
 	}
 	
 	public void search_room_end() {
-		RoomMgr.instance().remove_player(table.player);
+		RoomMgr.instance().remove_player(mChannelCtx.hashCode());
 		
 		protocol.search_room_result msg = new protocol.search_room_result();
 		msg.result = 0;

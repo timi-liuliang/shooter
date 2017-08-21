@@ -314,3 +314,13 @@ func add_weapon_to( i):
 func update_blood_display():
 	get_node("ui/blood/player_0").set_value(players[0].cur_blood)
 	get_node("ui/blood/player_1").set_value(players[1].cur_blood)
+	
+func get_type():
+	return 1
+	
+#########################net message#########################
+func on_msg_battle_player_enter(msg):
+	pass
+		
+func on_msg_battle_begin(msg):
+	get_node("ui/room_match").set_hidden(true)

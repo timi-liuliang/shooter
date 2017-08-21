@@ -9,7 +9,7 @@ public class eat_item extends message {
 	@Override
 
 	public int id(){
-		 return 5;
+		 return 9;
 	}
 
 	@Override

@@ -8,7 +8,7 @@ func _ready():
 func name():
 	return 'eat_item'
 func id():
-	return 5
+	return 9
 
 func length():
 	return 4 ;

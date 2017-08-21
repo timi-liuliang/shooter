@@ -8,7 +8,7 @@ func _ready():
 func name():
 	return 'game_time'
 func id():
-	return 6
+	return 10
 
 func length():
 	return 4 ;

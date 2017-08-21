@@ -10,7 +10,7 @@ public class player_base_info extends message {
 	@Override
 
 	public int id(){
-		 return 11;
+		 return 15;
 	}
 
 	@Override
