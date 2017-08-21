@@ -46,3 +46,12 @@ func is_email( email):
 	var is_end_with_com = email.ends_with('.com')
 	var is_have_at = email.find('@')!=-1	
 	return  is_end_with_com and is_have_at
+
+
+func _on_return_login_pressed():
+	get_node("login").set_hidden(false)
+	get_node("register").set_hidden(true)
+
+
+func _on_close_pressed():
+	get_node("/root/global").set_scene("res://launch/launch.tscn")

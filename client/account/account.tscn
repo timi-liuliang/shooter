@@ -140,6 +140,22 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="close" type="Button" parent="login"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 43.0
+margin/bottom = 40.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "X"
+flat = false
+
 [node name="register" type="Control" parent="."]
 
 visibility/visible = false
@@ -264,14 +280,30 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 433.0
-margin/top = 415.0
-margin/right = 577.0
-margin/bottom = 458.0
+margin/left = 517.0
+margin/top = 400.0
+margin/right = 634.0
+margin/bottom = 443.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 text = "register"
+flat = false
+
+[node name="return_login" type="Button" parent="register"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 385.0
+margin/top = 399.0
+margin/right = 498.0
+margin/bottom = 442.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "login"
 flat = false
 
 [node name="info" type="Label" parent="register"]
@@ -354,6 +386,10 @@ flat = false
 
 [connection signal="pressed" from="login/register" to="." method="_on_register_pressed"]
 
+[connection signal="pressed" from="login/close" to="." method="_on_close_pressed"]
+
 [connection signal="pressed" from="register/register" to="register" method="_on_register_pressed"]
+
+[connection signal="pressed" from="register/return_login" to="." method="_on_return_login_pressed"]
 
 
