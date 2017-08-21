@@ -29,6 +29,7 @@ func _process(delta):
 		while availableBytes > 0:
 			process_net_byte(streamPeerTCP.get_u8())
 			availableBytes = streamPeerTCP.get_available_bytes()
+			print("unhappy")
 	else:
 		cur_net_state = NetState.DISCONNECTED
 		
@@ -200,16 +201,19 @@ func on_msg_search_room_result(msg):
 		print("quite battle")
 		
 func on_msg_battle_player_enter(msg):
+	print("------------------------")
 	if has_node("/root/game").get_type()==1:
 		get_node("/root/game").on_msg_battle_player_enter(msg)
 	else:
 		print("stange message from server")
 		
 func on_msg_battle_begin(msg):
-	if has_node("/root/game").get_type()==1:
-		get_node("/root/game").on_msg_battle_begin(msg)
-	else:
-		print("stange message from server")	
+	print("++++++++++++++++++++++++")
+	if has_node("/root/game"):
+		if get_node("/root/game").get_type()==1:
+			get_node("/root/game").on_msg_battle_begin(msg)
+		else:
+			print("stange message from server")	
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

@@ -34,7 +34,7 @@ public class RoomMgr {
 	
 	public void process(float delta) {
 		// Æ¥Åä
-		if(players_searching.size()>2) {
+		if(players_searching.size()>=2) {
 			Iterator it = players_searching.entrySet().iterator();
 			HashMap.Entry pair = (HashMap.Entry)it.next();
 			Integer player0 = (Integer) pair.getKey();

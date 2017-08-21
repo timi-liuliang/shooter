@@ -129,6 +129,7 @@ def gen_protocol_godot(file, id):
     # name
     gd_file.writelines("func name():\n")
     gd_file.writelines("\treturn '%s'\n" % protocol_name)
+    gd_file.writelines("\n" % protocol_name)
 
     # id
     gd_file.writelines("func id():\n")

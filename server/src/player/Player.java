@@ -46,6 +46,9 @@ public class Player {
 	public static void update() {
 		for(Player player : players.values()) {
 			player.saveToDB();
+			
+			System.out.print("wo cao cao aocao");
+			player.sendBattleBegin();
 		}
 	}
 	
@@ -257,4 +260,11 @@ public class Player {
 		msg.result = 0;
 		mChannelCtx.write(msg.data());
 	}
+	
+	// battle
+	public void sendBattleBegin() {
+		protocol.battle_begin msg = new protocol.battle_begin();
+		mChannelCtx.writeAndFlush(msg.data());
+	}
+	
 }

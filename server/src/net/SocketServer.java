@@ -56,9 +56,9 @@ public class SocketServer {
 			public void run() {
 				player.Player.update();
 			}
-		}, 5*60*1000, 5*50*1000);
+		}, 0, 5000);// 5*60*1000, 5*50*1000);
 		
-		// 数据保存计时器
+		// 战场更新计时器
 		Timer roomUpdateTimer = new Timer();
 		roomUpdateTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override

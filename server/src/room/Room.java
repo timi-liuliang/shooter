@@ -26,6 +26,12 @@ public class Room {
 			m_gameState = GameState.GS_PLAYER0_TURN;
 		}
 		else if(m_gameState==GameState.GS_PLAYER0_TURN) {
+			//protocol.battle_begin msg = new protocol.battle_begin();
+			//m_player0.sendMsg( msg.data());
+			//m_player1.sendMsg( msg.data());
+			m_player0.sendBattleBegin();
+			m_player1.sendBattleBegin();
+			System.out.println("unhappy...");
 			
 		}
 		else if(m_gameState==GameState.GS_PLAYER1_TURN) {
@@ -35,7 +41,7 @@ public class Room {
 			
 		}
 		
-		System.out.println("room process");
+		System.out.println(String.format("room process GameState:" + m_gameState.name()));
 	}
 	
 	void addPlayer( Integer p0, Integer p1) {
@@ -53,5 +59,7 @@ public class Room {
 		msg1.name = "player_1";
 		m_player0.sendMsg(msg1.data());
 		m_player1.sendMsg(msg1.data());
+		
+		m_gameState = GameState.GS_PLAYER_READY;
 	}
 }

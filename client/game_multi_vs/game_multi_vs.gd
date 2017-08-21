@@ -320,7 +320,9 @@ func get_type():
 	
 #########################net message#########################
 func on_msg_battle_player_enter(msg):
+	print("on_msg_battle_player_enter")
 	pass
 		
 func on_msg_battle_begin(msg):
+	print("on_msg_battle_begin")
 	get_node("ui/room_match").set_hidden(true)

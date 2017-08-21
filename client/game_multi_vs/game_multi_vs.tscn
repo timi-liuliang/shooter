@@ -18,10 +18,10 @@
 [node name="game" type="Node2D"]
 
 script/script = ExtResource( 1 )
-init_speed = 300
-gravity = 100
-character_move_speed = 100
-wind_slow_down = 100
+init_speed = 2000.0
+gravity = 1500.0
+character_move_speed = 500.0
+wind_slow_down = 800.0
 
 [node name="parallax_background" type="ParallaxBackground" parent="."]
 
