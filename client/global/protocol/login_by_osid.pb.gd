@@ -9,7 +9,7 @@ func name():
 	return 'login_by_osid'
 
 func id():
-	return 14
+	return 16
 
 func length():
 	return 4 +osid.length();

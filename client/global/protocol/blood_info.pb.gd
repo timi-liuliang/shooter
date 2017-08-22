@@ -10,7 +10,7 @@ func name():
 	return 'blood_info'
 
 func id():
-	return 9
+	return 11
 
 func length():
 	return 8 ;

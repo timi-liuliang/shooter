@@ -9,7 +9,7 @@ func name():
 	return 'on_attacked'
 
 func id():
-	return 16
+	return 18
 
 func length():
 	return 4 ;

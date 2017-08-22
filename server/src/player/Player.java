@@ -36,8 +36,17 @@ public class Player {
 	protected long							mLastTickTime = 0;
 	protected Account						mAccount = new Account();
 	protected player_table					table = new player_table();						// 玩家表信息
-	protected Info					   		info = new Info();
+	protected Info					   		info = new Info();	
+	protected Room							room = null;									// 战场房间
 	
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
 	public Player(ChannelHandlerContext channelCtx) {
 			
 		mChannelCtx = channelCtx;
@@ -187,6 +196,11 @@ public class Player {
 	}
 	
 	// ---------------------receive---------------------
+	public void on_battle_player_shoot(){
+		if(room!=null) {
+			room.on_batle_player_shoot(this);
+		}
+	}
 	
 	public void collectItem(int id, int count, int type) {
 		info.backpack.collectItem(id, count, type, mChannelCtx);

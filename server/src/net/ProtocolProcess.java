@@ -12,6 +12,7 @@ interface ProtocolProcess {
 		SocketServerHandler.bind(new protocol.login_by_osid(), new login_by_osid_process());
 		SocketServerHandler.bind(new protocol.search_room_begin(), new search_room_begin_process());
 		SocketServerHandler.bind(new protocol.search_room_end(), new search_room_end_process());
+		SocketServerHandler.bind(new protocol.battle_player_shoot(), new battle_player_shoot_process());
 		
 		// Unused
 		SocketServerHandler.bind(new protocol.collect_item(), new collect_item_process());
@@ -63,6 +64,14 @@ class search_room_end_process implements ProtocolProcess{
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {	
 		Player player = Player.get(ctx);
 		player.search_room_end();
+	}
+}
+
+class battle_player_shoot_process implements ProtocolProcess{
+	@Override
+	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {	
+		Player player = Player.get(ctx);
+		player.on_battle_player_shoot();
 	}
 }
 

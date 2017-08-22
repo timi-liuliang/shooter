@@ -146,6 +146,11 @@ func search_room_end():
 	if streamPeerTCP.is_connected():
 		var search_room_msg = preload("res://global/protocol/search_room_end.pb.gd").new()
 		search_room_msg.send(streamPeerTCP)
+		
+func battle_player_shoot():
+	if streamPeerTCP.is_connected():
+		var msg = preload("res://global/protocol/battle_player_shoot.pb.gd").new()
+		msg.send(streamPeerTCP)
 
 func collect_item(id):
 	if streamPeerTCP.is_connected():	

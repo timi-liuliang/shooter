@@ -9,7 +9,7 @@ func name():
 	return 'eat_item'
 
 func id():
-	return 11
+	return 13
 
 func length():
 	return 4 ;

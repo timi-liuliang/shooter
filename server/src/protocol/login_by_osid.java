@@ -9,7 +9,7 @@ public class login_by_osid extends message {
 	@Override
 
 	public int id(){
-		 return 14;
+		 return 16;
 	}
 
 	@Override

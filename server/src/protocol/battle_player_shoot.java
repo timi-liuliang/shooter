@@ -3,23 +3,25 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class search_room_begin extends message {
+public class battle_player_shoot extends message {
 
+	public long player = 0;
 	@Override
 
 	public int id(){
-		 return 23;
+		 return 7;
 	}
 
 	@Override
 	public int length(){
-		 return 0 ;
+		 return 8 ;
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
+		byteBuffer.writeLong(player);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -27,5 +29,6 @@ public class search_room_begin extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
+		player = byteBuffer.readLong();
 	}
 }

@@ -19,12 +19,12 @@ public class Room {
 	public void process(float delta){
 		m_battleTime += delta;
 		if(m_gameState == GameState.GS_PLAYER_READY && m_battleTime>=1.f) {
+			m_gameState = GameState.GS_PLAYER0_TURN;
+			sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
+			
 			protocol.battle_begin msg = new protocol.battle_begin();
 			m_player0.sendMsg( msg.data());
 			m_player1.sendMsg( msg.data());
-			
-			m_gameState = GameState.GS_PLAYER0_TURN;
-			sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
 		}
 		else if(m_gameState==GameState.GS_PLAYER0_TURN) {
 		
@@ -42,6 +42,9 @@ public class Room {
 	void addPlayer( Integer p0, Integer p1) {
 		m_player0 = Player.get(p0);
 		m_player1 = Player.get(p1);
+		
+		m_player0.setRoom(this);
+		m_player1.setRoom(this);
 		
 		protocol.battle_player_enter msg0 = new protocol.battle_player_enter();
 		msg0.pos = 0;
@@ -79,6 +82,17 @@ public class Room {
 			msg.player = m_player1.get_id();
 			m_player0.sendMsg(msg.data());
 			m_player1.sendMsg(msg.data());
+		}
+	}
+	
+	public void on_batle_player_shoot(Player player) {
+		if(player==m_player0 && m_gameState==GameState.GS_PLAYER0_TURN) {
+			m_gameState = GameState.GS_PLAYER1_TURN;
+			sendBattleTurnBegin(GameState.GS_PLAYER1_TURN);
+		}
+		else if (player==m_player1 && m_gameState==GameState.GS_PLAYER1_TURN) {
+			m_gameState = GameState.GS_PLAYER0_TURN;
+			sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
 		}
 	}
 }

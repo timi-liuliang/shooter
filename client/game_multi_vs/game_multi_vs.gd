@@ -153,7 +153,7 @@ func main_player_aim(delta, idx):
 		
 	if !Input.is_action_pressed("touch"):
 		# 向服务器发送"shooter"消息
-		pass
+		get_node("/root/network").battle_player_shoot()
 		
 func on_player_shoot(idx):
 	var player = players[idx]
