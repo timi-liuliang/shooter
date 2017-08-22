@@ -202,6 +202,12 @@ public class Player {
 		}
 	}
 	
+	public void on_battle_switch_turn() {
+		if(room!=null) {
+			room.on_batle_switch_turn(this);
+		}
+	}
+	
 	public void collectItem(int id, int count, int type) {
 		info.backpack.collectItem(id, count, type, mChannelCtx);
 	}

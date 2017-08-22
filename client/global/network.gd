@@ -154,6 +154,9 @@ func battle_player_shoot(weapon_pos, degree):
 		msg.weapon_pos_y = weapon_pos.y
 		msg.degree = degree
 		msg.send(streamPeerTCP)
+		
+func send_battle_switch_turn():
+	pass	
 
 func collect_item(id):
 	if streamPeerTCP.is_connected():	

@@ -5,10 +5,10 @@ func _ready():
 	pass
 
 func name():
-	return 'battle_player_operate'
+	return 'battle_switch_turn'
 
 func id():
-	return 6
+	return 8
 
 func length():
 	return 0 ;

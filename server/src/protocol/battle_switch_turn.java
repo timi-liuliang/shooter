@@ -3,12 +3,12 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class battle_player_operate extends message {
+public class battle_switch_turn extends message {
 
 	@Override
 
 	public int id(){
-		 return 6;
+		 return 8;
 	}
 
 	@Override

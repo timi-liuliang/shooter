@@ -226,9 +226,9 @@ func check_result():
 		game_state = GameState.GS_FAILING	
 	elif get_enemy(main_player_idx).cur_blood <=0:
 		game_state = GameState.GS_WINING
-	#else:
-	#	active_player_idx = (active_player_idx + 1) % players.size() 	
-	#	game_state = GameState.GS_FOCUS_PLAYER
+	else:
+		if active_player_idx==main_player_idx:
+			get_node("/root/network").send_battle_switch_turn()
 	
 func failing():
 	var character = get_self()	
