@@ -101,6 +101,7 @@ public class Room {
 	}
 	
 	public void on_batle_switch_turn(Player player) {
+		System.out.println("dfdsfdsfsfsfsfs--------------------------");
 		if(player==m_player0 && m_gameState==GameState.GS_PLAYER0_TURN) {
 			m_gameState = GameState.GS_PLAYER1_TURN;		
 			sendBattleTurnBegin(GameState.GS_PLAYER1_TURN);

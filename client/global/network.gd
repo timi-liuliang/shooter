@@ -156,7 +156,9 @@ func battle_player_shoot(weapon_pos, degree):
 		msg.send(streamPeerTCP)
 		
 func send_battle_switch_turn():
-	pass	
+	if streamPeerTCP.is_connected():
+		var msg = preload("res://global/protocol/battle_switch_turn.pb.gd").new()
+		msg.send(streamPeerTCP)	
 
 func collect_item(id):
 	if streamPeerTCP.is_connected():	
