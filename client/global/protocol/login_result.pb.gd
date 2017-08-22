@@ -8,6 +8,7 @@ func _ready():
 
 func name():
 	return 'login_result'
+
 func id():
 	return 13
 

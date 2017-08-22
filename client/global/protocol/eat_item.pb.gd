@@ -7,6 +7,7 @@ func _ready():
 
 func name():
 	return 'eat_item'
+
 func id():
 	return 9
 

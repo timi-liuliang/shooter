@@ -7,6 +7,7 @@ func _ready():
 
 func name():
 	return 'on_attacked'
+
 func id():
 	return 14
 

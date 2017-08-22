@@ -20,6 +20,9 @@ public:
     void write_i32(int32_t p_val);
     int32_t read_i32();
 
+    void write_i64(int64_t p_val);
+    int64_t read_i64();
+
 	void write_float(float p_val);
 	float read_float();
 

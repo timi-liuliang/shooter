@@ -40,6 +40,24 @@ int32_t ByteBuf::read_i32()
 	return r;
 }
 
+void ByteBuf::write_i64(int64_t p_val)
+{
+	//big_endian
+	data.resize(data.size()+8);
+	p_val = BSWAP64(p_val);
+	encode_uint64(p_val, &(data.write().ptr()[writeIdx]));
+	writeIdx += 8;
+}
+
+int64_t ByteBuf::read_i64()
+{
+	uint64_t r = decode_uint64(&(data.write().ptr()[readIdx]));
+	r = BSWAP64(r);
+	readIdx += 8;
+
+	return r;
+}
+
 void ByteBuf::write_float(float p_val) {
 
 	data.resize(data.size() + 4);
@@ -96,6 +114,8 @@ void ByteBuf::_bind_methods()
 	ObjectTypeDB::bind_method(_MD("write_byte", "byte"), &ByteBuf::write_byte);
     ObjectTypeDB::bind_method(_MD("write_i32", "value"), &ByteBuf::write_i32);
 	ObjectTypeDB::bind_method(_MD("read_i32"), &ByteBuf::read_i32);
+	ObjectTypeDB::bind_method(_MD("write_i64", "value"), &ByteBuf::write_i64);
+	ObjectTypeDB::bind_method(_MD("read_i64"), &ByteBuf::read_i64);
 	ObjectTypeDB::bind_method(_MD("write_float", "value"), &ByteBuf::write_float);
 	ObjectTypeDB::bind_method(_MD("read_float"), &ByteBuf::read_float);
 	ObjectTypeDB::bind_method(_MD("write_string", "value"), &ByteBuf::write_string);

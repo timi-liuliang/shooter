@@ -9,6 +9,7 @@ func _ready():
 
 func name():
 	return 'backpack_cell'
+
 func id():
 	return 1
 

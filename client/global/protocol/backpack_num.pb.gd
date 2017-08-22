@@ -7,6 +7,7 @@ func _ready():
 
 func name():
 	return 'backpack_num'
+
 func id():
 	return 2
 

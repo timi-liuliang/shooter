@@ -32,7 +32,6 @@ var column_pos = Vector2()
 var battle_id = int(0)
 var blood_effect = null
 var continue_head_shot_num = 0
-var is_player_0 = true
 var main_player_idx = 0			# 主角索引
 var active_player_idx = 0		# 当前活跃玩家
 var robot_aim_degree = 0.0
@@ -320,8 +319,8 @@ func get_type():
 	
 #########################net message#########################
 func on_msg_battle_player_enter(msg):
-	print("on_msg_battle_player_enter")
-	pass
+	if msg.player==get_node("/root/account_mgr").get_player_id():
+		main_player_idx = msg.pos;
 		
 func on_msg_battle_begin(msg):
 	print("on_msg_battle_begin")

@@ -108,6 +108,8 @@ public class Player {
 			
 			players.put(mChannelCtx.hashCode(), this);
 		}
+		
+		sendPlayerInfo();
 	}
 	
 	protected void disconnectPlayer(long account) {
@@ -229,9 +231,11 @@ public class Player {
 	
 	// ---------------------send---------------------
 	
-	public void sendBaseInfo() {
-		info.baseInfo.sendBloodInfo(mChannelCtx);
-		info.baseInfo.sendGameTime(mChannelCtx);
+	public void sendPlayerInfo() {
+		protocol.player_info msg = new protocol.player_info();
+		msg.player = table.account;
+		msg.name = info.baseInfo.name;
+		mChannelCtx.writeAndFlush(msg);
 	}
 	
 	// send info to client

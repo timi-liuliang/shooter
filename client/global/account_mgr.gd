@@ -5,6 +5,10 @@ var config_file = null
 var account = ""
 var password = ""
 
+var is_have_player = false
+var player_id = -1
+var player_name = ""
+
 func _ready():
 	config_file = ConfigFile.new()
 	if config_file.load(file_name) == OK:
@@ -33,3 +37,11 @@ func save_account(acc, pas):
 	config_file.set_value("data", "account", account)
 	config_file.set_value("data", "password", password)
 	config_file.save(file_name)
+		
+func on_receive_player_info(msg):
+	is_have_player = true;
+	player_id = msg.player
+	player_name = msg.name
+	
+func get_player_id():
+	return player_id

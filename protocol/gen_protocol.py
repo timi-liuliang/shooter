@@ -21,6 +21,7 @@ def gen_protocol_java( file, id):
     protocol_name = os.path.splitext(file)[0]
 
     java_file_name = java_save_path + protocol_name + ".java"
+    print("prepare generate " + java_file_name)
     java_file = open(java_file_name, "w+")
     java_file.writelines("package protocol;\n\n")
     java_file.writelines("import io.netty.buffer.ByteBuf;\n")
@@ -111,6 +112,7 @@ def gen_protocol_godot(file, id):
     protocol_name = os.path.splitext(file)[0]
 
     gd_file_name = gd_save_path + protocol_name + ".pb.gd"
+    print("prepare generate [" + gd_file_name + "]")
     gd_file = open( gd_file_name, "w+")
     gd_file.writelines("extends Node\n\n")
 
@@ -129,7 +131,7 @@ def gen_protocol_godot(file, id):
     # name
     gd_file.writelines("func name():\n")
     gd_file.writelines("\treturn '%s'\n" % protocol_name)
-    gd_file.writelines("\n" % protocol_name)
+    gd_file.writelines("\n")
 
     # id
     gd_file.writelines("func id():\n")

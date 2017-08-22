@@ -6,8 +6,9 @@ func _ready():
 
 func name():
 	return 'search_room_end'
+
 func id():
-	return 19
+	return 20
 
 func length():
 	return 0 ;

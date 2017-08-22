@@ -8,8 +8,9 @@ func _ready():
 
 func name():
 	return 'register_result'
+
 func id():
-	return 17
+	return 18
 
 func length():
 	return 8 ;

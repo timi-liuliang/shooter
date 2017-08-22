@@ -8,6 +8,7 @@ func _ready():
 
 func name():
 	return 'blood_info'
+
 func id():
 	return 7
 

@@ -169,6 +169,7 @@ func on_attacked(damage):
 func bind_msgs():
 	bind(preload("res://global/protocol/register_result.pb.gd"))
 	bind(preload("res://global/protocol/login_result.pb.gd"))
+	bind(preload("res://global/protocol/player_info.pb.gd"))
 	bind(preload("res://global/protocol/search_room_result.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_enter.pb.gd"))
 	bind(preload("res://global/protocol/battle_begin.pb.gd"))
@@ -188,6 +189,9 @@ func on_msg_login_result( msg):
 	
 	if has_node("/root/account"):		
 		get_node("/root/account").on_receive_login_result(msg)
+		
+func on_msg_player_info(msg):
+	get_node("/root/account_mgr").on_receive_player_info(msg)
 		
 func on_msg_search_room_result(msg):
 	if msg.result==1:

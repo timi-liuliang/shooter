@@ -9,6 +9,7 @@ func _ready():
 
 func name():
 	return 'collect_item'
+
 func id():
 	return 8
 

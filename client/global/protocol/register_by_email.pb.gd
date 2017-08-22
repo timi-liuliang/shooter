@@ -8,8 +8,9 @@ func _ready():
 
 func name():
 	return 'register_by_email'
+
 func id():
-	return 16
+	return 17
 
 func length():
 	return 8 +password.length()+email.length();

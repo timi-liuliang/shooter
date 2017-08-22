@@ -8,6 +8,7 @@ func _ready():
 
 func name():
 	return 'battle_player_enter'
+
 func id():
 	return 5
 

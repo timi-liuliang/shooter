@@ -6,6 +6,7 @@ func _ready():
 
 func name():
 	return 'battle_player_operate'
+
 func id():
 	return 6
 
