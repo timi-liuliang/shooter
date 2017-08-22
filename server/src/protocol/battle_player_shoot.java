@@ -6,6 +6,9 @@ import io.netty.buffer.Unpooled;
 public class battle_player_shoot extends message {
 
 	public long player = 0;
+	public float weapon_pos_x = 0;
+	public float weapon_pos_y = 0;
+	public float degree = 0;
 	@Override
 
 	public int id(){
@@ -14,7 +17,7 @@ public class battle_player_shoot extends message {
 
 	@Override
 	public int length(){
-		 return 8 ;
+		 return 20 ;
 	}
 
 	public ByteBuf data(){
@@ -22,6 +25,9 @@ public class battle_player_shoot extends message {
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
 		byteBuffer.writeLong(player);
+		byteBuffer.writeFloat(weapon_pos_x);
+		byteBuffer.writeFloat(weapon_pos_y);
+		byteBuffer.writeFloat(degree);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -30,5 +36,8 @@ public class battle_player_shoot extends message {
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
 		player = byteBuffer.readLong();
+		weapon_pos_x = byteBuffer.readFloat();
+		weapon_pos_y = byteBuffer.readFloat();
+		degree = byteBuffer.readFloat();
 	}
 }

@@ -85,14 +85,20 @@ public class Room {
 		}
 	}
 	
-	public void on_batle_player_shoot(Player player) {
+	public void on_batle_player_shoot(Player player, protocol.battle_player_shoot msg) {
 		if(player==m_player0 && m_gameState==GameState.GS_PLAYER0_TURN) {
 			m_gameState = GameState.GS_PLAYER1_TURN;
-			sendBattleTurnBegin(GameState.GS_PLAYER1_TURN);
+			
+			m_player0.sendMsg(msg.data());
+			m_player1.sendMsg(msg.data());
+			//sendBattleTurnBegin(GameState.GS_PLAYER1_TURN);
 		}
 		else if (player==m_player1 && m_gameState==GameState.GS_PLAYER1_TURN) {
 			m_gameState = GameState.GS_PLAYER0_TURN;
-			sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
+			//sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
+			
+			m_player0.sendMsg(msg.data());
+			m_player1.sendMsg(msg.data());
 		}
 	}
 }

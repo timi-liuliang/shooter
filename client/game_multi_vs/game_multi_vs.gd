@@ -153,9 +153,9 @@ func main_player_aim(delta, idx):
 		
 	if !Input.is_action_pressed("touch"):
 		# 向服务器发送"shooter"消息
-		get_node("/root/network").battle_player_shoot()
+		get_node("/root/network").battle_player_shoot(weapon.get_pos(), get_player_aim_degree(idx, aim_degree))
 		
-func on_player_shoot(idx):
+func on_player_shoot(idx, weapon_pos, degree):
 	var player = players[idx]
 	player.set_weapon_hidden(true)
 	get_node("weapon/arrow").set_hidden(false)
@@ -163,7 +163,7 @@ func on_player_shoot(idx):
 		
 	# 抛物线
 	var weapon = get_node("weapon/arrow")
-	parabola.set(weapon.get_pos(), get_player_aim_degree(idx, aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
+	parabola.set(weapon_pos, degree, init_speed, Vector2(-wind_slow_down, gravity))
 	aim_degree = 0.0
 	game_state = GameState.GS_PLAYER_SHOOT
 		
@@ -303,12 +303,12 @@ func on_msg_battle_time(msg):
 	get_node("ui/time").set_text(str_time)
 	
 func on_msg_battle_turn_begin(msg):
-	print("msg.player", msg.player)
-	print("account_player", get_node("/root/account_mgr").get_player_id())
 	if msg.player==get_node("/root/account_mgr").get_player_id():
-		print("--------------------------------")
 		active_player_idx = main_player_idx
 	else:
 		active_player_idx = (main_player_idx + 1) % players.size()
 		
 	game_state = GameState.GS_FOCUS_PLAYER
+	
+func on_msg_battle_player_shoot(msg):
+	on_player_shoot(active_player_idx, Vector2(msg.weapon_pos_x, msg.weapon_pos_y), msg.degree)

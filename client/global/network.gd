@@ -147,9 +147,12 @@ func search_room_end():
 		var search_room_msg = preload("res://global/protocol/search_room_end.pb.gd").new()
 		search_room_msg.send(streamPeerTCP)
 		
-func battle_player_shoot():
+func battle_player_shoot(weapon_pos, degree):
 	if streamPeerTCP.is_connected():
 		var msg = preload("res://global/protocol/battle_player_shoot.pb.gd").new()
+		msg.weapon_pos_x = weapon_pos.x
+		msg.weapon_pos_y = weapon_pos.y
+		msg.degree = degree
 		msg.send(streamPeerTCP)
 
 func collect_item(id):
@@ -182,6 +185,7 @@ func bind_msgs():
 	bind(preload("res://global/protocol/battle_begin.pb.gd"))
 	bind(preload("res://global/protocol/battle_time.pb.gd"))
 	bind(preload("res://global/protocol/battle_turn_begin.pb.gd"))
+	bind(preload("res://global/protocol/battle_player_shoot.pb.gd"))
 	
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
@@ -240,8 +244,16 @@ func on_msg_battle_turn_begin(msg):
 		if get_node("/root/game").get_type()==1:
 			get_node("/root/game").on_msg_battle_turn_begin(msg)
 		else:
-			print("stange message from server")		
-		
+			print("stange message from server")
+					
+func on_msg_battle_player_shoot(msg):
+	if has_node("/root/game"):
+		if get_node("/root/game").get_type()==1:
+			get_node("/root/game").on_msg_battle_player_shoot(msg)
+		else:
+			print("stange message from server")
+			
+			
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)
 	

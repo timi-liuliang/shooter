@@ -196,7 +196,7 @@ public class Player {
 	}
 	
 	// ---------------------receive---------------------
-	public void on_battle_player_shoot(){
+	public void on_battle_player_shoot(protocol.battle_player_shoot msg){
 		if(room!=null) {
 			room.on_batle_player_shoot(this);
 		}
@@ -247,7 +247,6 @@ public class Player {
 	}
 	
 	public void sendPlayerInfo() {
-		System.out.println("-------------sendPlayerInfo");
 		protocol.player_info msg = new protocol.player_info();
 		msg.player = table.player;
 		msg.name = info.baseInfo.name;
