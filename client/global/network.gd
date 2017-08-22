@@ -172,6 +172,7 @@ func bind_msgs():
 	bind(preload("res://global/protocol/search_room_result.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_enter.pb.gd"))
 	bind(preload("res://global/protocol/battle_begin.pb.gd"))
+	bind(preload("res://global/protocol/battle_time.pb.gd"))
 	
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
@@ -216,6 +217,13 @@ func on_msg_battle_begin(msg):
 			get_node("/root/game").on_msg_battle_begin(msg)
 		else:
 			print("stange message from server")	
+			
+func on_msg_battle_time(msg):
+	if has_node("/root/game"):
+		if get_node("/root/game").get_type()==1:
+			get_node("/root/game").on_msg_battle_time(msg)
+		else:
+			print("stange message from server")		
 		
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

@@ -12,13 +12,13 @@ enum GameState{
 
 public class Room {
 	public GameState m_gameState = GameState.GS_PREPARE;
-	public float  	 m_gameTime= 0.f;
+	public float  	 m_battleTime= 0.f;
 	public Player 	 m_player0 = null;
 	public Player 	 m_player1 = null;
 	
 	public void process(float delta){
-		m_gameTime += delta;
-		if(m_gameState == GameState.GS_PLAYER_READY && m_gameTime>=1.f) {
+		m_battleTime += delta;
+		if(m_gameState == GameState.GS_PLAYER_READY && m_battleTime>=1.f) {
 			protocol.battle_begin msg = new protocol.battle_begin();
 			m_player0.sendMsg( msg.data());
 			m_player1.sendMsg( msg.data());
@@ -34,6 +34,8 @@ public class Room {
 		else if(m_gameState==GameState.GS_END) {
 			
 		}
+		
+		sendBattleTime();
 	}
 	
 	void addPlayer( Integer p0, Integer p1) {
@@ -55,5 +57,12 @@ public class Room {
 		m_player1.sendMsg(msg1.data());
 		
 		m_gameState = GameState.GS_PLAYER_READY;
+	}
+	
+	void sendBattleTime() {
+		protocol.battle_time msg = new protocol.battle_time();
+		msg.time = (int)m_battleTime;
+		m_player0.sendMsg(msg.data());
+		m_player1.sendMsg(msg.data());
 	}
 }

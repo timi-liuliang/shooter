@@ -328,3 +328,6 @@ func on_msg_battle_player_enter(msg):
 func on_msg_battle_begin(msg):
 	print("on_msg_battle_begin")
 	get_node("ui/room_match").set_hidden(true)
+	
+func on_msg_battle_time(msg):
+	get_node("ui/time").set_text(msg.time)

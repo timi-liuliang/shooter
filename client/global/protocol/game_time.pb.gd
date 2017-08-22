@@ -9,7 +9,7 @@ func name():
 	return 'game_time'
 
 func id():
-	return 10
+	return 11
 
 func length():
 	return 4 ;

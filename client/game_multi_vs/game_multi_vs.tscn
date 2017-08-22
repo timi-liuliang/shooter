@@ -142,7 +142,7 @@ visibility/visible = false
 
 visibility/visible = false
 
-[node name="score" type="Label" parent="ui"]
+[node name="time" type="Label" parent="ui"]
 
 anchor/left = 3
 anchor/right = 3
@@ -228,5 +228,7 @@ radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
 
 [node name="room_match" parent="ui" instance=ExtResource( 14 )]
+
+visibility/visible = false
 
 
