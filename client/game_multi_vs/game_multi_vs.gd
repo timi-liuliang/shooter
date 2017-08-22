@@ -303,8 +303,10 @@ func on_msg_battle_time(msg):
 	get_node("ui/time").set_text(str_time)
 	
 func on_msg_battle_turn_begin(msg):
-	print("doubi")
+	print("msg.player", msg.player)
+	print("account_player", get_node("/root/account_mgr").get_player_id())
 	if msg.player==get_node("/root/account_mgr").get_player_id():
+		print("--------------------------------")
 		active_player_idx = main_player_idx
 	else:
 		active_player_idx = (main_player_idx + 1) % players.size()

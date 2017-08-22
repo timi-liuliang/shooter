@@ -3,7 +3,7 @@ package player;
 import io.netty.channel.ChannelHandlerContext;
 
 public class BaseInfo {
-	protected String	name;
+	protected String	name="";
 	protected int		gameTime = 0;
 	protected int		curBlood = 50;
 	protected int		maxBlood = 50;

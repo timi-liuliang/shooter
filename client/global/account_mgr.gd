@@ -42,6 +42,7 @@ func on_receive_player_info(msg):
 	is_have_player = true;
 	player_id = msg.player
 	player_name = msg.name
+	print("-----------------", msg.player)
 	
 func get_player_id():
 	return player_id

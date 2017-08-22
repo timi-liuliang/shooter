@@ -247,10 +247,11 @@ public class Player {
 	}
 	
 	public void sendPlayerInfo() {
+		System.out.println("-------------sendPlayerInfo");
 		protocol.player_info msg = new protocol.player_info();
 		msg.player = table.player;
 		msg.name = info.baseInfo.name;
-		mChannelCtx.writeAndFlush(msg);
+		mChannelCtx.write(msg.data());
 	}
 	
 	// send info to client

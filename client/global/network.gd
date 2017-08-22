@@ -200,6 +200,7 @@ func on_msg_login_result( msg):
 		get_node("/root/account").on_receive_login_result(msg)
 		
 func on_msg_player_info(msg):
+	print("dfdf+++++++++++++++++++++++++nimeida")
 	get_node("/root/account_mgr").on_receive_player_info(msg)
 		
 func on_msg_search_room_result(msg):
