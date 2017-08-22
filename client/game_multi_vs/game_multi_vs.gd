@@ -333,4 +333,7 @@ func on_msg_battle_begin(msg):
 	get_node("ui/room_match").set_hidden(true)
 	
 func on_msg_battle_time(msg):
-	get_node("ui/time").set_text(msg.time)
+	var minute = msg.time / 60
+	var second = msg.time % 60
+	var str_time = "%02d:%02d" % [minute,second]
+	get_node("ui/time").set_text(str_time)
