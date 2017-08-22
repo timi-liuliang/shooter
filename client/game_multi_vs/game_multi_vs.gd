@@ -39,6 +39,9 @@ var robot_target_aim_degree = -90.0
 var robot_init_speed = 300
 
 func _ready():
+	# 初始开启匹配界面
+	get_node("ui/room_match").set_hidden(false)
+	
 	players.append(get_node("player_0"))
 	players.append(get_node("player_1"))
 	for i in range(players.size()):
