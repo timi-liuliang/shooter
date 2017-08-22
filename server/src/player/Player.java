@@ -46,8 +46,6 @@ public class Player {
 	public static void update() {
 		for(Player player : players.values()) {
 			player.saveToDB();
-			
-			System.out.print("wo cao cao aocao");
 		}
 	}
 	

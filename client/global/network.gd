@@ -29,7 +29,6 @@ func _process(delta):
 		while availableBytes > 0:
 			process_net_byte(streamPeerTCP.get_u8())
 			availableBytes = streamPeerTCP.get_available_bytes()
-			print("unhappy")
 	else:
 		cur_net_state = NetState.DISCONNECTED
 		

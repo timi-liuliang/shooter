@@ -319,6 +319,8 @@ func get_type():
 	
 #########################net message#########################
 func on_msg_battle_player_enter(msg):
+	print("------", msg.player)
+	print("---------", get_node("/root/account_mgr").get_player_id())
 	if msg.player==get_node("/root/account_mgr").get_player_id():
 		main_player_idx = msg.pos;
 		print("main player idx:", main_player_idx)
