@@ -86,7 +86,7 @@ func _process(delta):
 		wined()
 		
 func prepare():
-	game_state = GameState.GS_SHOW_ENEMY
+	pass
 
 func show_enemy():
 	var enemy_pos = get_enemy(main_player_idx).get_pos() + Vector2(0, -150)
@@ -95,9 +95,9 @@ func show_enemy():
 		camera.set_enable_follow_smoothing( false)
 		camera.set_pos( enemy_pos)
 		camera.set_zoom( camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.02)
-	#else:
-	#	camera.set_enable_follow_smoothing( true)
-	#	game_state = GameState.GS_FOCUS_PLAYER
+	else:
+		camera.set_enable_follow_smoothing( true)
+		game_state = GameState.GS_FOCUS_PLAYER
 		
 func focus_player(idx):
 	var player_pos = players[idx].get_pos() + Vector2(0, -150)
@@ -116,6 +116,8 @@ func focus_player(idx):
 		add_weapon_to(idx)
 		players[idx].set_weapon_hidden(false)
 		get_node("weapon/arrow").set_hidden(true)
+		if active_player_idx == main_player_idx:
+			get_node("ui/your_turn").set_text("Your Turn")
 		game_state = GameState.GS_WAIT_FOR_AIM
 
 func wait_for_aim(idx):
@@ -126,10 +128,8 @@ func wait_for_aim(idx):
 		game_state = GameState.GS_PLAYER_AIM
 	
 func player_aim(delta, idx):
-	#if idx == main_player_idx:
-	main_player_aim(delta, idx)
-	#else:
-	#	robot_player_aim(delta, idx)
+	if idx == main_player_idx:
+		main_player_aim(delta, idx)
 	
 func main_player_aim(delta, idx):
 	if Input.is_action_pressed("touch"):	
@@ -294,6 +294,7 @@ func on_msg_battle_player_enter(msg):
 func on_msg_battle_begin(msg):
 	print("on_msg_battle_begin")
 	get_node("ui/room_match").set_hidden(true)
+	game_state = GameState.GS_SHOW_ENEMY
 	
 func on_msg_battle_time(msg):
 	var minute = msg.time / 60
@@ -302,9 +303,9 @@ func on_msg_battle_time(msg):
 	get_node("ui/time").set_text(str_time)
 	
 func on_msg_battle_turn_begin(msg):
+	print("doubi")
 	if msg.player==get_node("/root/account_mgr").get_player_id():
 		active_player_idx = main_player_idx
-		get_node("ui/your_turn").set_text("Your Turn")
 	else:
 		active_player_idx = (main_player_idx + 1) % players.size()
 		
