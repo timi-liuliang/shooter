@@ -1,4 +1,5 @@
 {
-    "pos":"int",
-    "name":"string"
+    "player":"long",
+    "name":"string",
+    "pos":"int"
 }

@@ -230,10 +230,13 @@ public class Player {
 	}
 	
 	// ---------------------send---------------------
+	public long get_id() {
+		return table.player;
+	}
 	
 	public void sendPlayerInfo() {
 		protocol.player_info msg = new protocol.player_info();
-		msg.player = table.account;
+		msg.player = table.player;
 		msg.name = info.baseInfo.name;
 		mChannelCtx.writeAndFlush(msg);
 	}

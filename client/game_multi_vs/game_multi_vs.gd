@@ -321,6 +321,7 @@ func get_type():
 func on_msg_battle_player_enter(msg):
 	if msg.player==get_node("/root/account_mgr").get_player_id():
 		main_player_idx = msg.pos;
+		print("main player idx:", main_player_idx)
 		
 func on_msg_battle_begin(msg):
 	print("on_msg_battle_begin")

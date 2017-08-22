@@ -42,12 +42,14 @@ public class Room {
 		
 		protocol.battle_player_enter msg0 = new protocol.battle_player_enter();
 		msg0.pos = 0;
+		msg0.player = m_player0.get_id();
 		msg0.name = "player_0";
 		m_player0.sendMsg(msg0.data());
 		m_player1.sendMsg(msg0.data());
 		
 		protocol.battle_player_enter msg1 = new protocol.battle_player_enter();
 		msg1.pos = 1;
+		msg1.player = m_player1.get_id();
 		msg1.name = "player_1";
 		m_player0.sendMsg(msg1.data());
 		m_player1.sendMsg(msg1.data());

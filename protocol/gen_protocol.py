@@ -121,6 +121,8 @@ def gen_protocol_godot(file, id):
         for key in data.keys():
             if data[key] == 'string':
                 gd_file.writelines("var " + key + " = String("")\n")
+            elif data[key] == 'long':
+                gd_file.writelines("var " + key + " = -1\n")
             else:
                 gd_file.writelines("var " + key + " = " + data[key] +"(0)\n")
 

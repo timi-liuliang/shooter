@@ -1,6 +1,6 @@
 extends Node
 
-var player = long(0)
+var player = -1
 var name = String()
 
 func _ready():
