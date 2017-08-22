@@ -201,14 +201,13 @@ func on_msg_search_room_result(msg):
 		print("quite battle")
 		
 func on_msg_battle_player_enter(msg):
-	print("------------------------")
-	if has_node("/root/game").get_type()==1:
-		get_node("/root/game").on_msg_battle_player_enter(msg)
-	else:
-		print("stange message from server")
+	if has_node("/root/game"):
+		if get_node("/root/game").get_type()==1:
+			get_node("/root/game").on_msg_battle_player_enter(msg)
+		else:
+			print("stange message from server")
 		
 func on_msg_battle_begin(msg):
-	print("++++++++++++++++++++++++")
 	if has_node("/root/game"):
 		if get_node("/root/game").get_type()==1:
 			get_node("/root/game").on_msg_battle_begin(msg)

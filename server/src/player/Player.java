@@ -48,7 +48,6 @@ public class Player {
 			player.saveToDB();
 			
 			System.out.print("wo cao cao aocao");
-			player.sendBattleBegin();
 		}
 	}
 	
@@ -241,7 +240,7 @@ public class Player {
 	}
 	
 	public void sendMsg(ByteBuf buf) {
-		mChannelCtx.write(buf);
+		mChannelCtx.writeAndFlush(buf);
 	}
 	
 	// --------------------search room-------------------------
@@ -259,12 +258,5 @@ public class Player {
 		protocol.search_room_result msg = new protocol.search_room_result();
 		msg.result = 0;
 		mChannelCtx.write(msg.data());
-	}
-	
-	// battle
-	public void sendBattleBegin() {
-		protocol.battle_begin msg = new protocol.battle_begin();
-		mChannelCtx.writeAndFlush(msg.data());
-	}
-	
+	}	
 }

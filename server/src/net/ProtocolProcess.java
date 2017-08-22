@@ -62,8 +62,7 @@ class search_room_end_process implements ProtocolProcess{
 	@Override
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {	
 		Player player = Player.get(ctx);
-		player.sendBattleBegin();
-		//player.search_room_end();
+		player.search_room_end();
 	}
 }
 
