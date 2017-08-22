@@ -153,6 +153,7 @@ func main_player_aim(delta, idx):
 		
 	if !Input.is_action_pressed("touch"):
 		# 向服务器发送"shooter"消息
+		var weapon = get_node("weapon/arrow")
 		get_node("/root/network").battle_player_shoot(weapon.get_pos(), get_player_aim_degree(idx, aim_degree))
 		
 func on_player_shoot(idx, weapon_pos, degree):
@@ -162,7 +163,6 @@ func on_player_shoot(idx, weapon_pos, degree):
 	get_node("aiming_sight").set_hidden(true)
 		
 	# 抛物线
-	var weapon = get_node("weapon/arrow")
 	parabola.set(weapon_pos, degree, init_speed, Vector2(-wind_slow_down, gravity))
 	aim_degree = 0.0
 	game_state = GameState.GS_PLAYER_SHOOT

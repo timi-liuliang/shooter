@@ -71,7 +71,9 @@ class battle_player_shoot_process implements ProtocolProcess{
 	@Override
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {	
 		Player player = Player.get(ctx);
-		player.on_battle_player_shoot();
+		protocol.battle_player_shoot msg = (protocol.battle_player_shoot)proto;
+		
+		player.on_battle_player_shoot(msg);
 	}
 }
 

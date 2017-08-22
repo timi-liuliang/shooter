@@ -198,7 +198,7 @@ public class Player {
 	// ---------------------receive---------------------
 	public void on_battle_player_shoot(protocol.battle_player_shoot msg){
 		if(room!=null) {
-			room.on_batle_player_shoot(this);
+			room.on_batle_player_shoot(this, msg);
 		}
 	}
 	
