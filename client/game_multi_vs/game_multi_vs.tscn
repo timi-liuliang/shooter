@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://game_multi_vs/game_multi_vs.gd" type="Script" id=1]
 [ext_resource path="res://game_single/bg_layer3.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://ui/blood/ui_blood_bg.png" type="Texture" id=12]
 [ext_resource path="res://ui/blood/ui_blood.png" type="Texture" id=13]
 [ext_resource path="res://ui/room_match/room_match.tscn" type="PackedScene" id=14]
+[ext_resource path="res://ui/your_turn/your_turn.tscn" type="PackedScene" id=15]
 
 [node name="game" type="Node2D"]
 
@@ -230,5 +231,7 @@ radial_fill/center_offset = Vector2( 0, 0 )
 [node name="room_match" parent="ui" instance=ExtResource( 14 )]
 
 visibility/visible = false
+
+[node name="your_turn" parent="ui" instance=ExtResource( 15 )]
 
 

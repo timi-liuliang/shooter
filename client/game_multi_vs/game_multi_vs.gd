@@ -304,6 +304,7 @@ func on_msg_battle_time(msg):
 func on_msg_battle_turn_begin(msg):
 	if msg.player==get_node("/root/account_mgr").get_player_id():
 		active_player_idx = main_player_idx
+		get_node("ui/your_turn").set_text("Your Turn")
 	else:
 		active_player_idx = (main_player_idx + 1) % players.size()
 		
