@@ -10,7 +10,7 @@ func name():
 	return 'login_by_email'
 
 func id():
-	return 12
+	return 13
 
 func length():
 	return 8 +password.length()+email.length();

@@ -10,7 +10,7 @@ public class blood_info extends message {
 	@Override
 
 	public int id(){
-		 return 8;
+		 return 9;
 	}
 
 	@Override

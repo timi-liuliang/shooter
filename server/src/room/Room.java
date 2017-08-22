@@ -24,6 +24,7 @@ public class Room {
 			m_player1.sendMsg( msg.data());
 			
 			m_gameState = GameState.GS_PLAYER0_TURN;
+			sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
 		}
 		else if(m_gameState==GameState.GS_PLAYER0_TURN) {
 		
@@ -64,5 +65,20 @@ public class Room {
 		msg.time = (int)m_battleTime;
 		m_player0.sendMsg(msg.data());
 		m_player1.sendMsg(msg.data());
+	}
+	
+	void sendBattleTurnBegin(GameState state) {
+		if(state==GameState.GS_PLAYER0_TURN) {
+			protocol.battle_turn_begin msg = new protocol.battle_turn_begin();
+			msg.player = m_player0.get_id();
+			m_player0.sendMsg(msg.data());
+			m_player1.sendMsg(msg.data());
+		}
+		else if(state == GameState.GS_PLAYER1_TURN) {
+			protocol.battle_turn_begin msg = new protocol.battle_turn_begin();
+			msg.player = m_player1.get_id();
+			m_player0.sendMsg(msg.data());
+			m_player1.sendMsg(msg.data());
+		}
 	}
 }

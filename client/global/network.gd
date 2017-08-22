@@ -105,10 +105,13 @@ func process_net_byte(byte):
 func process_net_package(buf):
 	var msg_id = buf.read_i32()
 	var msg_length = buf.read_i32()
-	var msg = msg_bind[msg_id][0]
-	var msg_cb = msg_bind[msg_id][1]	
-	msg.parse_data(buf)
-	msg_cb.call_func(msg)
+	if msg_id < msg_bind.size():
+		var msg = msg_bind[msg_id][0]
+		var msg_cb = msg_bind[msg_id][1]	
+		msg.parse_data(buf)
+		msg_cb.call_func(msg)
+	else:
+		print("process_net_package failed")
 	
 func register_by_email(email, password):
 	if streamPeerTCP.is_connected():
@@ -173,6 +176,7 @@ func bind_msgs():
 	bind(preload("res://global/protocol/battle_player_enter.pb.gd"))
 	bind(preload("res://global/protocol/battle_begin.pb.gd"))
 	bind(preload("res://global/protocol/battle_time.pb.gd"))
+	bind(preload("res://global/protocol/battle_turn_begin.pb.gd"))
 	
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
@@ -222,6 +226,13 @@ func on_msg_battle_time(msg):
 	if has_node("/root/game"):
 		if get_node("/root/game").get_type()==1:
 			get_node("/root/game").on_msg_battle_time(msg)
+		else:
+			print("stange message from server")		
+			
+func on_msg_battle_turn_begin(msg):
+	if has_node("/root/game"):
+		if get_node("/root/game").get_type()==1:
+			get_node("/root/game").on_msg_battle_turn_begin(msg)
 		else:
 			print("stange message from server")		
 		

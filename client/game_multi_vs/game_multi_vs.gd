@@ -95,9 +95,9 @@ func show_enemy():
 		camera.set_enable_follow_smoothing( false)
 		camera.set_pos( enemy_pos)
 		camera.set_zoom( camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.02)
-	else:
-		camera.set_enable_follow_smoothing( true)
-		game_state = GameState.GS_FOCUS_PLAYER
+	#else:
+	#	camera.set_enable_follow_smoothing( true)
+	#	game_state = GameState.GS_FOCUS_PLAYER
 		
 func focus_player(idx):
 	var player_pos = players[idx].get_pos() + Vector2(0, -150)
@@ -126,10 +126,10 @@ func wait_for_aim(idx):
 		game_state = GameState.GS_PLAYER_AIM
 	
 func player_aim(delta, idx):
-	if idx == main_player_idx:
-		main_player_aim(delta, idx)
-	else:
-		robot_player_aim(delta, idx)
+	#if idx == main_player_idx:
+	main_player_aim(delta, idx)
+	#else:
+	#	robot_player_aim(delta, idx)
 	
 func main_player_aim(delta, idx):
 	if Input.is_action_pressed("touch"):	
@@ -152,56 +152,21 @@ func main_player_aim(delta, idx):
 		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
 		
 	if !Input.is_action_pressed("touch"):
-		var player = players[idx]
-		player.set_weapon_hidden(true)
-		get_node("weapon/arrow").set_hidden(false)
-		get_node("aiming_sight").set_hidden(true)
+		# 向服务器发送"shooter"消息
+		pass
 		
-		# 抛物线
-		var weapon = get_node("weapon/arrow")
-		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
-		aim_degree = 0.0
-		game_state = GameState.GS_PLAYER_SHOOT
+func on_player_shoot(idx):
+	var player = players[idx]
+	player.set_weapon_hidden(true)
+	get_node("weapon/arrow").set_hidden(false)
+	get_node("aiming_sight").set_hidden(true)
 		
-func robot_player_aim(delta, idx):
-	if robot_target_aim_degree == -90.0:
-		var rand_offset = randi() % 3 * 200.0 - 200.0
-		var riv= parabola.get_init_velocity( players[idx].get_pos(), get_enemy(idx).get_pos() + Vector2(rand_offset, 0.0), Vector2(-wind_slow_down, gravity))
-		robot_init_speed = riv.length()
-		riv.x = abs(riv.x)
-		riv = riv.normalized()
-		robot_target_aim_degree = rad2deg(Vector2(1.0, 0.0).angle_to(riv))
+	# 抛物线
+	var weapon = get_node("weapon/arrow")
+	parabola.set(weapon.get_pos(), get_player_aim_degree(idx, aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
+	aim_degree = 0.0
+	game_state = GameState.GS_PLAYER_SHOOT
 		
-	if abs(robot_aim_degree - robot_target_aim_degree) > 1.0:
-		if robot_target_aim_degree > robot_aim_degree:
-			robot_aim_degree = min( robot_aim_degree+delta*60.0, robot_target_aim_degree)
-		else:
-			robot_aim_degree = max( robot_aim_degree-delta*60.0, robot_target_aim_degree)
-			
-		var player = players[idx]
-		player.set_hand_rot(deg2rad(robot_aim_degree))
-		
-		var weapon = get_node("weapon/arrow")
-		weapon.set_pos(player.get_weapon_pos())
-		weapon.set_rot(player.get_weapon_rot())
-		var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
-		
-		# show aiming
-		#get_node("aiming_sight").set_hidden(false)
-		#get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
-		
-	else:
-		var player = players[idx]
-		player.set_weapon_hidden(true)
-		get_node("weapon/arrow").set_hidden(false)
-		#get_node("aiming_sight").set_hidden(true)
-		
-		# 抛物线
-		var weapon = get_node("weapon/arrow")
-		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, robot_target_aim_degree), robot_init_speed, Vector2(-wind_slow_down, gravity))
-		robot_target_aim_degree = -90.0
-		robot_aim_degree = 0.0
-		game_state = GameState.GS_PLAYER_SHOOT
 		
 func get_player_aim_degree(idx, origin_degree):
 	if players[idx].is_mirror():
@@ -261,9 +226,9 @@ func check_result():
 		game_state = GameState.GS_FAILING	
 	elif get_enemy(main_player_idx).cur_blood <=0:
 		game_state = GameState.GS_WINING
-	else:
-		active_player_idx = (active_player_idx + 1) % players.size() 	
-		game_state = GameState.GS_FOCUS_PLAYER
+	#else:
+	#	active_player_idx = (active_player_idx + 1) % players.size() 	
+	#	game_state = GameState.GS_FOCUS_PLAYER
 	
 func failing():
 	var character = get_self()	
@@ -322,8 +287,6 @@ func get_type():
 	
 #########################net message#########################
 func on_msg_battle_player_enter(msg):
-	print("------", msg.player)
-	print("---------", get_node("/root/account_mgr").get_player_id())
 	if msg.player==get_node("/root/account_mgr").get_player_id():
 		main_player_idx = msg.pos;
 		print("main player idx:", main_player_idx)
@@ -337,3 +300,11 @@ func on_msg_battle_time(msg):
 	var second = msg.time % 60
 	var str_time = "%02d:%02d" % [minute,second]
 	get_node("ui/time").set_text(str_time)
+	
+func on_msg_battle_turn_begin(msg):
+	if msg.player==get_node("/root/account_mgr").get_player_id():
+		active_player_idx = main_player_idx
+	else:
+		active_player_idx = (main_player_idx + 1) % players.size()
+		
+	game_state = GameState.GS_FOCUS_PLAYER
