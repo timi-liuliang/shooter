@@ -8,6 +8,7 @@ enum GameState{
 	GS_PLAYER_AIM,
 	GS_PLAYER_SHOOT,
 	GS_CHECK_SHOOT_RESULT,
+	GS_WAIT_SHOOT_RESULT,
 	GS_FAILING,
 	GS_FAILED,
 	GS_WINING,
@@ -227,6 +228,7 @@ func check_result():
 	elif get_enemy(main_player_idx).cur_blood <=0:
 		game_state = GameState.GS_WINING
 	else:
+		game_state = GameState.GS_WAIT_SHOOT_RESULT
 		if active_player_idx==main_player_idx:
 			get_node("/root/network").send_battle_switch_turn()
 	
