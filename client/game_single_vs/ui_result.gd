@@ -1,4 +1,4 @@
-extends Control
+nextends Control
 
 func _ready():
 	pass

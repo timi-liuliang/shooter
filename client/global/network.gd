@@ -16,7 +16,7 @@ var last_byte = 0
 var cur_package = ByteBuf.new()
 var time_out = -1
 var cur_net_state = NetState.DISCONNECTED
-var target_net_state = NetState.LOGINED
+var target_net_state = NetState.DISCONNECTED
 
 func _ready():
 	bind_msgs()
@@ -70,6 +70,9 @@ func set_target_net_state(state):
 	print("set_target_net_state")
 	
 func connect_server():
+	if streamPeerTCP!=null and streamPeerTCP.is_connected():
+		streamPeerTCP.disconnect()
+	
 	streamPeerTCP = StreamPeerTCP.new()
 	if OK!=streamPeerTCP.connect('localhost', 8800):
 		print("connect server failed")
@@ -78,7 +81,7 @@ func connect_server():
 			
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		if StreamPeerTCP!=null and streamPeerTCP.is_connected():
+		if streamPeerTCP!=null and streamPeerTCP.is_connected():
 			streamPeerTCP.disconnect()
 	
 func bind( msg):
@@ -212,7 +215,6 @@ func on_msg_login_result( msg):
 		get_node("/root/account").on_receive_login_result(msg)
 		
 func on_msg_player_info(msg):
-	print("dfdf+++++++++++++++++++++++++nimeida")
 	get_node("/root/account_mgr").on_receive_player_info(msg)
 		
 func on_msg_search_room_result(msg):
