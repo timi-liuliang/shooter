@@ -32,20 +32,12 @@ class Info{
 
 public class Player {
 	public static HashMap<Integer, Player>  players = new HashMap<Integer, Player>();
+	public static HashMap<Long, Player>	    id_player_map = new HashMap<Long, Player>();
 	public ChannelHandlerContext 		   	mChannelCtx = null;
 	protected long							mLastTickTime = 0;
 	protected Account						mAccount = new Account();
 	protected player_table					table = new player_table();						// 玩家表信息
 	protected Info					   		info = new Info();	
-	protected Room							room = null;									// 战场房间
-	
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
 
 	public Player(ChannelHandlerContext channelCtx) {
 			
@@ -56,6 +48,8 @@ public class Player {
 		for(Player player : players.values()) {
 			player.saveToDB();
 		}
+		
+		System.out.println(String.format("test players num %d", players.size()));
 	}
 	
 	public static Player get(ChannelHandlerContext ctx) {
@@ -68,6 +62,14 @@ public class Player {
 			
 			return player;
 		}		
+	}
+	
+	public static Player getById(Long playerID) {
+		if(id_player_map.containsKey(playerID)) {
+			return id_player_map.get(playerID);
+		}else {
+			return null;
+		}
 	}
 	
 	public static Player get(Integer ctxID) {
@@ -106,7 +108,7 @@ public class Player {
 			db.instance().saveNewPlayer(this.mAccount.table.account, table.info);
 			
 			loadFromDB();	
-		}else {
+		}else{
 			// disconnect same name player
 			disconnectPlayer(account);
 			
@@ -114,6 +116,7 @@ public class Player {
 			loadFromDB();
 			
 			players.put(mChannelCtx.hashCode(), this);
+			id_player_map.put(table.player, this);
 		}
 		
 		sendPlayerInfo();
@@ -126,6 +129,8 @@ public class Player {
 				player.saveToDB();
 				player.mChannelCtx.disconnect();
 				
+				id_player_map.remove(player.table.player);
+				RoomMgr.instance().remove_player(get_id());
 				players.remove(entry.getKey());
 				
 				break;
@@ -140,7 +145,9 @@ public class Player {
 			System.out.println(String.format("Player [%d] offline, CurrentPlayers [%d]", player.table.player, players.size()-1));
 			
 			player.saveToDB();
-			player.mChannelCtx.disconnect();	
+			player.mChannelCtx.disconnect();
+			id_player_map.remove(player.get_id());
+			RoomMgr.instance().remove_player(player.get_id());
 			players.remove(ctx.hashCode());
 		}
 	}
@@ -197,14 +204,16 @@ public class Player {
 	
 	// ---------------------receive---------------------
 	public void on_battle_player_shoot(protocol.battle_player_shoot msg){
+		Room room = RoomMgr.instance().getRoom(get_id());
 		if(room!=null) {
-			room.on_batle_player_shoot(this, msg);
+			room.on_batle_player_shoot(get_id(), msg);
 		}
 	}
 	
 	public void on_battle_switch_turn() {
+		Room room = RoomMgr.instance().getRoom(get_id());
 		if(room!=null) {
-			room.on_batle_switch_turn(this);
+			room.on_batle_switch_turn(get_id());
 		}
 	}
 	
@@ -270,7 +279,7 @@ public class Player {
 	
 	// --------------------search room-------------------------
 	public void search_room_begin() {
-		RoomMgr.instance().add_player(mChannelCtx.hashCode());
+		RoomMgr.instance().add_player(get_id());
 			
 		protocol.search_room_result msg = new protocol.search_room_result();
 		msg.result = 1;
@@ -278,7 +287,7 @@ public class Player {
 	}
 	
 	public void search_room_end() {
-		RoomMgr.instance().remove_player(mChannelCtx.hashCode());
+		RoomMgr.instance().remove_player(get_id());
 		
 		protocol.search_room_result msg = new protocol.search_room_result();
 		msg.result = 0;

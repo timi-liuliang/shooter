@@ -16,7 +16,7 @@ var last_byte = 0
 var cur_package = ByteBuf.new()
 var time_out = -1
 var cur_net_state = NetState.DISCONNECTED
-var target_net_state = NetState.DISCONNECTED
+var target_net_state = NetState.LOGINED
 
 func _ready():
 	bind_msgs()
@@ -40,7 +40,7 @@ func update_net_state(delta):
 		if cur_net_state==NetState.DISCONNECTED and time_out<=0:
 			print("update net state A")
 			connect_server()
-			time_out = 10
+			time_out = 30
 			
 		if cur_net_state==NetState.DISCONNECTED and streamPeerTCP.is_connected():
 			set_cur_net_state( NetState.CONNECTED)
@@ -71,8 +71,11 @@ func set_target_net_state(state):
 	
 func connect_server():
 	streamPeerTCP = StreamPeerTCP.new()
-	streamPeerTCP.connect('localhost', 8800)
-		
+	if OK!=streamPeerTCP.connect('localhost', 8800):
+		print("connect server failed")
+		set_cur_net_state(NetState.DISCONNECTED)
+		set_target_net_state(NetState.DISCONNECTED)
+			
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		if StreamPeerTCP!=null and streamPeerTCP.is_connected():

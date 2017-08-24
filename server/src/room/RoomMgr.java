@@ -18,8 +18,8 @@ class PlayerState{
 public class RoomMgr {
 	protected static RoomMgr inst = null;
 	public static HashMap<Integer, Room>  rooms 			= new HashMap<Integer, Room>();
-	public HashMap<Integer, PlayerState>  players_searching = new HashMap<Integer, PlayerState>();
-	public HashMap<Integer, PlayerState>  players_in_battle = new HashMap<Integer, PlayerState>();
+	public HashMap<Long, PlayerState>  players_searching = new HashMap<Long, PlayerState>();
+	public HashMap<Long, PlayerState>  players_in_battle = new HashMap<Long, PlayerState>();
 	
 	public static RoomMgr instance() {
 		if(inst==null)
@@ -37,11 +37,11 @@ public class RoomMgr {
 		if(players_searching.size()>=2) {
 			Iterator it = players_searching.entrySet().iterator();
 			HashMap.Entry pair = (HashMap.Entry)it.next();
-			Integer player0 = (Integer) pair.getKey();
+			Long player0 = (Long) pair.getKey();
 			it.remove();
 			
 			pair = (HashMap.Entry)it.next();
-			Integer player1 = (Integer) pair.getKey();
+			Long player1 = (Long) pair.getKey();
 			it.remove();
 			
 			new_room(player0, player1);
@@ -55,7 +55,7 @@ public class RoomMgr {
 		}
 	}
 	
-	public void new_room(Integer player0, Integer player1) {
+	public void new_room(Long player0, Long player1) {
 		Room room = new Room();
 		
 		PlayerState ps0 = new PlayerState(player0, room.hashCode());
@@ -68,7 +68,7 @@ public class RoomMgr {
 		rooms.put(room.hashCode(), room);
 	}
 	
-	public boolean add_player(Integer player) {
+	public boolean add_player(Long player) {
 		if(players_searching.containsKey(player)) {
 			return false;
 		}
@@ -78,13 +78,42 @@ public class RoomMgr {
 		}
 	}
 	
-	public boolean remove_player(Integer player){
+	public boolean remove_player(Long player){
 		if(players_searching.containsKey(player)) {
 			players_searching.remove(player);
 			return true;
 		}
 		else {
 			return false;
+		}
+	}
+	
+	public boolean isPlayerInBattle(long player) {
+		if(players_in_battle.containsKey(player)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public Integer getRoomID(long player) {
+		PlayerState state = players_in_battle.get(player);
+		if(rooms.containsKey(state.roomId)) {
+			return state.roomId;
+		}
+		else {
+			return -1;
+		}
+	}
+	
+	public Room getRoom(long player) {
+		PlayerState state = players_in_battle.get(player);
+		if(rooms.containsKey(state.roomId)) {
+			return rooms.get(state.roomId);
+		}
+		else {
+			return null;
 		}
 	}
 }
