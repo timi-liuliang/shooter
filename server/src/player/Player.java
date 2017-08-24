@@ -38,18 +38,31 @@ public class Player {
 	protected Account						mAccount = new Account();
 	protected player_table					table = new player_table();						// 玩家表信息
 	protected Info					   		info = new Info();	
+	protected float							nonHeartBeatTime = 0.f;
+	protected float							saveDBTime = 0.f;
 
 	public Player(ChannelHandlerContext channelCtx) {
 			
 		mChannelCtx = channelCtx;
 	}
 	
-	public static void update() {
+	public static void updateAll() {
 		for(Player player : players.values()) {
-			player.saveToDB();
+			player.update();
+		}
+	}
+	
+	public void update() {
+		saveDBTime += 5.f;
+		if (saveDBTime > 3000.f) {
+			saveToDB();
+			saveDBTime = 0.f;
 		}
 		
-		System.out.println(String.format("test players num %d", players.size()));
+		nonHeartBeatTime += 5.f;
+		if(nonHeartBeatTime > 30.f) {
+			disconnectPlayer(mChannelCtx);
+		}
 	}
 	
 	public static Player get(ChannelHandlerContext ctx) {
@@ -100,6 +113,12 @@ public class Player {
 		}
 	}
 	
+	public void on_heart_beat(ByteBuf msg) {
+		nonHeartBeatTime = 0.f;
+		
+		mChannelCtx.write(msg);
+	}
+	
 	public void setAccount(long account) {	
 		// disconnect same account
 		if(!db.instance().isPlayerExist(account)) {
@@ -126,13 +145,7 @@ public class Player {
 		for(HashMap.Entry<Integer, Player> entry : players.entrySet()) {
 			Player player = entry.getValue();
 			if (player.mAccount.table.account==account) {
-				player.saveToDB();
-				player.mChannelCtx.disconnect();
-				
-				id_player_map.remove(player.table.player);
-				RoomMgr.instance().remove_player(get_id());
-				players.remove(entry.getKey());
-				
+				player.disconnect();			
 				break;
 			}
 		}
@@ -141,15 +154,20 @@ public class Player {
 	public static void disconnectPlayer(ChannelHandlerContext ctx) {
 		if( players.containsKey(ctx.hashCode())) {
 			Player player = players.get(ctx.hashCode());
-
-			System.out.println(String.format("Player [%d] offline, CurrentPlayers [%d]", player.table.player, players.size()-1));
-			
-			player.saveToDB();
-			player.mChannelCtx.disconnect();
-			id_player_map.remove(player.get_id());
-			RoomMgr.instance().remove_player(player.get_id());
-			players.remove(ctx.hashCode());
+			player.disconnect();
 		}
+	}
+	
+	public void disconnect() {
+		System.out.println(String.format("Player [%d] offline, CurrentPlayers [%d]", table.player, players.size()-1));
+		
+		this.saveToDB();
+		this.mChannelCtx.disconnect();
+		this.mChannelCtx.close();
+		
+		id_player_map.remove(this.get_id());
+		RoomMgr.instance().remove_player(get_id());
+		players.remove(mChannelCtx.hashCode());
 	}
 	
 	protected boolean initBackpack(){

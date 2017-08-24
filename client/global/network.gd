@@ -16,15 +16,21 @@ var last_byte = 0
 var cur_package = ByteBuf.new()
 var time_out = -1
 var cur_net_state = NetState.DISCONNECTED
-var target_net_state = NetState.DISCONNECTED
+var target_net_state = NetState.LOGINED
+var nonHeartBeatTime = 0.0
 
 func _ready():
 	bind_msgs()
 	set_process(true)
 	
-func _process(delta):
+func _process(delta):		
 	# parse msg	
 	if streamPeerTCP and streamPeerTCP.is_connected():
+		# 验证心跳
+		nonHeartBeatTime += delta;
+		if nonHeartBeatTime > 30.0:
+			set_target_net_state(NetState.DISCONNECTED)
+		
 		var availableBytes = streamPeerTCP.get_available_bytes()
 		while availableBytes > 0:
 			process_net_byte(streamPeerTCP.get_u8())
@@ -62,7 +68,7 @@ func set_cur_net_state(state):
 			
 func set_target_net_state(state):
 	if state == NetState.DISCONNECTED:
-		streamPeerTCP.disconnected()
+		streamPeerTCP.disconnect()
 	
 	time_out = 0.0
 	target_net_state = state
@@ -83,6 +89,7 @@ func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		if streamPeerTCP!=null and streamPeerTCP.is_connected():
 			streamPeerTCP.disconnect()
+			target_net_state = NetState.DISCONNECTED
 	
 func bind( msg):
 	var msgInst = msg.new()
@@ -135,11 +142,15 @@ func login_by_email( email, password):
 	
 func login_by_osid():
 	if streamPeerTCP.is_connected():	
-		print("heheeiheieieei")
 		var login_msg = preload("res://global/protocol/login_by_osid.pb.gd").new()
 		login_msg.account = 1
 		login_msg.password = 9
 		login_msg.send(streamPeerTCP)
+		
+func send_heart_beat():
+	if streamPeerTCP.is_connected():
+		var msg = preload("res://global/protocol/heart_beat.pb.gd")
+		msg.send(streamPeerTCP)
 		
 # 搜寻房间
 func search_room_begin():
@@ -190,6 +201,7 @@ func on_attacked(damage):
 func bind_msgs():
 	bind(preload("res://global/protocol/register_result.pb.gd"))
 	bind(preload("res://global/protocol/login_result.pb.gd"))
+	bind(preload("res://global/protocol/heart_beat.pb.gd"))
 	bind(preload("res://global/protocol/player_info.pb.gd"))
 	bind(preload("res://global/protocol/search_room_result.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_enter.pb.gd"))
@@ -213,6 +225,9 @@ func on_msg_login_result( msg):
 	
 	if has_node("/root/account"):		
 		get_node("/root/account").on_receive_login_result(msg)
+		
+func on_msg_heart_beat(msg):
+	nonHeartBeatTime = 0.0
 		
 func on_msg_player_info(msg):
 	get_node("/root/account_mgr").on_receive_player_info(msg)

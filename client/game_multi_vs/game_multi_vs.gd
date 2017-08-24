@@ -38,6 +38,7 @@ var active_player_idx = 0		# 当前活跃玩家
 var robot_aim_degree = 0.0
 var robot_target_aim_degree = -90.0
 var robot_init_speed = 300
+var net_heart_beat = 0.0
 
 func _ready():
 	# 初始开启匹配界面
@@ -85,6 +86,11 @@ func _process(delta):
 		wining()
 	elif game_state == GameState.GS_WINED:
 		wined()
+		
+	net_heart_beat += delta
+	if net_heart_beat > 5.0:
+		get_node("/root/network").send_heart_beat()
+		net_heart_beat = 0.0
 		
 func prepare():
 	pass

@@ -10,6 +10,7 @@ interface ProtocolProcess {
 		SocketServerHandler.bind(new protocol.register_by_email(), new register_by_email_process());
 		SocketServerHandler.bind(new protocol.login_by_email(), new login_by_email_process());
 		SocketServerHandler.bind(new protocol.login_by_osid(), new login_by_osid_process());
+		SocketServerHandler.bind(new protocol.heart_beat(), new heart_beat_process());
 		SocketServerHandler.bind(new protocol.search_room_begin(), new search_room_begin_process());
 		SocketServerHandler.bind(new protocol.search_room_end(), new search_room_end_process());
 		SocketServerHandler.bind(new protocol.battle_player_shoot(), new battle_player_shoot_process());
@@ -49,6 +50,15 @@ class login_by_osid_process implements ProtocolProcess{
 		
 		Player player = Player.get(ctx);
 		player.loginByOSID(msg.osid);
+	}
+}
+
+class heart_beat_process implements ProtocolProcess{
+	@Override
+	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {	
+		protocol.heart_beat msg = (protocol.heart_beat)proto;	
+		Player player = Player.get(ctx);
+		player.on_heart_beat(msg.data());
 	}
 }
 

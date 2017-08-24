@@ -3,12 +3,12 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class search_room_end extends message {
+public class heart_beat extends message {
 
 	@Override
 
 	public int id(){
-		 return 25;
+		 return 15;
 	}
 
 	@Override

@@ -54,9 +54,9 @@ public class SocketServer {
 		dbSaveTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				player.Player.update();
+				player.Player.updateAll();
 			}
-		}, 5*60*1000, 5*50*1000);
+		}, 5*1000, 5*1000);
 		
 		// 战场更新计时器
 		Timer roomUpdateTimer = new Timer();
