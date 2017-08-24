@@ -43,7 +43,7 @@ func _ready():
 		gomob.request_videoad()
 		
 	# 金币数量
-	var coin_num = get_node("/root/data").get_coin_num()
+	var coin_num = get_node("/root/player").get_coin_num()
 	get_node("ui/coin").set_text(String(coin_num))
 	
 	set_process(true)
@@ -178,7 +178,7 @@ func check_result():
 			blood_effect.get_node("anim").play("play")
 			add_child(blood_effect)
 			
-			var data = get_node("/root/data")
+			var data = get_node("/root/player")
 			if collider.get_type()=="head":
 				continue_head_shot_num+=1
 				var cur_score = min( continue_head_shot_num+1, 5)

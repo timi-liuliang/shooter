@@ -75,7 +75,7 @@ func connect_server():
 		
 func _notification(what):
 	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		if streamPeerTCP.is_connected():
+		if StreamPeerTCP!=null and streamPeerTCP.is_connected():
 			streamPeerTCP.disconnect()
 	
 func bind( msg):
