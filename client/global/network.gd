@@ -58,7 +58,8 @@ func update_net_state(delta):
 			time_out=10
 		
 		if cur_net_state==NetState.LOGINED and time_out < 0:
-			search_room_begin()	
+			search_room_begin()
+			time_out = 10
 			
 		#print("update net state E")
 
@@ -241,7 +242,8 @@ func on_msg_player_info(msg):
 func on_msg_search_room_result(msg):
 	if msg.result==1:
 		get_node("/root/global").set_scene("res://game_multi_vs/game_multi_vs.tscn")
-		set_cur_net_state(NetState.SEARCHING)
+		set_cur_net_state(NetState.LOGINED)
+		set_target_net_state(NetState.LOGINED)
 		print("battle searching")
 	elif msg.result==0:
 		get_node("/root/global").set_scene("res://launch/launch.tscn")
