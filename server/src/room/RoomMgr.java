@@ -18,6 +18,7 @@ class PlayerState{
 public class RoomMgr {
 	protected static RoomMgr inst = null;
 	public static HashMap<Integer, Room>  rooms 			= new HashMap<Integer, Room>();
+	public float 					   rooms_update_time = 0.f;
 	public HashMap<Long, PlayerState>  players_searching = new HashMap<Long, PlayerState>();
 	public HashMap<Long, PlayerState>  players_in_battle = new HashMap<Long, PlayerState>();
 	
@@ -52,6 +53,12 @@ public class RoomMgr {
 		while(it.hasNext()){
 			HashMap.Entry pair = (HashMap.Entry)it.next();
 			((Room) pair.getValue()).process(delta);
+		}
+		
+		rooms_update_time += delta;
+		if(rooms_update_time>60.f) {
+			System.out.println(String.format("active room count [%d]", rooms_update_time));
+			rooms_update_time = 0.0f;
 		}
 	}
 	
