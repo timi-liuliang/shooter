@@ -6,6 +6,7 @@ enum GameState{
 	GS_FOCUS_PLAYER,
 	GS_WAIT_FOR_AIM,
 	GS_PLAYER_AIM,
+	GS_PLAYER_SHOOT_EMIT,
 	GS_PLAYER_SHOOT,
 	GS_CHECK_SHOOT_RESULT,
 	GS_WAIT_SHOOT_RESULT,
@@ -157,13 +158,17 @@ func main_player_aim(delta, idx):
 		# show aiming
 		get_node("aiming_sight").set_hidden(false)
 		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
+		print("xxxxxxxxxxxxx-------------------")
 		
 	if !Input.is_action_pressed("touch"):
+		print("doubi----------------------")
 		# 向服务器发送"shooter"消息
 		var weapon = get_node("weapon/arrow")
 		get_node("/root/network").battle_player_shoot(weapon.get_pos(), get_player_aim_degree(idx, aim_degree))
+		game_state = GameState.GS_PLAYER_SHOOT_EMIT
 		
 func on_player_shoot(idx, weapon_pos, degree):
+	print("on_playyer_shoot-----------------")
 	var player = players[idx]
 	player.set_weapon_hidden(true)
 	get_node("weapon/arrow").set_hidden(false)

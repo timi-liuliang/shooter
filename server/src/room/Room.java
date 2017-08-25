@@ -120,5 +120,12 @@ public class Room {
 		if(player!=null) {
 			player.sendMsg(buf);
 		}
+		else {
+			Player player0 = Player.getById(m_player0);
+			Player player1 = Player.getById(m_player1);
+			if(player0==null && player1==null) {
+				RoomMgr.instance().close_room(hashCode(), m_player0, m_player1);
+			}
+		}
 	}
 }

@@ -84,6 +84,8 @@ class battle_player_shoot_process implements ProtocolProcess{
 		Player player = Player.get(ctx);
 		protocol.battle_player_shoot msg = (protocol.battle_player_shoot)proto;
 		
+		System.out.println("battle_player_shoot_process--------------");
+		
 		player.on_battle_player_shoot(msg);
 	}
 }

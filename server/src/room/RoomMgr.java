@@ -68,6 +68,20 @@ public class RoomMgr {
 		rooms.put(room.hashCode(), room);
 	}
 	
+	public void close_room(Integer roomID, Long player0, Long player1) {
+		if(rooms.containsKey(roomID)) {
+			rooms.remove(roomID);
+		}
+		
+		if(players_in_battle.containsKey(player0)) {
+			players_in_battle.remove(player0);
+		}
+		
+		if(players_in_battle.containsKey(player1)) {
+			players_in_battle.remove(player1);
+		}
+	}
+	
 	public boolean add_player(Long player) {
 		if(players_searching.containsKey(player)) {
 			return false;
