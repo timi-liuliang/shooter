@@ -40,6 +40,7 @@ public class Player {
 	protected Info					   		info = new Info();	
 	protected float							nonHeartBeatTime = 0.f;
 	protected float							saveDBTime = 0.f;
+	protected static float					players_update_time = 0.f;
 
 	public Player(ChannelHandlerContext channelCtx) {
 			
@@ -49,6 +50,12 @@ public class Player {
 	public static void updateAll() {
 		for(Player player : players.values()) {
 			player.update();
+		}
+		
+		players_update_time += 5.f;
+		if(players_update_time>60.f) {
+			players_update_time = 0.f;
+			System.out.println(String.format("active players count [%d]", players.size()));
 		}
 	}
 	
