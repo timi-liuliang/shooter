@@ -5,7 +5,8 @@ import io.netty.buffer.Unpooled;
 
 public class battle_time extends message {
 
-	public int time = 0;
+	public int battle_time = 0;
+	public int turn_time = 0;
 	@Override
 
 	public int id(){
@@ -14,14 +15,15 @@ public class battle_time extends message {
 
 	@Override
 	public int length(){
-		 return 4 ;
+		 return 8 ;
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		byteBuffer.writeInt(time);
+		byteBuffer.writeInt(battle_time);
+		byteBuffer.writeInt(turn_time);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -29,6 +31,7 @@ public class battle_time extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		time = byteBuffer.readInt();
+		battle_time = byteBuffer.readInt();
+		turn_time = byteBuffer.readInt();
 	}
 }

@@ -305,10 +305,13 @@ func on_msg_battle_begin(msg):
 	game_state = GameState.GS_SHOW_ENEMY
 	
 func on_msg_battle_time(msg):
-	var minute = msg.time / 60
-	var second = msg.time % 60
+	var minute = msg.battle_time / 60
+	var second = msg.battle_time % 60
 	var str_time = "%02d:%02d" % [minute,second]
-	get_node("ui/time").set_text(str_time)
+	get_node("ui/battle_time").set_text(str_time)
+	
+	var turn_second = msg.turn_time;
+	get_node("ui/turn_time").set_text(String(trun_second))
 	
 func on_msg_battle_turn_begin(msg):
 	if msg.player==get_node("/root/account_mgr").get_player_id():

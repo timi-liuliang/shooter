@@ -14,6 +14,7 @@ enum GameState{
 public class Room {
 	public GameState m_gameState = GameState.GS_PREPARE;
 	public float  	 m_battleTime= 0.f;
+	public float	 m_turnTime = 30.f;
 	public Long 	 m_player0 = null;
 	public Long 	 m_player1 = null;
 	
@@ -28,10 +29,16 @@ public class Room {
 			sendMsgToPlayer(m_player1,msg.data());
 		}
 		else if(m_gameState==GameState.GS_PLAYER0_TURN) {
-		
+			m_turnTime -= delta;
+			if(m_turnTime < 0.f) {
+				on_batle_switch_turn(m_player0);
+			}
 		}
 		else if(m_gameState==GameState.GS_PLAYER1_TURN) {
-			
+			m_turnTime -= delta;
+			if(m_turnTime < 0.f) {
+				on_batle_switch_turn(m_player1);
+			}
 		}
 		else if(m_gameState==GameState.GS_END) {
 			
@@ -63,7 +70,8 @@ public class Room {
 	
 	void sendBattleTime() {
 		protocol.battle_time msg = new protocol.battle_time();
-		msg.time = (int)m_battleTime;
+		msg.battle_time = (int)m_battleTime;
+		msg.turn_time   = (int)m_turnTime;
 		sendMsgToPlayer(m_player0,msg.data());
 		sendMsgToPlayer(m_player1,msg.data());
 	}
@@ -96,11 +104,13 @@ public class Room {
 	
 	public void on_batle_switch_turn(Long player) {
 		if(player==m_player0 && m_gameState==GameState.GS_PLAYER0_TURN) {
-			m_gameState = GameState.GS_PLAYER1_TURN;		
+			m_gameState = GameState.GS_PLAYER1_TURN;
+			m_turnTime = 30.f;
 			sendBattleTurnBegin(GameState.GS_PLAYER1_TURN);
 		}
 		else if (player==m_player1 && m_gameState==GameState.GS_PLAYER1_TURN) {
 			m_gameState = GameState.GS_PLAYER0_TURN;
+			m_turnTime = 30.f;
 			sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
 		}
 	}

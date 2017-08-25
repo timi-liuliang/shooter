@@ -1,3 +1,4 @@
 {
-    "time" : "int"
+    "battle_time" : "int",
+    "turn_time" : "int"
 }

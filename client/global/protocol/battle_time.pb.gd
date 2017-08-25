@@ -1,6 +1,7 @@
 extends Node
 
-var time = int(0)
+var battle_time = int(0)
+var turn_time = int(0)
 
 func _ready():
 	pass
@@ -12,17 +13,19 @@ func id():
 	return 9
 
 func length():
-	return 4 ;
+	return 8 ;
 
 func send(stream):
 	var buf = ByteBuf.new()
 	buf.write_i32(int(id()))
 	buf.write_i32(int(length()))
-	buf.write_i32(time)
+	buf.write_i32(battle_time)
+	buf.write_i32(turn_time)
 	buf.write_byte(64)
 	buf.write_byte(64)
 	stream.put_data(buf.raw_data())
 
 func parse_data( byteBuffer):
-	time = byteBuffer.read_i32();
+	battle_time = byteBuffer.read_i32();
+	turn_time = byteBuffer.read_i32();
 	pass
