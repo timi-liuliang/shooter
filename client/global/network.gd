@@ -149,7 +149,7 @@ func login_by_osid():
 		
 func send_heart_beat():
 	if streamPeerTCP.is_connected():
-		var msg = preload("res://global/protocol/heart_beat.pb.gd")
+		var msg = preload("res://global/protocol/heart_beat.pb.gd").new()
 		msg.send(streamPeerTCP)
 		
 # 搜寻房间
