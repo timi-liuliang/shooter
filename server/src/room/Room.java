@@ -12,11 +12,21 @@ enum GameState{
 }
 
 public class Room {
-	public GameState m_gameState = GameState.GS_PREPARE;
-	public float  	 m_battleTime= 0.f;
-	public float	 m_turnTime = 30.f;
-	public Long 	 m_player0 = null;
-	public Long 	 m_player1 = null;
+	protected static  Integer m_roomCreated = 0;
+	protected Integer m_id;
+	public GameState  m_gameState = GameState.GS_PREPARE;
+	public float  	  m_battleTime= 0.f;
+	public float	  m_turnTime = 30.f;
+	public Long 	  m_player0 = null;
+	public Long 	  m_player1 = null;
+	
+	public Room(){
+		m_id = m_roomCreated++;
+	}
+	
+	public Integer getID() {
+		return m_id;
+	}
 	
 	public void process(float delta){
 		m_battleTime += delta;
@@ -124,7 +134,7 @@ public class Room {
 			Player player0 = Player.getById(m_player0);
 			Player player1 = Player.getById(m_player1);
 			if(player0==null && player1==null) {
-				RoomMgr.instance().close_room(hashCode(), m_player0, m_player1);
+				RoomMgr.instance().close_room(getID(), m_player0, m_player1);
 			}
 		}
 	}

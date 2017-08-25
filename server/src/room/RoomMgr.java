@@ -11,7 +11,7 @@ class PlayerState{
 	
 	public PlayerState( long player, Integer room) {
 		this.player = player;
-		this.roomId = roomId;
+		this.roomId = room;
 	}
 }
 
@@ -56,16 +56,16 @@ public class RoomMgr {
 	}
 	
 	public void new_room(Long player0, Long player1) {
-		Room room = new Room();
+		Room room = new Room();	
+
+		room.addPlayer( player0, player1);
+		rooms.put(room.getID(), room);
 		
-		PlayerState ps0 = new PlayerState(player0, room.hashCode());
+		PlayerState ps0 = new PlayerState(player0, room.getID());
 		players_in_battle.put(player0, ps0);
 		
-		PlayerState ps1 = new PlayerState(player0, room.hashCode());
+		PlayerState ps1 = new PlayerState(player0, room.getID());
 		players_in_battle.put(player1, ps1);
-		
-		room.addPlayer( player0, player1);
-		rooms.put(room.hashCode(), room);
 	}
 	
 	public void close_room(Integer roomID, Long player0, Long player1) {
