@@ -311,7 +311,7 @@ func on_msg_battle_time(msg):
 	get_node("ui/battle_time").set_text(str_time)
 	
 	var turn_second = msg.turn_time;
-	get_node("ui/turn_time").set_text(String(trun_second))
+	get_node("ui/turn_time").set_text(String(turn_second))
 	
 func on_msg_battle_turn_begin(msg):
 	if msg.player==get_node("/root/account_mgr").get_player_id():
