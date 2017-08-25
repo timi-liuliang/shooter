@@ -19,6 +19,8 @@ public class Room {
 	public float	  m_turnTime = 30.f;
 	public Long 	  m_player0 = null;
 	public Long 	  m_player1 = null;
+	protected int	  m_player0Blood = 100;
+	protected int	  m_player1Blood = 100;
 	
 	public Room(){
 		m_id = m_roomCreated++;
@@ -122,6 +124,19 @@ public class Room {
 			m_gameState = GameState.GS_PLAYER0_TURN;
 			m_turnTime = 30.f;
 			sendBattleTurnBegin(GameState.GS_PLAYER0_TURN);
+		}
+	}
+	
+	public void on_batle_player_blood_changed(Long player, protocol.battle_player_blood msg) {
+		if(player==m_player0) {
+			m_player0Blood = msg.blood;
+		}
+		else if(player==m_player1) {
+			m_player1Blood = msg.blood;
+		}
+		
+		if(m_player0Blood <= 0 || m_player1Blood<=0) {
+			RoomMgr.instance().close_room(getID(), m_player0, m_player1);
 		}
 	}
 	

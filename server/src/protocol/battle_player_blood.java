@@ -3,25 +3,25 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class login_by_osid extends message {
+public class battle_player_blood extends message {
 
-	public String osid;
+	public int blood = 0;
 	@Override
 
 	public int id(){
-		 return 18;
+		 return 5;
 	}
 
 	@Override
 	public int length(){
-		 return 4 +osid.length();
+		 return 4 ;
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		write_string(byteBuffer, osid);
+		byteBuffer.writeInt(blood);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -29,6 +29,6 @@ public class login_by_osid extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		osid = read_string(byteBuffer);
+		blood = byteBuffer.readInt();
 	}
 }

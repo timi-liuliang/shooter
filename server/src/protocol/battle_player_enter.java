@@ -11,7 +11,7 @@ public class battle_player_enter extends message {
 	@Override
 
 	public int id(){
-		 return 5;
+		 return 6;
 	}
 
 	@Override

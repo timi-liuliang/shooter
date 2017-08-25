@@ -11,7 +11,7 @@ func name():
 	return 'battle_player_enter'
 
 func id():
-	return 5
+	return 6
 
 func length():
 	return 16 +name.length();

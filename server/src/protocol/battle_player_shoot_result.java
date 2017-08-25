@@ -9,7 +9,7 @@ public class battle_player_shoot_result extends message {
 	@Override
 
 	public int id(){
-		 return 7;
+		 return 8;
 	}
 
 	@Override

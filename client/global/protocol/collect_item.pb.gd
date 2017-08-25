@@ -11,7 +11,7 @@ func name():
 	return 'collect_item'
 
 func id():
-	return 12
+	return 13
 
 func length():
 	return 12 ;

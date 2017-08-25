@@ -235,6 +235,13 @@ public class Player {
 		}
 	}
 	
+	public void on_battle_blood_changed(protocol.battle_player_blood msg) {
+		Room room = RoomMgr.instance().getRoom(get_id());
+		if(room!=null) {
+			room.on_batle_player_blood_changed(get_id(), msg);
+		}
+	}	
+	
 	public void collectItem(int id, int count, int type) {
 		info.backpack.collectItem(id, count, type, mChannelCtx);
 	}

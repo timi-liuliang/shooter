@@ -8,7 +8,7 @@ public class battle_switch_turn extends message {
 	@Override
 
 	public int id(){
-		 return 8;
+		 return 9;
 	}
 
 	@Override

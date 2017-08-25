@@ -9,7 +9,7 @@ func name():
 	return 'battle_player_shoot_result'
 
 func id():
-	return 7
+	return 8
 
 func length():
 	return 8 ;

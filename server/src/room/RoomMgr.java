@@ -71,6 +71,8 @@ public class RoomMgr {
 	public void close_room(Integer roomID, Long player0, Long player1) {
 		if(rooms.containsKey(roomID)) {
 			rooms.remove(roomID);
+			
+			System.out.println(String.format("close battle field [%d], active count [%d]",roomID, rooms.size()));
 		}
 		
 		if(players_in_battle.containsKey(player0)) {
