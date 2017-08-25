@@ -57,7 +57,7 @@ public class RoomMgr {
 		
 		rooms_update_time += delta;
 		if(rooms_update_time>60.f) {
-			System.out.println(String.format("active room count [%d]", rooms_update_time));
+			System.out.println(String.format("active room count [%d]", rooms.size()));
 			rooms_update_time = 0.0f;
 		}
 	}
@@ -73,6 +73,8 @@ public class RoomMgr {
 		
 		PlayerState ps1 = new PlayerState(player0, room.getID());
 		players_in_battle.put(player1, ps1);
+		
+		System.out.println(String.format("new battle field[%d]", room.getID()));
 	}
 	
 	public void close_room(Integer roomID, Long player0, Long player1) {

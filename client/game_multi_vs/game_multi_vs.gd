@@ -230,8 +230,9 @@ func check_result():
 			weapon.get_node("anim").play("attacked")
 			
 			update_blood_display()
-					
-	get_node("/root/network").send_battle_player_blood(get_self().cur_blood)		
+	
+	if active_player_idx == main_player_idx:				
+		get_node("/root/network").send_battle_player_blood(get_self().cur_blood, get_enemy(main_player_idx).cur_blood)		
 
 	if get_self().cur_blood <= 0:
 		game_state = GameState.GS_FAILING	

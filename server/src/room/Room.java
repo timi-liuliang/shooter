@@ -129,10 +129,12 @@ public class Room {
 	
 	public void on_batle_player_blood_changed(Long player, protocol.battle_player_blood msg) {
 		if(player==m_player0) {
-			m_player0Blood = msg.blood;
+			m_player0Blood = msg.self_blood;
+			m_player1Blood = msg.enemy_blood;
 		}
 		else if(player==m_player1) {
-			m_player1Blood = msg.blood;
+			m_player1Blood = msg.self_blood;
+			m_player0Blood = msg.enemy_blood;
 		}
 		
 		if(m_player0Blood <= 0 || m_player1Blood<=0) {

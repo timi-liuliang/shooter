@@ -178,10 +178,11 @@ func send_battle_switch_turn():
 		var msg = preload("res://global/protocol/battle_switch_turn.pb.gd").new()
 		msg.send(streamPeerTCP)	
 		
-func send_battle_player_blood(cur_blood):
+func send_battle_player_blood(self_blood, enemy_blood):
 	if streamPeerTCP.is_connected():
 		var msg = preload("res://global/protocol/battle_player_blood.pb.gd").new()
-		msg.blood = cur_blood
+		msg.self_blood = self_blood
+		msg.enemy_blood = enemy_blood
 		msg.send(streamPeerTCP)	
 
 func collect_item(id):
