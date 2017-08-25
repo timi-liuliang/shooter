@@ -57,7 +57,7 @@ public class RoomMgr {
 		
 		rooms_update_time += delta;
 		if(rooms_update_time>60.f) {
-			System.out.println(String.format("active room count [%d]", rooms.size()));
+			System.out.println(String.format("active battle field [%d]", rooms.size()));
 			rooms_update_time = 0.0f;
 		}
 	}
