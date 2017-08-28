@@ -69,12 +69,13 @@ func set_cur_net_state(state):
 			
 func set_target_net_state(state):
 	if state == NetState.DISCONNECTED:
+		nonHeartBeatTime = 0.0
 		streamPeerTCP.disconnect()
 	
 	time_out = 0.0
 	target_net_state = state
 	
-	print("set_target_net_state")
+	print("set_target_net_state", state)
 	
 func connect_server():
 	if streamPeerTCP!=null and streamPeerTCP.is_connected():
