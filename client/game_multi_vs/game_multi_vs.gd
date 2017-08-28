@@ -328,3 +328,30 @@ func on_msg_battle_turn_begin(msg):
 	
 func on_msg_battle_player_shoot(msg):
 	on_player_shoot(active_player_idx, Vector2(msg.weapon_pos_x, msg.weapon_pos_y), msg.degree)
+	
+func on_msg_battle_player_relogin(msg):
+	# confirm position
+	if msg.player0==get_node("/root/account_mgr").get_player_id():
+		main_player_idx = msg.pos0;
+		
+	if msg.player1==get_node("/root/account_mgr").get_player_id():
+		main_player_idx = msg.pos1;
+	
+	# set blood
+	players[0].cur_blood = msg.player0_blood
+	players[1].cur_blood = msg.player1_blood
+	update_blood_display()
+	
+	# hide searching ui
+	get_node("ui/room_match").set_hidden(true)
+	#game_state = GameState.GS_SHOW_ENEMY
+	
+	# turn
+	if msg.turn_player==get_node("/root/account_mgr").get_player_id():
+		active_player_idx = main_player_idx
+	else:
+		active_player_idx = (main_player_idx + 1) % players.size()
+		
+	game_state = GameState.GS_FOCUS_PLAYER
+	
+	
