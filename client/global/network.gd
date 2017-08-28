@@ -289,6 +289,7 @@ func on_msg_battle_player_shoot(msg):
 			print("stange message from server")
 			
 func on_msg_battle_player_relogin(msg):
+	print("player relogin enter battle")
 	pass		
 			
 func on_msg_backpack_num( msg):
