@@ -6,14 +6,14 @@ import io.netty.buffer.Unpooled;
 public class battle_player_relogin extends message {
 
 	public int battle_time = 0;
-	public int self_blood = 0;
+	public int player1_blood = 0;
 	public long player0 = 0;
 	public long player1 = 0;
 	public String name0 = "";
 	public String name1 = "";
 	public int turn_time = 0;
 	public long turn_player = 0;
-	public int enemy_blood = 0;
+	public int player0_blood = 0;
 	public int pos0 = 0;
 	public int pos1 = 0;
 	@Override
@@ -32,14 +32,14 @@ public class battle_player_relogin extends message {
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
 		byteBuffer.writeInt(battle_time);
-		byteBuffer.writeInt(self_blood);
+		byteBuffer.writeInt(player1_blood);
 		byteBuffer.writeLong(player0);
 		byteBuffer.writeLong(player1);
 		write_string(byteBuffer, name0);
 		write_string(byteBuffer, name1);
 		byteBuffer.writeInt(turn_time);
 		byteBuffer.writeLong(turn_player);
-		byteBuffer.writeInt(enemy_blood);
+		byteBuffer.writeInt(player0_blood);
 		byteBuffer.writeInt(pos0);
 		byteBuffer.writeInt(pos1);
 		byteBuffer.writeByte(64);
@@ -50,14 +50,14 @@ public class battle_player_relogin extends message {
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
 		battle_time = byteBuffer.readInt();
-		self_blood = byteBuffer.readInt();
+		player1_blood = byteBuffer.readInt();
 		player0 = byteBuffer.readLong();
 		player1 = byteBuffer.readLong();
 		name0 = read_string(byteBuffer);
 		name1 = read_string(byteBuffer);
 		turn_time = byteBuffer.readInt();
 		turn_player = byteBuffer.readLong();
-		enemy_blood = byteBuffer.readInt();
+		player0_blood = byteBuffer.readInt();
 		pos0 = byteBuffer.readInt();
 		pos1 = byteBuffer.readInt();
 	}

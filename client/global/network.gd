@@ -289,8 +289,8 @@ func on_msg_battle_player_shoot(msg):
 			print("stange message from server")
 			
 func on_msg_battle_player_relogin(msg):
-	print("player relogin enter battle")
-	pass		
+	if !has_node("/root/game"):
+		get_node("/root/global").set_scene("res://game_multi_vs/game_multi_vs.tscn")
 			
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

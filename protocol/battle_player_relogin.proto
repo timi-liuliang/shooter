@@ -7,7 +7,7 @@
     "pos1":"int",
     "battle_time" : "int",
     "turn_time" : "int",
-    "self_blood":"int",
-    "enemy_blood":"int",
+    "player0_blood":"int",
+    "player1_blood":"int",
     "turn_player":"long"
 }

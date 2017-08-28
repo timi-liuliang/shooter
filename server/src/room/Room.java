@@ -144,7 +144,17 @@ public class Room {
 	
 	public void on_battle_player_relogin(long player) {
 		protocol.battle_player_relogin msg = new protocol.battle_player_relogin();
-		
+		msg.pos0 = 0;
+		msg.player0 = m_player0;
+		msg.name0 = "player_0";
+		msg.pos1 = 1;
+		msg.player1 = m_player1;
+		msg.name1 = "player_1";
+		msg.battle_time = (int)m_battleTime;
+		msg.turn_time   = (int)m_turnTime;
+		msg.player0_blood = m_player0Blood;
+		msg.player1_blood = m_player1Blood;
+		msg.turn_player = m_gameState==GameState.GS_PLAYER0_TURN ? m_player0 : m_player1;
 		
 		sendMsgToPlayer(player, msg.data());
 	}
