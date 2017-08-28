@@ -6,7 +6,7 @@ import io.netty.buffer.Unpooled;
 public class battle_player_enter extends message {
 
 	public long player = 0;
-	public String name;
+	public String name = "";
 	public int pos = 0;
 	@Override
 

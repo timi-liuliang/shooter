@@ -9,8 +9,8 @@ public class battle_player_relogin extends message {
 	public int self_blood = 0;
 	public long player0 = 0;
 	public long player1 = 0;
-	public String name0;
-	public String name1;
+	public String name0 = "";
+	public String name1 = "";
 	public int turn_time = 0;
 	public long turn_player = 0;
 	public int enemy_blood = 0;

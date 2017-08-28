@@ -6,7 +6,7 @@ import io.netty.buffer.Unpooled;
 public class player_info extends message {
 
 	public long player = 0;
-	public String name;
+	public String name = "";
 	@Override
 
 	public int id(){

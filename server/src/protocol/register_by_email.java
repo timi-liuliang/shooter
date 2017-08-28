@@ -5,8 +5,8 @@ import io.netty.buffer.Unpooled;
 
 public class register_by_email extends message {
 
-	public String password;
-	public String email;
+	public String password = "";
+	public String email = "";
 	@Override
 
 	public int id(){

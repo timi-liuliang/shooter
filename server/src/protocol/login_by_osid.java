@@ -5,7 +5,7 @@ import io.netty.buffer.Unpooled;
 
 public class login_by_osid extends message {
 
-	public String osid;
+	public String osid = "";
 	@Override
 
 	public int id(){

@@ -32,7 +32,7 @@ def gen_protocol_java( file, id):
     data = json.load(data_file) 
     for key in data.keys():
         if data[key]=='string':
-            java_file.writelines("\tpublic String " + key + ";\n")
+            java_file.writelines("\tpublic String " + key + " = \"\";\n")
         else:
             java_file.writelines("\tpublic " + data[key] +" " + key + " = 0;\n")
 
