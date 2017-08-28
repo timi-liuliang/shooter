@@ -47,30 +47,6 @@ public class SocketServer {
 	private void initData(){
 		port = 8800;
 	}
-	
-	public static void main(String[] args){		
-		// 数据保存计时器
-		Timer dbSaveTimer = new Timer();
-		dbSaveTimer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				player.Player.updateAll();
-			}
-		}, 5*1000, 5*1000);
-		
-		// 战场更新计时器
-		Timer roomUpdateTimer = new Timer();
-		roomUpdateTimer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				room.RoomMgr.update();
-			}
-		}, 0, 1000);
-		
-		// 启动服务
-		SocketServer server = getInstance();
-		server.start();
-	}
 
 	public void start() {
 		ServerBootstrap bootstrap = new ServerBootstrap();
