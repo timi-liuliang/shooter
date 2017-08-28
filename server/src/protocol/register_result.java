@@ -10,7 +10,7 @@ public class register_result extends message {
 	@Override
 
 	public int id(){
-		 return 24;
+		 return 25;
 	}
 
 	@Override

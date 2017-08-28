@@ -10,7 +10,7 @@ func name():
 	return 'battle_time'
 
 func id():
-	return 10
+	return 11
 
 func length():
 	return 8 ;

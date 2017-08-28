@@ -10,7 +10,7 @@ public class battle_time extends message {
 	@Override
 
 	public int id(){
-		 return 10;
+		 return 11;
 	}
 
 	@Override

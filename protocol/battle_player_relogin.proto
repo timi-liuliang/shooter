@@ -1,0 +1,13 @@
+{
+    "player0":"long",
+    "name0":"string",
+    "pos0":"int",
+    "player1":"long",
+    "name1":"string",
+    "pos1":"int",
+    "battle_time" : "int",
+    "turn_time" : "int",
+    "self_blood":"int",
+    "enemy_blood":"int",
+    "turn_player":"long"
+}

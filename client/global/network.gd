@@ -212,6 +212,7 @@ func bind_msgs():
 	bind(preload("res://global/protocol/heart_beat.pb.gd"))
 	bind(preload("res://global/protocol/player_info.pb.gd"))
 	bind(preload("res://global/protocol/search_room_result.pb.gd"))
+	bind(preload("res://global/protocol/battle_player_relogin.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_enter.pb.gd"))
 	bind(preload("res://global/protocol/battle_begin.pb.gd"))
 	bind(preload("res://global/protocol/battle_time.pb.gd"))
@@ -287,6 +288,8 @@ func on_msg_battle_player_shoot(msg):
 		else:
 			print("stange message from server")
 			
+func on_msg_battle_player_relogin(msg):
+	pass		
 			
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

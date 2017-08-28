@@ -8,7 +8,7 @@ func name():
 	return 'battle_switch_turn'
 
 func id():
-	return 9
+	return 10
 
 func length():
 	return 0 ;

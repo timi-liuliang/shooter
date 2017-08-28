@@ -142,6 +142,13 @@ public class Room {
 		}
 	}
 	
+	public void on_battle_player_relogin(long player) {
+		protocol.battle_player_relogin msg = new protocol.battle_player_relogin();
+		
+		
+		sendMsgToPlayer(player, msg.data());
+	}
+	
 	protected void sendMsgToPlayer( Long playerID, ByteBuf buf) {
 		Player player = Player.getById( playerID);
 		if(player!=null) {

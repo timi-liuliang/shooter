@@ -93,6 +93,15 @@ public class RoomMgr {
 		}
 	}
 	
+	public void on_player_logined(Long player) {
+		if(isPlayerInBattle(player)) {
+			Room room = getRoom(player);
+			if(room!=null) {
+				room.on_battle_player_relogin(player);
+			}
+		}
+	}
+	
 	public boolean add_player(Long player) {
 		if(players_searching.containsKey(player)) {
 			return false;

@@ -12,7 +12,7 @@ public class battle_player_shoot extends message {
 	@Override
 
 	public int id(){
-		 return 7;
+		 return 8;
 	}
 
 	@Override

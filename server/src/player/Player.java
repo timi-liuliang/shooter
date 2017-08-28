@@ -146,6 +146,9 @@ public class Player {
 		}
 		
 		sendPlayerInfo();
+		
+		// User logined
+		RoomMgr.instance().on_player_logined( table.player);
 	}
 	
 	protected void disconnectPlayer(long account) {
