@@ -143,11 +143,10 @@ func login_by_email( email, password):
 		login_msg.password = password
 		login_msg.send(streamPeerTCP)
 	
-func login_by_osid():
+func login_by_osid(osid):
 	if streamPeerTCP.is_connected():	
 		var login_msg = preload("res://global/protocol/login_by_osid.pb.gd").new()
-		login_msg.account = 1
-		login_msg.password = 9
+		login_msg.osid = osid
 		login_msg.send(streamPeerTCP)
 		
 func send_heart_beat():
