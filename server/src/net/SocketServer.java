@@ -22,6 +22,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 
 import db.db;
+import App.app;
 
 
 public class SocketServer {
@@ -76,7 +77,7 @@ public class SocketServer {
 		try{
 			future = bootstrap.bind(port).sync();
 			if(future.isSuccess()){
-				System.out.println(String.format("bind port %d succeed", port));
+				app.logger().info(String.format("bind port %d succeed", port));
 			}
 		}
 		catch(InterruptedException e){

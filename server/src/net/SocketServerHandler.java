@@ -2,6 +2,8 @@ package net;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
+
+import App.app;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -77,7 +79,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 		// channel失效异常，客户端下线或者强制退出等触发。
 		player.Player.disconnectPlayer(ctx);
 		
-		System.out.println(String.format("Disconnect from client"));
+		app.logger().info(String.format("Disconnect from client"));
 		
 		ctx.fireChannelInactive();
 	}

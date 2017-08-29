@@ -3,11 +3,16 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
-import java.sql.ResultSet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.sql.ResultSet;
+import App.app;
 
 // data base manager
 public class db {
+	private static final Logger logger = LogManager.getLogger("db");
 	protected static db inst = null;
 	protected Connection con = null;
 	
@@ -15,7 +20,7 @@ public class db {
 		try {
 			//Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/shooter", "postgres", "Q19870816q");		
-			System.out.println("db:connected");		
+			logger.info("db:connected");		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -70,7 +75,7 @@ public class db {
 			
 			String sql = String.format("INSERT INTO account(password,info) VALUES(\'%s\', \'%s\');", password, json);
 			
-			System.out.println("db:" + sql);
+			logger.info("db:" + sql);
 			st.executeUpdate(sql);
 			st.close();
 			
@@ -90,7 +95,7 @@ public class db {
 				table.account  = rs.getLong("account");
 				table.password = rs.getString("password");
 				table.info = rs.getString("info");
-				System.out.println("db:" + sql);
+				logger.info(sql);
 			}
 			rs.close();
 			st.close();
@@ -113,7 +118,7 @@ public class db {
 				table.account  = rs.getLong("account");
 				table.password = rs.getString("password");
 				table.info = rs.getString("info");
-				System.out.println("db:" + sql);
+				logger.info("db:" + sql);
 			}
 			rs.close();
 			st.close();
@@ -138,7 +143,7 @@ public class db {
 			
 			String sql = String.format("INSERT INTO player(account, info) VALUES(\'%d\', \'%s\');", account, json);
 			
-			System.out.println("db:" + sql);
+			logger.info("db:" + sql);
 			st.executeUpdate(sql);
 			st.close();
 			
@@ -152,7 +157,7 @@ public class db {
 			Statement st = con.createStatement();
 			
 			String sql = String.format("UPDATE player SET info=\'%s\' WHERE player=\'%d\';", json, player);		
-			System.out.println("db:" + sql);
+			logger.info("db:" + sql);
 			st.executeUpdate(sql);
 			st.close();
 			
@@ -172,7 +177,7 @@ public class db {
 				table.player = rs.getLong("player");
 				table.account = rs.getLong("account");
 				table.info = rs.getString("info");
-				System.out.println("db:" + sql);
+				logger.info("db:" + sql);
 			}
 			rs.close();
 			st.close();

@@ -8,6 +8,9 @@ import java.util.Iterator;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import com.google.gson.Gson;
+
+import App.app;
+
 import java.util.Timer;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -55,7 +58,7 @@ public class Player {
 		players_update_time += 5.f;
 		if(players_update_time>60.f) {
 			players_update_time = 0.f;
-			System.out.println(String.format("active players count [%d]", players.size()));
+			app.logger().info(String.format("active players count [%d]", players.size()));
 		}
 	}
 	
@@ -169,7 +172,7 @@ public class Player {
 	}
 	
 	public void disconnect() {
-		System.out.println(String.format("Player [%d] offline, CurrentPlayers [%d]", table.player, players.size()-1));
+		app.logger().info(String.format("Player [%d] offline, CurrentPlayers [%d]", table.player, players.size()-1));
 		
 		this.saveToDB();
 		this.mChannelCtx.disconnect();
@@ -219,7 +222,7 @@ public class Player {
 	public void saveToDB() {
 		if(refreshPlayerToJson()) {
 			db.instance().savePlayer(table.player, table.info);
-			System.out.println(String.format("account [%s] player [%d] save to db", table.account, table.player));
+			app.logger().info(String.format("account [%s] player [%d] save to db", table.account, table.player));
 		}
 	}
 	

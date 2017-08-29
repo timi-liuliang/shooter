@@ -3,6 +3,8 @@ package room;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import App.app;
 import player.Player;
 
 class PlayerState{
@@ -57,7 +59,7 @@ public class RoomMgr {
 		
 		rooms_update_time += delta;
 		if(rooms_update_time>60.f) {
-			System.out.println(String.format("active battle field [%d]", rooms.size()));
+			app.logger().info(String.format("active battle field count[%d]", rooms.size()));
 			rooms_update_time = 0.0f;
 		}
 	}
