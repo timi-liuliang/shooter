@@ -33,6 +33,14 @@ GRANT ALL PRIVILEGES ON DATABASE alab-web to alab;
 \q
 ```
 
+The problem is still your pg_hba.conf file (/etc/postgresql/9.1/main/pg_hba.conf). This line:
+
+local   all             postgres                                peer
+Should be
+
+local   all             postgres                                md5
+After altering this file, don't forget to restart your PostgreSQL server. If you're on Linux, that would be sudo service postgresql restart.
+
 ## pgadmin desktop
 For pgAdmin 4 v1.4 on Ubuntu 16.04, according to the download page and desktop deployment:
 
