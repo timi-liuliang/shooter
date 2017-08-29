@@ -1,7 +1,15 @@
 extends Node
 
+var net_heart_beat = 0.0
+
 func _ready():
-	pass
+	set_process(true)
+	
+func _process(delta):
+	net_heart_beat += delta
+	if net_heart_beat > 5.0:
+		get_node("/root/network").send_heart_beat()
+		net_heart_beat = 0.0
 
 func _on_register_pressed():
 	get_node("login").set_hidden(true)
@@ -13,7 +21,7 @@ func on_receive_register_result(msg):
 		get_node("register").set_hidden(true)
 		var account = get_node("register/account").get_text()
 		var password = get_node("register/password").get_text()
-		save_account( account, password)
+		get_node("/root/account_mgr").save_account( account, password)
 		
 		get_node("/root/network").login_by_email(account, password)
 		
@@ -31,7 +39,6 @@ func on_receive_login_result(msg):
 		get_node("/root/global").set_scene("res://launch/launch.tscn")
 		
 	elif msg.result==1:
-		print("hahahahha")
 		get_node("login/info").set_text("login failed, the account isn't exist or the password is wrong.")
 
 func _on_login_pressed():

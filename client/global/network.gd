@@ -82,8 +82,8 @@ func connect_server():
 		streamPeerTCP.disconnect()
 	
 	streamPeerTCP = StreamPeerTCP.new()
-	if OK!=streamPeerTCP.connect('localhost', 8800):
-	#if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
+	#if OK!=streamPeerTCP.connect('localhost', 8800):
+	if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
 		print("connect server failed")
 		set_cur_net_state(NetState.DISCONNECTED)
 		set_target_net_state(NetState.DISCONNECTED)
@@ -233,6 +233,9 @@ func on_msg_register_result( msg):
 func on_msg_login_result( msg):
 	if msg.result==0:
 		set_cur_net_state(NetState.LOGINED)
+	else:
+		if !has_node("/root/account"):
+			get_node("/root/global").set_scene("res://account/account.tscn")
 	
 	if has_node("/root/account"):		
 		get_node("/root/account").on_receive_login_result(msg)
