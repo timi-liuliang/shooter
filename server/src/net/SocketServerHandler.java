@@ -3,6 +3,9 @@ package net;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import App.app;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -24,7 +27,7 @@ class ProtocolInfo{
 }
 
 public class SocketServerHandler extends ChannelInboundHandlerAdapter {
-	
+	private static final Logger logger = LogManager.getLogger("net");
 	public static HashMap<Integer, ProtocolInfo> protocols = new HashMap<Integer, ProtocolInfo>();
 	
 	public SocketServerHandler() {
@@ -47,12 +50,12 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 					else{
 						// 断开链接
 						ctx.disconnect();
-						System.out.println(String.format("proto id [%d] data length is unmatched", id));
+						logger.info(String.format("proto id [%d] data length is unmatched", id));
 					}
 				}else {
 					// 断开链接
 					ctx.disconnect();
-					System.out.println(String.format("Unhandled proto id [%d]", id));
+					logger.warn(String.format("Unhandled proto id [%d]", id));
 				}
 			}
 		} finally{
@@ -69,7 +72,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
     	InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
         String clientIP = insocket.getAddress().getHostAddress();
-    	System.out.println(String.format("Accept connect from client [%s]", clientIP));
+        logger.info(String.format("Accept connect from client [%s]", clientIP));
     	
         ctx.fireChannelActive();
     }
