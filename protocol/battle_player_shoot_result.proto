@@ -1,3 +1,4 @@
 {
-    "player":"long"
+    "player0_blood":"int",
+    "player1_blood":"int"
 }
