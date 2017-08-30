@@ -83,8 +83,8 @@ func connect_server():
 	
 	streamPeerTCP = StreamPeerTCP.new()
 	#if OK!=streamPeerTCP.connect('localhost', 8800):
-	if OK!=streamPeerTCP.connect('localhost', 8800):
-	#if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
+	#if OK!=streamPeerTCP.connect('localhost', 8800):
+	if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
 		print("connect server failed")
 		set_cur_net_state(NetState.DISCONNECTED)
 		set_target_net_state(NetState.DISCONNECTED)
@@ -174,6 +174,8 @@ func battle_player_shoot(weapon_pos, degree):
 		msg.weapon_pos_y = weapon_pos.y
 		msg.degree = degree
 		msg.send(streamPeerTCP)
+		
+		print("------------battle_player_shoot")
 		
 func send_battle_switch_turn():
 	if streamPeerTCP.is_connected():
@@ -287,6 +289,7 @@ func on_msg_battle_turn_begin(msg):
 			print("stange message from server")
 					
 func on_msg_battle_player_shoot(msg):
+	print("+++++++++++++on_msg_battle_player_shoot")
 	if has_node("/root/game"):
 		if get_node("/root/game").get_type()==1:
 			get_node("/root/game").on_msg_battle_player_shoot(msg)
