@@ -83,8 +83,8 @@ func connect_server():
 	
 	streamPeerTCP = StreamPeerTCP.new()
 	#if OK!=streamPeerTCP.connect('localhost', 8800):
-	if OK!=streamPeerTCP.connect('localhost', 8800):
-	#if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
+	#if OK!=streamPeerTCP.connect('localhost', 8800):
+	if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
 		print("connect server failed")
 		set_cur_net_state(NetState.DISCONNECTED)
 		set_target_net_state(NetState.DISCONNECTED)
