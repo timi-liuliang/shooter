@@ -75,7 +75,21 @@ public class db {
 			
 			String sql = String.format("INSERT INTO account(password,info) VALUES(\'%s\', \'%s\');", password, json);
 			
-			logger.info("db:" + sql);
+			logger.info(String.format("db:create new account"));
+			st.executeUpdate(sql);
+			st.close();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveAccount(long account, String password, String json) {
+		try {
+			Statement st = con.createStatement();
+			
+			String sql = String.format("UPDATE account SET info=\'%s\', password=\'%s\' WHERE account=\'%d\';", json, password, account);		
+			logger.info(String.format("db: save account [%d]", account));
 			st.executeUpdate(sql);
 			st.close();
 			
@@ -95,7 +109,6 @@ public class db {
 				table.account  = rs.getLong("account");
 				table.password = rs.getString("password");
 				table.info = rs.getString("info");
-				logger.info(sql);
 			}
 			rs.close();
 			st.close();
@@ -118,7 +131,6 @@ public class db {
 				table.account  = rs.getLong("account");
 				table.password = rs.getString("password");
 				table.info = rs.getString("info");
-				logger.info("db:" + sql);
 			}
 			rs.close();
 			st.close();
@@ -143,7 +155,7 @@ public class db {
 			
 			String sql = String.format("INSERT INTO player(account, info) VALUES(\'%d\', \'%s\');", account, json);
 			
-			logger.info("db:" + sql);
+			logger.info("create new player");
 			st.executeUpdate(sql);
 			st.close();
 			
@@ -157,7 +169,7 @@ public class db {
 			Statement st = con.createStatement();
 			
 			String sql = String.format("UPDATE player SET info=\'%s\' WHERE player=\'%d\';", json, player);		
-			logger.info("db:" + sql);
+			logger.info(String.format("db:save player[%d]", player));
 			st.executeUpdate(sql);
 			st.close();
 			
@@ -177,7 +189,6 @@ public class db {
 				table.player = rs.getLong("player");
 				table.account = rs.getLong("account");
 				table.info = rs.getString("info");
-				logger.info("db:" + sql);
 			}
 			rs.close();
 			st.close();

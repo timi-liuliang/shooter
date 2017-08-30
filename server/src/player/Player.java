@@ -220,6 +220,8 @@ public class Player {
 	}
 	
 	public void saveToDB() {
+		mAccount.saveToDB();
+		
 		if(refreshPlayerToJson()) {
 			db.instance().savePlayer(table.player, table.info);
 			app.logger().info(String.format("account [%s] player [%d] save to db", table.account, table.player));

@@ -69,11 +69,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 	}
 	
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-    	InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
-        String clientIP = insocket.getAddress().getHostAddress();
-        logger.info(String.format("Accept connect from client [%s]", clientIP));
-    	
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {	
         ctx.fireChannelActive();
     }
 	

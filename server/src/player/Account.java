@@ -1,9 +1,11 @@
 package player;
 
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import App.app;
 import db.db;
 import io.netty.channel.ChannelHandlerContext;
 import db.account_table;
@@ -49,7 +51,7 @@ public class Account {
 			table.password = password;
 			info.email = email;
 			
-			refreshPlayerToJson();	
+			refreshAccountToJson();	
 			db.instance().saveNewAccount( table.password, table.info);
 			
 			loadAccountByEmail(email);
@@ -68,7 +70,7 @@ public class Account {
 			table.password = "";
 			info.osid = osid;
 			
-			refreshPlayerToJson();	
+			refreshAccountToJson();	
 			db.instance().saveNewAccount( table.password, table.info);
 		}
 	}
@@ -81,6 +83,9 @@ public class Account {
 				protocol.login_result lr = new protocol.login_result();
 				lr.result = 0;
 				ctx.write(lr.data());
+				
+				rememberLoginIpAddress(ctx);
+				
 				return true;
 			}
 		}
@@ -102,10 +107,13 @@ public class Account {
 		protocol.login_result lr = new protocol.login_result();
 		lr.result = 0;
 		ctx.write(lr.data());
+		
+		rememberLoginIpAddress(ctx);
+		
 		return true;
 	}
 	
-	protected void refreshPlayerToJson() {
+	protected void refreshAccountToJson() {
 		Gson gson = new Gson();
 		table.info = gson.toJson(info);	
 	}
@@ -122,5 +130,33 @@ public class Account {
 		
 		Gson gson = new Gson();
 		info = gson.fromJson( table.info, AccountInfo.class);
+	}
+	
+	public void saveToDB() {
+		refreshAccountToJson();
+		
+		db.instance().saveAccount(table.account,table.password,table.info);
+	}
+	
+	public String getRemoteIpAddress(ChannelHandlerContext ctx) {
+    	InetSocketAddress insocket = (InetSocketAddress) ctx.channel().remoteAddress();
+        return insocket.getAddress().getHostAddress();
+	}
+	
+	public void rememberLoginIpAddress(ChannelHandlerContext ctx) {
+		String clientIP = getRemoteIpAddress(ctx);
+        
+        for(int i=0; i<info.ips.size(); i++) {
+        	loginIp ip = info.ips.get(i);
+        	if(ip.ip.equals(clientIP)) {
+        		ip.count++;
+                app.logger().info(String.format("Accept connect from client [%s] count[%d]", clientIP, ip.count));
+        		return;
+        	}
+        }
+        
+        loginIp ip = new loginIp(clientIP, 1);
+        info.ips.add(ip);
+        app.logger().info(String.format("Accept connect from client [%s] count[%d]", clientIP, 1));
 	}
 }
