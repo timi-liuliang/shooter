@@ -51,14 +51,18 @@ params/stretch_mode = 0
 
 [node name="home" type="Button" parent="."]
 
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 682.0
-margin/top = 380.0
-margin/right = 860.0
-margin/bottom = 446.0
+margin/left = -423.0
+margin/top = -380.0
+margin/right = -601.0
+margin/bottom = -446.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null

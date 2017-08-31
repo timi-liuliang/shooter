@@ -21,10 +21,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 516.0
-margin/top = 284.0
-margin/right = 580.0
-margin/bottom = 348.0
+margin/left = 473.0
+margin/top = 259.0
+margin/right = 537.0
+margin/bottom = 323.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -34,14 +34,18 @@ params/stretch_mode = 0
 
 [node name="home" type="Button" parent="."]
 
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 627.0
-margin/top = 399.0
-margin/right = 892.0
-margin/bottom = 494.0
+margin/left = -359.0
+margin/top = -379.0
+margin/right = -624.0
+margin/bottom = -474.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
