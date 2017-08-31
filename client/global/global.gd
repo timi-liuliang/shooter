@@ -44,3 +44,7 @@ func load_global_scripts():
 	account.set_name("account_mgr")
 	get_tree().get_root().add_child(account)
 	
+	var viewport = preload("res://global/viewport.gd").new()
+	viewport.set_name("viewport")
+	get_tree().get_root().add_child(viewport)
+	
