@@ -53,7 +53,7 @@ centered = false
 
 [node name="layer_1" type="ParallaxLayer" parent="parallax_background"]
 
-transform/pos = Vector2( 2.78937, -114.37 )
+transform/pos = Vector2( 0, -115 )
 motion/scale = Vector2( 0.5, 0 )
 motion/offset = Vector2( 0, 0 )
 motion/mirroring = Vector2( 1020, 0 )
@@ -87,7 +87,7 @@ transform/rot = 90.0
 anchor_mode = 1
 rotating = false
 current = true
-zoom = Vector2( 1.2, 1.2 )
+zoom = Vector2( 1, 1 )
 limit/left = -10000000
 limit/top = -10000000
 limit/right = 10000000
