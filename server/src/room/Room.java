@@ -137,6 +137,13 @@ public class Room {
 			m_player0Blood = msg.enemy_blood;
 		}
 		
+		// Í¬²½ÑªÁ¿
+		protocol.battle_player_shoot_result msg_sr = new protocol.battle_player_shoot_result();
+		msg_sr.player0_blood = m_player0Blood;
+		msg_sr.player1_blood = m_player1Blood;
+		sendMsgToPlayer(m_player0, msg_sr.data());
+		sendMsgToPlayer(m_player1, msg_sr.data());
+		
 		if(m_player0Blood <= 0 || m_player1Blood<=0) {
 			RoomMgr.instance().close_room(getID(), m_player0, m_player1);
 		}

@@ -175,8 +175,6 @@ func battle_player_shoot(weapon_pos, degree):
 		msg.degree = degree
 		msg.send(streamPeerTCP)
 		
-		print("------------battle_player_shoot")
-		
 func send_battle_switch_turn():
 	if streamPeerTCP.is_connected():
 		var msg = preload("res://global/protocol/battle_switch_turn.pb.gd").new()
@@ -222,6 +220,7 @@ func bind_msgs():
 	bind(preload("res://global/protocol/battle_time.pb.gd"))
 	bind(preload("res://global/protocol/battle_turn_begin.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_shoot.pb.gd"))
+	bind(preload("res://global/protocol/battle_player_shoot_result.pb.gd"))
 	
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
@@ -289,10 +288,16 @@ func on_msg_battle_turn_begin(msg):
 			print("stange message from server")
 					
 func on_msg_battle_player_shoot(msg):
-	print("+++++++++++++on_msg_battle_player_shoot")
 	if has_node("/root/game"):
 		if get_node("/root/game").get_type()==1:
 			get_node("/root/game").on_msg_battle_player_shoot(msg)
+		else:
+			print("stange message from server")
+			
+func on_msg_battle_player_shoot_result(msg):
+	if has_node("/root/game"):
+		if get_node("/root/game").get_type()==1:
+			get_node("/root/game").on_msg_battle_player_shoot_result(msg)
 		else:
 			print("stange message from server")
 			

@@ -229,19 +229,10 @@ func check_result():
 			collider.on_attack()
 			weapon.get_node("anim").play("attacked")
 			
-			update_blood_display()
-	
 	if active_player_idx == main_player_idx:				
 		get_node("/root/network").send_battle_player_blood(get_self().cur_blood, get_enemy(main_player_idx).cur_blood)		
-
-	if get_self().cur_blood <= 0:
-		game_state = GameState.GS_FAILING	
-	elif get_enemy(main_player_idx).cur_blood <=0:
-		game_state = GameState.GS_WINING
-	else:
-		game_state = GameState.GS_WAIT_SHOOT_RESULT
-		if active_player_idx==main_player_idx:
-			get_node("/root/network").send_battle_switch_turn()
+		
+	game_state = GameState.GS_WAIT_SHOOT_RESULT
 	
 func failing():
 	var character = get_self()	
@@ -329,6 +320,20 @@ func on_msg_battle_turn_begin(msg):
 func on_msg_battle_player_shoot(msg):
 	on_player_shoot(active_player_idx, Vector2(msg.weapon_pos_x, msg.weapon_pos_y), msg.degree)
 	
+func on_msg_battle_player_shoot_result(msg):
+	# set blood
+	players[0].cur_blood = msg.player0_blood
+	players[1].cur_blood = msg.player1_blood
+	update_blood_display()
+	
+	if get_self().cur_blood <= 0:
+		game_state = GameState.GS_FAILING	
+	elif get_enemy(main_player_idx).cur_blood <=0:
+		game_state = GameState.GS_WINING
+	else:
+		if active_player_idx==main_player_idx:
+			get_node("/root/network").send_battle_switch_turn()
+	
 func on_msg_battle_player_relogin(msg):
 	# confirm position
 	if msg.player0==get_node("/root/account_mgr").get_player_id():
@@ -344,7 +349,6 @@ func on_msg_battle_player_relogin(msg):
 	
 	# hide searching ui
 	get_node("ui/room_match").set_hidden(true)
-	#game_state = GameState.GS_SHOW_ENEMY
 	
 	# turn
 	if msg.turn_player==get_node("/root/account_mgr").get_player_id():

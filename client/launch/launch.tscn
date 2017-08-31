@@ -71,6 +71,7 @@ transform/pos = Vector2( 96, 452 )
 
 [node name="ui" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -95,6 +96,7 @@ params/stretch_mode = 0
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = true
@@ -106,6 +108,7 @@ margin/top = 0.0
 margin/right = -3.0
 margin/bottom = 0.0
 texture = ExtResource( 5 )
+expand = true
 stretch_mode = 0
 
 [node name="jinbi" type="TextureFrame" parent="ui/bg"]
