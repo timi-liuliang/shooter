@@ -93,6 +93,9 @@ func _process(delta):
 		get_node("/root/network").send_heart_beat()
 		net_heart_beat = 0.0
 		
+		var ping = get_node("/root/network").get_ping_value()
+		get_node("ui/ping").set_text("Ping:"+String(ping))
+		
 func prepare():
 	pass
 

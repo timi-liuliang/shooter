@@ -182,6 +182,7 @@ margin/bottom = 263.0
 
 [node name="blood" type="Control" parent="ui"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -256,5 +257,19 @@ visibility/visible = false
 [node name="vs_win" parent="ui" instance=ExtResource( 15 )]
 
 visibility/visible = false
+
+[node name="ping" type="Label" parent="ui"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 10.0
+margin/top = 4.0
+margin/right = 116.0
+margin/bottom = 36.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

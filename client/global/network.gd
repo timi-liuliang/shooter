@@ -18,6 +18,8 @@ var time_out = -1
 var cur_net_state = NetState.DISCONNECTED
 var target_net_state = NetState.LOGINED
 var nonHeartBeatTime = 0.0
+var send_heart_beat_time = 0.0
+var ping_time = 0.0
 
 func _ready():
 	bind_msgs()
@@ -154,6 +156,7 @@ func send_heart_beat():
 	if streamPeerTCP.is_connected():
 		var msg = preload("res://global/protocol/heart_beat.pb.gd").new()
 		msg.send(streamPeerTCP)
+		send_heart_beat_time = OS.get_ticks_msec()
 		
 # 搜寻房间
 func search_room_begin():
@@ -243,6 +246,7 @@ func on_msg_login_result( msg):
 		
 func on_msg_heart_beat(msg):
 	nonHeartBeatTime = 0.0
+	ping_time = OS.get_ticks_msec() - send_heart_beat_time
 		
 func on_msg_player_info(msg):
 	get_node("/root/account_mgr").on_receive_player_info(msg)
@@ -317,3 +321,6 @@ func on_msg_blood_info( msg):
 
 func on_msg_game_time( msg):
 	get_node("/root/global").setGameTime(msg.time)
+	
+func get_ping_value():
+	return ping_time
