@@ -34,3 +34,33 @@
 2017-09-05 12:17:55,528 INFO db [nioEventLoopGroup-3-2] db:save player[1]
 2017-09-05 12:17:55,536 INFO shooter [nioEventLoopGroup-3-2] account [1] player [1] save to db
 2017-09-05 12:17:55,536 INFO shooter [nioEventLoopGroup-3-2] Disconnect from client
+2017-09-05 13:40:48,220 INFO shooter [main] --------------
+2017-09-05 13:40:48,222 INFO shooter [main] |Start server|
+2017-09-05 13:40:48,222 INFO shooter [main] --------------
+2017-09-05 13:40:48,805 INFO shooter [main] bind port 8800 succeed
+2017-09-05 13:40:56,506 INFO db [nioEventLoopGroup-3-1] db:connected
+2017-09-05 13:40:56,561 INFO shooter [nioEventLoopGroup-3-1] Accept connect from client [0:0:0:0:0:0:0:1] count[14]
+2017-09-05 13:41:25,731 WARN net [nioEventLoopGroup-3-2] Unhandled proto id [18]
+2017-09-05 13:41:25,731 INFO net [nioEventLoopGroup-3-2] proto id [10] data length is unmatched
+2017-09-05 13:41:25,732 WARN net [nioEventLoopGroup-3-2] Unhandled proto id [925906993]
+2017-09-05 13:41:25,732 WARN net [nioEventLoopGroup-3-2] Unhandled proto id [1339761]
+2017-09-05 13:41:25,732 WARN net [nioEventLoopGroup-3-2] Unhandled proto id [842018868]
+2017-09-05 13:41:25,734 INFO shooter [nioEventLoopGroup-3-2] Disconnect from client
+2017-09-05 13:41:43,676 WARN net [nioEventLoopGroup-3-3] Unhandled proto id [18]
+2017-09-05 13:41:43,677 INFO net [nioEventLoopGroup-3-3] proto id [10] data length is unmatched
+2017-09-05 13:41:43,677 WARN net [nioEventLoopGroup-3-3] Unhandled proto id [925906993]
+2017-09-05 13:41:43,677 WARN net [nioEventLoopGroup-3-3] Unhandled proto id [1339761]
+2017-09-05 13:41:43,678 WARN net [nioEventLoopGroup-3-3] Unhandled proto id [842018868]
+2017-09-05 13:41:43,680 INFO shooter [nioEventLoopGroup-3-3] Disconnect from client
+2017-09-05 13:41:48,223 INFO shooter [Timer-1] active battle field count[0]
+2017-09-05 13:41:53,222 INFO shooter [Timer-0] active players count [1]
+2017-09-05 13:42:07,743 INFO shooter [main] --------------
+2017-09-05 13:42:07,745 INFO shooter [main] |Start server|
+2017-09-05 13:42:07,745 INFO shooter [main] --------------
+2017-09-05 13:42:08,358 INFO shooter [main] bind port 8800 succeed
+2017-09-05 13:42:13,758 WARN net [nioEventLoopGroup-3-1] Unhandled proto id [18]
+2017-09-05 13:42:13,759 INFO net [nioEventLoopGroup-3-1] proto id [10] data length is unmatched
+2017-09-05 13:42:13,759 WARN net [nioEventLoopGroup-3-1] Unhandled proto id [925906993]
+2017-09-05 13:42:13,759 WARN net [nioEventLoopGroup-3-1] Unhandled proto id [1339761]
+2017-09-05 13:42:13,759 WARN net [nioEventLoopGroup-3-1] Unhandled proto id [842018868]
+2017-09-05 13:42:13,761 INFO shooter [nioEventLoopGroup-3-1] Disconnect from client

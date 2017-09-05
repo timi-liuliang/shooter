@@ -60,10 +60,9 @@ func update_net_state(delta):
 			time_out=10
 		
 		if cur_net_state==NetState.LOGINED and time_out < 0:
+			print("update net state D")
 			search_room_begin()
 			time_out = 10
-			
-		#print("update net state E")
 
 func set_cur_net_state(state):
 	cur_net_state = state
