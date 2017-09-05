@@ -9,7 +9,7 @@ public class game_time extends message {
 	@Override
 
 	public int id(){
-		 return 16;
+		 return 14;
 	}
 
 	@Override

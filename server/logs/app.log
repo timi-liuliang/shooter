@@ -1,0 +1,36 @@
+2017-09-05 12:15:41,860 INFO shooter [main] --------------
+2017-09-05 12:15:41,862 INFO shooter [main] |Start server|
+2017-09-05 12:15:41,862 INFO shooter [main] --------------
+2017-09-05 12:15:42,743 INFO shooter [main] bind port 8800 succeed
+2017-09-05 12:16:41,863 INFO shooter [Timer-1] active battle field count[0]
+2017-09-05 12:16:46,863 INFO shooter [Timer-0] active players count [0]
+2017-09-05 12:16:56,638 INFO db [nioEventLoopGroup-3-1] db:connected
+2017-09-05 12:16:59,891 INFO shooter [nioEventLoopGroup-3-1] Accept connect from client [0:0:0:0:0:0:0:1] count[10]
+2017-09-05 12:17:00,880 INFO shooter [nioEventLoopGroup-3-1] Accept connect from client [0:0:0:0:0:0:0:1] count[10]
+2017-09-05 12:17:00,881 INFO shooter [nioEventLoopGroup-3-1] Player [1] offline, CurrentPlayers [0]
+2017-09-05 12:17:00,907 INFO db [nioEventLoopGroup-3-1] db: save account [1]
+2017-09-05 12:17:01,477 INFO db [nioEventLoopGroup-3-1] db:save player[1]
+2017-09-05 12:17:01,499 INFO shooter [nioEventLoopGroup-3-1] account [1] player [1] save to db
+2017-09-05 12:17:01,503 INFO shooter [nioEventLoopGroup-3-1] Accept connect from client [0:0:0:0:0:0:0:1] count[11]
+2017-09-05 12:17:01,504 INFO shooter [nioEventLoopGroup-3-1] Player [1] offline, CurrentPlayers [0]
+2017-09-05 12:17:01,505 INFO db [nioEventLoopGroup-3-1] db: save account [1]
+2017-09-05 12:17:01,509 INFO db [nioEventLoopGroup-3-1] db:save player[1]
+2017-09-05 12:17:01,511 INFO shooter [nioEventLoopGroup-3-1] account [1] player [1] save to db
+2017-09-05 12:17:01,514 INFO shooter [nioEventLoopGroup-3-1] Accept connect from client [0:0:0:0:0:0:0:1] count[12]
+2017-09-05 12:17:01,515 INFO shooter [nioEventLoopGroup-3-1] Player [1] offline, CurrentPlayers [0]
+2017-09-05 12:17:01,515 INFO db [nioEventLoopGroup-3-1] db: save account [1]
+2017-09-05 12:17:01,520 INFO db [nioEventLoopGroup-3-1] db:save player[1]
+2017-09-05 12:17:01,522 INFO shooter [nioEventLoopGroup-3-1] account [1] player [1] save to db
+2017-09-05 12:17:01,525 INFO shooter [nioEventLoopGroup-3-1] Player [1] offline, CurrentPlayers [0]
+2017-09-05 12:17:01,525 INFO db [nioEventLoopGroup-3-1] db: save account [1]
+2017-09-05 12:17:01,538 INFO db [nioEventLoopGroup-3-1] db:save player[1]
+2017-09-05 12:17:01,557 INFO shooter [nioEventLoopGroup-3-1] account [1] player [1] save to db
+2017-09-05 12:17:01,558 INFO shooter [nioEventLoopGroup-3-1] Disconnect from client
+2017-09-05 12:17:13,288 INFO shooter [nioEventLoopGroup-3-2] Accept connect from client [0:0:0:0:0:0:0:1] count[13]
+2017-09-05 12:17:42,863 INFO shooter [Timer-1] active battle field count[0]
+2017-09-05 12:17:51,863 INFO shooter [Timer-0] active players count [1]
+2017-09-05 12:17:55,504 INFO shooter [nioEventLoopGroup-3-2] Player [1] offline, CurrentPlayers [0]
+2017-09-05 12:17:55,505 INFO db [nioEventLoopGroup-3-2] db: save account [1]
+2017-09-05 12:17:55,528 INFO db [nioEventLoopGroup-3-2] db:save player[1]
+2017-09-05 12:17:55,536 INFO shooter [nioEventLoopGroup-3-2] account [1] player [1] save to db
+2017-09-05 12:17:55,536 INFO shooter [nioEventLoopGroup-3-2] Disconnect from client

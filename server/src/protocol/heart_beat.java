@@ -8,7 +8,7 @@ public class heart_beat extends message {
 	@Override
 
 	public int id(){
-		 return 17;
+		 return 15;
 	}
 
 	@Override

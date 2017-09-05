@@ -10,7 +10,7 @@ func name():
 	return 'login_result'
 
 func id():
-	return 20
+	return 18
 
 func length():
 	return 8 ;

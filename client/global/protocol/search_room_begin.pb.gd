@@ -8,7 +8,7 @@ func name():
 	return 'search_room_begin'
 
 func id():
-	return 26
+	return 24
 
 func length():
 	return 0 ;

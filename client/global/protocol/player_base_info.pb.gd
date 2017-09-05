@@ -10,7 +10,7 @@ func name():
 	return 'player_base_info'
 
 func id():
-	return 22
+	return 20
 
 func length():
 	return 8 ;

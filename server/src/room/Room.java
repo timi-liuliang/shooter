@@ -149,6 +149,15 @@ public class Room {
 		}
 	}
 	
+	public void on_battle_sync_aim_degree(Long player, protocol.battle_sync_aim_degree msg) {
+		if(player==m_player0) {
+			sendMsgToPlayer(m_player1, msg.data());
+		}
+		else if (player==m_player1) {
+			sendMsgToPlayer(m_player0, msg.data());
+		}
+	}
+	
 	public void on_battle_player_relogin(long player) {
 		protocol.battle_player_relogin msg = new protocol.battle_player_relogin();
 		msg.pos0 = 0;

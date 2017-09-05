@@ -141,6 +141,8 @@ func wait_for_aim(idx):
 func player_aim(delta, idx):
 	if idx == main_player_idx:
 		main_player_aim(delta, idx)
+	else:
+		enemy_player_aim_sync(delta, idx)
 	
 func main_player_aim(delta, idx):
 	if Input.is_action_pressed("touch"):	
@@ -162,11 +164,23 @@ func main_player_aim(delta, idx):
 		get_node("aiming_sight").set_hidden(false)
 		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
 		
+		# send msg
+		get_node("/root/network").send_battle_player_aim(aim_degree)
+		
 	if !Input.is_action_pressed("touch"):
 		# 向服务器发送"shooter"消息
 		var weapon = get_node("weapon/arrow")
 		get_node("/root/network").battle_player_shoot(weapon.get_pos(), get_player_aim_degree(idx, aim_degree))
 		game_state = GameState.GS_PLAYER_SHOOT_EMIT
+		
+func enemy_player_aim_sync(delta, idx):
+	var player = players[idx]
+	player.set_hand_rot(deg2rad(aim_degree))
+		
+	var weapon = get_node("weapon/arrow")
+	weapon.set_pos(player.get_weapon_pos())
+	weapon.set_rot(player.get_weapon_rot())
+	var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
 		
 func on_player_shoot(idx, weapon_pos, degree):
 	var player = players[idx]
@@ -361,4 +375,6 @@ func on_msg_battle_player_relogin(msg):
 		
 	game_state = GameState.GS_FOCUS_PLAYER
 	
+func on_msg_battle_sync_aim_degree(msg):
+	aim_degree = msg.aim_degree
 	

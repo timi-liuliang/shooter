@@ -16,11 +16,12 @@ interface ProtocolProcess {
 		SocketServerHandler.bind(new protocol.battle_player_shoot(), new battle_player_shoot_process());
 		SocketServerHandler.bind(new protocol.battle_switch_turn(), new battle_switch_turn_process());
 		SocketServerHandler.bind(new protocol.battle_player_blood(), new battle_player_blood_process());
+		SocketServerHandler.bind(new protocol.battle_sync_aim_degree(), new battle_sync_aim_degree_process());
 		
 		// Unused
-		SocketServerHandler.bind(new protocol.collect_item(), new collect_item_process());
+		//SocketServerHandler.bind(new protocol.collect_item(), new collect_item_process());
 		SocketServerHandler.bind(new protocol.on_attacked(),  new on_attacked_process());
-		SocketServerHandler.bind(new protocol.eat_item(), new eat_item_process());
+		//SocketServerHandler.bind(new protocol.eat_item(), new eat_item_process());
 	}
 }
 
@@ -109,13 +110,28 @@ class battle_player_blood_process implements ProtocolProcess{
 	}
 }
 
+class battle_sync_aim_degree_process implements ProtocolProcess{
+	@Override
+	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {	
+		Player player = Player.get(ctx);
+		protocol.battle_sync_aim_degree msg = (protocol.battle_sync_aim_degree)proto;
+		
+		player.on_battle_sync_aim_degree(msg);
+	}
+}
+
+
+
+
+
+
 class collect_item_process implements ProtocolProcess{
 	@Override
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {
-		protocol.collect_item msg = (protocol.collect_item)proto;
+		//protocol.collect_item msg = (protocol.collect_item)proto;
 		
-		Player player = Player.get(ctx);
-		player.collectItem(msg.id, msg.count, msg.type);
+		//Player player = Player.get(ctx);
+		//player.collectItem(msg.id, msg.count, msg.type);
 	}
 }
 
@@ -132,9 +148,9 @@ class on_attacked_process implements ProtocolProcess{
 class eat_item_process implements ProtocolProcess{
 	@Override
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {
-		protocol.eat_item msg = (protocol.eat_item)proto;
+		//protocol.eat_item msg = (protocol.eat_item)proto;
 		
-		Player player = Player.get(ctx);
-		player.onEatItem(msg.slot_idx);
+		//Player player = Player.get(ctx);
+		//player.onEatItem(msg.slot_idx);
 	}
 }

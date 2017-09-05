@@ -84,9 +84,8 @@ func connect_server():
 		streamPeerTCP.disconnect()
 	
 	streamPeerTCP = StreamPeerTCP.new()
-	#if OK!=streamPeerTCP.connect('localhost', 8800):
-	#if OK!=streamPeerTCP.connect('localhost', 8800):
-	if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
+	if OK!=streamPeerTCP.connect('localhost', 8800):
+	#if OK!=streamPeerTCP.connect('118.190.156.61', 8800):
 		print("connect server failed")
 		set_cur_net_state(NetState.DISCONNECTED)
 		set_target_net_state(NetState.DISCONNECTED)
@@ -188,22 +187,29 @@ func send_battle_player_blood(self_blood, enemy_blood):
 		var msg = preload("res://global/protocol/battle_player_blood.pb.gd").new()
 		msg.self_blood = self_blood
 		msg.enemy_blood = enemy_blood
-		msg.send(streamPeerTCP)	
+		msg.send(streamPeerTCP)
+		
+func send_battle_player_aim(aim_degree):
+	if streamPeerTCP.is_connected():
+		var msg = preload("res://global/protocol/battle_sync_aim_degree.pb.gd").new()
+		msg.aim_degree = aim_degree
+		msg.send(streamPeerTCP)
 
 func collect_item(id):
-	if streamPeerTCP.is_connected():	
-		var collect_item_msg = preload("res://global/protocol/collect_item.pb.gd").new()
-		collect_item_msg.id = id
-		collect_item_msg.count = 1
-		collect_item_msg.type = 1
-		collect_item_msg.send(streamPeerTCP)
+	pass
+	#if streamPeerTCP.is_connected():	
+	#	var collect_item_msg = preload("res://global/protocol/collect_item.pb.gd").new()
+	#	collect_item_msg.id = id
+	#	collect_item_msg.count = 1
+	#	collect_item_msg.type = 1
+	#	collect_item_msg.send(streamPeerTCP)
 		
 func eat_item(slot_idx):
 	print("eat", slot_idx)
-	if streamPeerTCP.is_connected():	
-		var msg = preload("res://global/protocol/eat_item.pb.gd").new()
-		msg.slot_idx = slot_idx
-		msg.send(streamPeerTCP)
+	#if streamPeerTCP.is_connected():	
+	#	var msg = preload("res://global/protocol/eat_item.pb.gd").new()
+	#	msg.slot_idx = slot_idx
+	#	msg.send(streamPeerTCP)
 		
 func on_attacked(damage):
 	if streamPeerTCP.is_connected():
@@ -224,10 +230,11 @@ func bind_msgs():
 	bind(preload("res://global/protocol/battle_turn_begin.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_shoot.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_shoot_result.pb.gd"))
+	bind(preload("res://global/protocol/battle_sync_aim_degree.pb.gd"))
 	
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
-	bind(preload("res://global/protocol/blood_info.pb.gd"))
+	#bind(preload("res://global/protocol/blood_info.pb.gd"))
 	bind(preload("res://global/protocol/game_time.pb.gd"))
 	
 func on_msg_register_result( msg):
@@ -302,6 +309,13 @@ func on_msg_battle_player_shoot_result(msg):
 	if has_node("/root/game"):
 		if get_node("/root/game").get_type()==1:
 			get_node("/root/game").on_msg_battle_player_shoot_result(msg)
+		else:
+			print("stange message from server")
+			
+func on_msg_battle_sync_aim_degree(msg):		
+	if has_node("/root/game"):
+		if get_node("/root/game").get_type()==1:
+			get_node("/root/game").on_msg_battle_sync_aim_degree(msg)
 		else:
 			print("stange message from server")
 			

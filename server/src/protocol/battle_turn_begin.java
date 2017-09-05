@@ -9,7 +9,7 @@ public class battle_turn_begin extends message {
 	@Override
 
 	public int id(){
-		 return 12;
+		 return 13;
 	}
 
 	@Override

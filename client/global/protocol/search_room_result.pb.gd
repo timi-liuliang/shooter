@@ -9,7 +9,7 @@ func name():
 	return 'search_room_result'
 
 func id():
-	return 28
+	return 26
 
 func length():
 	return 4 ;

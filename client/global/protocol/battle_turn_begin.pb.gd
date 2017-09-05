@@ -9,7 +9,7 @@ func name():
 	return 'battle_turn_begin'
 
 func id():
-	return 12
+	return 13
 
 func length():
 	return 8 ;

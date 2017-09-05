@@ -10,7 +10,7 @@ public class login_result extends message {
 	@Override
 
 	public int id(){
-		 return 20;
+		 return 18;
 	}
 
 	@Override

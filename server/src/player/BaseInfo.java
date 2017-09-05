@@ -23,10 +23,10 @@ public class BaseInfo {
 	}
 	
 	public void sendBloodInfo(ChannelHandlerContext ctx) {
-		protocol.blood_info bp_cell = new protocol.blood_info();
-		bp_cell.cur_blood = curBlood;
-		bp_cell.max_blood = maxBlood;
-		ctx.write(bp_cell.data());
+		//protocol.blood_info bp_cell = new protocol.blood_info();
+		//bp_cell.cur_blood = curBlood;
+		//bp_cell.max_blood = maxBlood;
+		//ctx.write(bp_cell.data());
 	}
 	
 	public void sendGameTime(ChannelHandlerContext ctx) {
