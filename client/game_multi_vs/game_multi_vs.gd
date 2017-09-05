@@ -23,7 +23,9 @@ var score = int(0)
 var cam_archer_offset
 var cam_arrow_offset
 var aim_degree = 0.0
+var aim_degree_sync = 0.0
 var aim_adjust_dir = 1.0
+var player_aim_sync_interval = 100
 var shoot_time = 0.0
 export(float) var init_speed = 300
 export(float) var gravity = 100
@@ -165,7 +167,10 @@ func main_player_aim(delta, idx):
 		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
 		
 		# send msg
-		get_node("/root/network").send_battle_player_aim(aim_degree)
+		player_aim_sync_interval += delta
+		if(player_aim_sync_interval > 0.1):
+			get_node("/root/network").send_battle_player_aim(aim_degree)
+			player_aim_sync_interval = 0.0
 		
 	if !Input.is_action_pressed("touch"):
 		# 向服务器发送"shooter"消息
@@ -174,6 +179,11 @@ func main_player_aim(delta, idx):
 		game_state = GameState.GS_PLAYER_SHOOT_EMIT
 		
 func enemy_player_aim_sync(delta, idx):
+	if aim_degree_sync > aim_degree:
+		aim_degree = min(aim_degree + delta * 60.0, aim_degree_sync)
+	if aim_degree_sync <aim_degree:
+		aim_degree = max(aim_degree - delta * 60.0, aim_degree_sync)
+	
 	var player = players[idx]
 	player.set_hand_rot(deg2rad(aim_degree))
 		
@@ -376,5 +386,5 @@ func on_msg_battle_player_relogin(msg):
 	game_state = GameState.GS_FOCUS_PLAYER
 	
 func on_msg_battle_sync_aim_degree(msg):
-	aim_degree = msg.aim_degree
+	aim_degree_sync = msg.aim_degree
 	
