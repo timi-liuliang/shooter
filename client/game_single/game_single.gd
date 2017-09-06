@@ -207,10 +207,6 @@ func create_next_battle_map():
 	character.set_weapon_hidden(false)
 	
 	var next_battle_id = battle_id + 1
-	var ground = preload("res://actor/ground/ground.tscn").instance()
-	ground.set_battle_id(next_battle_id)
-	ground.set_pos(Vector2( next_battle_id * 1024 + 512, 600))
-	get_node("ground").add_child(ground)
 	next_battle_pos = Vector2(next_battle_id * 1024 + 50, 480)
 		
 	# gen column enemy
@@ -265,13 +261,7 @@ func moveto_next_battle_map(delta):
 		aim_degree = 0.0
 		game_state = GS_DELETE_LAST_BATTLE_MAP
 		
-func delete_last_battle_map():
-	var ground = get_node("ground")
-	for i in range(ground.get_child_count()):
-		var child = ground.get_child(i)
-		if child.get_battle_id()==battle_id:
-			child.queue_free()
-				
+func delete_last_battle_map():			
 	var column_enemy = get_node("column_enemy")
 	for i in range(column_enemy.get_child_count()):
 		var child = column_enemy.get_child(i)

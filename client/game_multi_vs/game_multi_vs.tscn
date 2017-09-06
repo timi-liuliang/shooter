@@ -1,20 +1,17 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://game_multi_vs/game_multi_vs.gd" type="Script" id=1]
-[ext_resource path="res://game_single/bg_layer3.png" type="Texture" id=2]
-[ext_resource path="res://game_single/bg_layer1.png" type="Texture" id=3]
-[ext_resource path="res://game_single/bg_layer0.png" type="Texture" id=4]
-[ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actor/scene/vs_scene_0/vs_scene_0.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actor/aiming/aiming_sight.tscn" type="PackedScene" id=7]
-[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=8]
-[ext_resource path="res://ui/head_shot/head_shot.tscn" type="PackedScene" id=9]
-[ext_resource path="res://ui/blood/ui_blood_bg.png" type="Texture" id=10]
-[ext_resource path="res://ui/blood/ui_blood.png" type="Texture" id=11]
-[ext_resource path="res://ui/room_match/room_match.tscn" type="PackedScene" id=12]
-[ext_resource path="res://ui/your_turn/your_turn.tscn" type="PackedScene" id=13]
-[ext_resource path="res://game_multi_vs/ui_result.tscn" type="PackedScene" id=14]
-[ext_resource path="res://game_multi_vs/multi_vs_win.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actor/scene/green_sky/green_sky.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actor/aiming/aiming_sight.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://ui/head_shot/head_shot.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/blood/ui_blood_bg.png" type="Texture" id=7]
+[ext_resource path="res://ui/blood/ui_blood.png" type="Texture" id=8]
+[ext_resource path="res://ui/room_match/room_match.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ui/your_turn/your_turn.tscn" type="PackedScene" id=10]
+[ext_resource path="res://game_multi_vs/ui_result.tscn" type="PackedScene" id=11]
+[ext_resource path="res://game_multi_vs/multi_vs_win.tscn" type="PackedScene" id=12]
 
 [node name="game" type="Node2D"]
 
@@ -24,65 +21,7 @@ gravity = 1500.0
 character_move_speed = 500.0
 wind_slow_down = 800.0
 
-[node name="parallax_background" type="ParallaxBackground" parent="."]
-
-editor/display_folded = true
-layer = -1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-scroll/offset = Vector2( 0, 0 )
-scroll/base_offset = Vector2( 0, 0 )
-scroll/base_scale = Vector2( 1, 1 )
-scroll/limit_begin = Vector2( 0, 0 )
-scroll/limit_end = Vector2( 0, 0 )
-scroll/ignore_camera_zoom = false
-
-[node name="layer_3" type="ParallaxLayer" parent="parallax_background"]
-
-transform/pos = Vector2( 2.78937, -235.37 )
-motion/scale = Vector2( 0, 0 )
-motion/offset = Vector2( 0, 0 )
-motion/mirroring = Vector2( 1024, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="parallax_background/layer_3"]
-
-transform/pos = Vector2( 6.75726, -12.7593 )
-texture = ExtResource( 2 )
-centered = false
-
-[node name="layer_1" type="ParallaxLayer" parent="parallax_background"]
-
-transform/pos = Vector2( 2.78937, -114.37 )
-motion/scale = Vector2( 0.5, 0 )
-motion/offset = Vector2( 0, 0 )
-motion/mirroring = Vector2( 1020, 0 )
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite" type="Sprite" parent="parallax_background/layer_1"]
-
-transform/pos = Vector2( 507.105, 311.497 )
-texture = ExtResource( 3 )
-
-[node name="layer_0" type="ParallaxLayer" parent="parallax_background"]
-
-editor/display_folded = true
-transform/pos = Vector2( -27.895, -5.57901 )
-motion/scale = Vector2( 0.65, 0 )
-motion/offset = Vector2( 0, 0 )
-motion/mirroring = Vector2( 1020, 0 )
-
-[node name="Sprite" type="Sprite" parent="parallax_background/layer_0"]
-
-transform/pos = Vector2( 517.909, 558.094 )
-texture = ExtResource( 4 )
-
-[node name="column_enemy" type="Node2D" parent="."]
+[node name="scene_arts" parent="." instance=ExtResource( 2 )]
 
 [node name="camera" type="Camera2D" parent="."]
 
@@ -105,13 +44,13 @@ drag_margin/top = 0.0
 drag_margin/right = 0.0
 drag_margin/bottom = 0.0
 
-[node name="player_0" parent="." instance=ExtResource( 5 )]
+[node name="player_0" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 100, 452 )
 collision/layers = 2
 collision/mask = 0
 
-[node name="player_1" parent="." instance=ExtResource( 5 )]
+[node name="player_1" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 1024, 452 )
 transform/scale = Vector2( -1, 1 )
@@ -120,16 +59,13 @@ collision/mask = 0
 
 [node name="weapon" type="Node2D" parent="."]
 
-[node name="ground" type="Node2D" parent="."]
-
-[node name="ground" parent="ground" instance=ExtResource( 6 )]
-
-[node name="aiming_sight" parent="." instance=ExtResource( 7 )]
+[node name="aiming_sight" parent="." instance=ExtResource( 4 )]
 
 visibility/visible = false
 
 [node name="ui" type="CanvasLayer" parent="."]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -147,7 +83,7 @@ margin/left = -358.0
 margin/top = -1.0
 margin/right = -510.0
 margin/bottom = 40.0
-custom_fonts/font = ExtResource( 8 )
+custom_fonts/font = ExtResource( 5 )
 text = "0"
 align = 1
 percent_visible = 1.0
@@ -166,14 +102,14 @@ margin/left = 77.0
 margin/top = 3.0
 margin/right = -75.0
 margin/bottom = 44.0
-custom_fonts/font = ExtResource( 8 )
+custom_fonts/font = ExtResource( 5 )
 text = "0"
 align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="head_shot" parent="ui" instance=ExtResource( 9 )]
+[node name="head_shot" parent="ui" instance=ExtResource( 6 )]
 
 margin/left = 354.0
 margin/top = 223.0
@@ -209,9 +145,9 @@ range/page = 0.0
 range/value = 100.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 10 )
+texture/under = ExtResource( 7 )
 texture/over = null
-texture/progress = ExtResource( 11 )
+texture/progress = ExtResource( 8 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
 
@@ -233,28 +169,28 @@ range/page = 0.0
 range/value = 100.0
 range/exp_edit = false
 range/rounded = false
-texture/under = ExtResource( 10 )
+texture/under = ExtResource( 7 )
 texture/over = null
-texture/progress = ExtResource( 11 )
+texture/progress = ExtResource( 8 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
 
-[node name="room_match" parent="ui" instance=ExtResource( 12 )]
+[node name="room_match" parent="ui" instance=ExtResource( 9 )]
 
 visibility/visible = false
 
-[node name="your_turn" parent="ui" instance=ExtResource( 13 )]
+[node name="your_turn" parent="ui" instance=ExtResource( 10 )]
 
 margin/left = 237.0
 margin/top = 208.0
 margin/right = 911.0
 margin/bottom = 301.0
 
-[node name="game_over" parent="ui" instance=ExtResource( 14 )]
+[node name="game_over" parent="ui" instance=ExtResource( 11 )]
 
 visibility/visible = false
 
-[node name="vs_win" parent="ui" instance=ExtResource( 15 )]
+[node name="vs_win" parent="ui" instance=ExtResource( 12 )]
 
 visibility/visible = false
 
