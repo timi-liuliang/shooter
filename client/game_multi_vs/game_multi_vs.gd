@@ -117,6 +117,11 @@ func show_enemy():
 		
 func focus_player(idx):
 	var player_pos = players[idx].get_pos() + Vector2(0, -150)
+	if idx==0:
+		player_pos.x += 256.0
+	else:
+		player_pos.x -= 256.0
+	
 	var camera = get_node("camera")
 	if camera.get_pos()!= player_pos:
 		var move_dir = player_pos - camera.get_pos()
