@@ -19,7 +19,7 @@ script/script = ExtResource( 1 )
 init_speed = 2000.0
 gravity = 1500.0
 character_move_speed = 500.0
-wind_slow_down = 800.0
+wind_slow_down = 0.0
 
 [node name="scene_arts" parent="." instance=ExtResource( 2 )]
 
