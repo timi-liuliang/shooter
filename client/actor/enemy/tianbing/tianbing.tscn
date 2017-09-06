@@ -1,0 +1,155 @@
+[gd_scene load_steps=11 format=1]
+
+[ext_resource path="res://actor/collider_rigid.gd" type="Script" id=1]
+[ext_resource path="res://actor/enemy/tianbing/jiao1.png" type="Texture" id=2]
+[ext_resource path="res://actor/enemy/tianbing/jiao2.png" type="Texture" id=3]
+[ext_resource path="res://actor/enemy/tianbing/qugan.png" type="Texture" id=4]
+[ext_resource path="res://actor/enemy/tianbing/shoubi1.png" type="Texture" id=5]
+[ext_resource path="res://actor/enemy/tianbing/shoubi2.png" type="Texture" id=6]
+[ext_resource path="res://actor/enemy/tianbing/shoubi2_2.png" type="Texture" id=7]
+[ext_resource path="res://actor/enemy/tianbing/shou.png" type="Texture" id=8]
+[ext_resource path="res://actor/enemy/tianbing/wuqi.png" type="Texture" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 11.1968 )
+
+[node name="enemy" type="Node2D"]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+
+transform/pos = Vector2( -0.240593, -15.4267 )
+transform/scale = Vector2( 0.0993035, 0.111716 )
+node_a = NodePath("../body")
+node_b = NodePath("../head")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="body" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 2.50058, 0, 0, 4.44158, 0.334794, 34.9118 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+type = "body"
+
+[node name="body_display" type="Node2D" parent="body"]
+
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="foot_left" type="Sprite" parent="body/body_display"]
+
+transform/pos = Vector2( -30.5076, 145.357 )
+texture = ExtResource( 2 )
+
+[node name="foot_right" type="Sprite" parent="body/body_display"]
+
+transform/pos = Vector2( 11.2976, 144.367 )
+texture = ExtResource( 3 )
+
+[node name="body" type="Sprite" parent="body/body_display"]
+
+editor/display_folded = true
+texture = ExtResource( 4 )
+
+[node name="hand_left" type="Sprite" parent="body/body_display/body"]
+
+transform/pos = Vector2( 50.3372, 28.238 )
+texture = ExtResource( 5 )
+
+[node name="hand_right_0" type="Sprite" parent="body/body_display"]
+
+transform/pos = Vector2( -39.4356, -17.344 )
+transform/rot = -167.881
+texture = ExtResource( 6 )
+offset = Vector2( 2.43314, 14.6365 )
+
+[node name="hand_right_1" type="Sprite" parent="body/body_display/hand_right_0"]
+
+transform/pos = Vector2( 0.902496, 31.5875 )
+transform/rot = -174.554
+texture = ExtResource( 7 )
+offset = Vector2( -15.6169, -5.21852 )
+
+[node name="hand_right_2" type="Sprite" parent="body/body_display/hand_right_0/hand_right_1"]
+
+transform/pos = Vector2( -33.6668, -16.951 )
+transform/rot = 95.4439
+texture = ExtResource( 8 )
+
+[node name="weapon" type="Sprite" parent="body/body_display/hand_right_0/hand_right_1/hand_right_2"]
+
+texture = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
+
+transform/pos = Vector2( 0.334794, 34.9118 )
+transform/scale = Vector2( 2.50058, 4.44158 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="head" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 3.9805, -95.5325 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1.76043, 0, 0, 1.61188, -3.30195, 61.7551 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+type = "head"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="head"]
+
+transform/pos = Vector2( -3.30195, 61.7551 )
+transform/scale = Vector2( 1.76043, 1.61188 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+

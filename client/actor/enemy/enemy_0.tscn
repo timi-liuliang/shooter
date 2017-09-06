@@ -72,7 +72,6 @@ _update_shape_index = 0
 
 [node name="head" type="RigidBody2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 0.307678, -81.4099 )
 transform/scale = Vector2( 1, 1.05867 )
 input/pickable = false
