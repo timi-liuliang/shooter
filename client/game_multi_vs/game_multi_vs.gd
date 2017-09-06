@@ -44,6 +44,9 @@ var robot_init_speed = 300
 var net_heart_beat = 0.0
 
 func _ready():
+	var camera = get_node("camera")
+	Globals.set("main_camera", camera)
+	
 	# 初始开启匹配界面
 	get_node("ui/room_match").set_hidden(false)
 	

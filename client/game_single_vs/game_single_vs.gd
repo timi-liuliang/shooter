@@ -40,6 +40,9 @@ var robot_target_aim_degree = -90.0
 var robot_init_speed = 300
 
 func _ready():
+	var camera = get_node("camera")
+	Globals.set("main_camera", camera)
+	
 	players.append(get_node("player_0"))
 	players.append(get_node("player_1"))
 	for i in range(players.size()):

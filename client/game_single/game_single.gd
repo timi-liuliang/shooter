@@ -31,6 +31,9 @@ var blood_effect = null
 var continue_head_shot_num = 0
 
 func _ready():
+	var camera = get_node("camera")
+	Globals.set("main_camera", camera)
+	
 	# 抛物线
 	parabola = preload("res://global/parabola.gd").new()
 	
