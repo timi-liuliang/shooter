@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://actor/scene/green_sky/bg_1024x768.png" type="Texture" id=1]
+[ext_resource path="res://actor/scene/green_sky/ground_green.png" type="Texture" id=2]
+[ext_resource path="res://actor/collider.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 668.225, 10 )
+
+[node name="scene_arts" type="StaticBody2D"]
+
+transform/pos = Vector2( 0, 608 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+layer = -1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+scroll/offset = Vector2( 0, 0 )
+scroll/base_offset = Vector2( 0, 0 )
+scroll/base_scale = Vector2( 1, 1 )
+scroll/limit_begin = Vector2( 0, 0 )
+scroll/limit_end = Vector2( 0, 0 )
+scroll/ignore_camera_zoom = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+editor/display_folded = true
+transform/pos = Vector2( 0, -256 )
+motion/scale = Vector2( 1, 1 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+
+texture = ExtResource( 1 )
+centered = false
+
+[node name="ground" type="ParallaxLayer" parent="ParallaxBackground"]
+
+motion/scale = Vector2( 1, 1 )
+motion/offset = Vector2( 0, 0 )
+motion/mirroring = Vector2( 1024, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ground"]
+
+transform/pos = Vector2( 0, 480 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="ground_physics" type="StaticBody2D" parent="ParallaxBackground"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 10000, 0, 0, 10, 40, 580 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script/script = ExtResource( 3 )
+type = "ground"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/ground_physics"]
+
+transform/pos = Vector2( 40, 580 )
+transform/scale = Vector2( 10000, 10 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+
