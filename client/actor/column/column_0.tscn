@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://actor/column/column.gd" type="Script" id=1]
 [ext_resource path="res://actor/enemy/tianbing/tianbing.tscn" type="PackedScene" id=2]
@@ -9,11 +9,6 @@
 
 custom_solver_bias = 0.0
 extents = Vector2( 51.0418, 13.9894 )
-
-[sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
 
 [node name="column" type="Node2D"]
 
@@ -29,13 +24,10 @@ transform/pos = Vector2( 2.45551, -312.257 )
 editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.510831, 0, 0, 14.8934, 0.600261, 17.6594 )
+shapes/0/transform = Matrix32( 0.510831, 0, 0, 16.0814, 0.600261, -2.52439 )
 shapes/0/trigger = false
-shapes/1/shape = SubResource( 2 )
-shapes/1/transform = Matrix32( -0.0121089, 1.65065, -4.57627, -0.0335708, 2.258, -207.045 )
-shapes/1/trigger = false
-collision/layers = 1
-collision/mask = 1
+collision/layers = 2
+collision/mask = 0
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
@@ -45,24 +37,16 @@ type = "ground"
 
 [node name="Sprite" type="Sprite" parent="column"]
 
+visibility/visible = false
 transform/scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="column"]
 
-transform/pos = Vector2( 0.600261, 17.6594 )
-transform/scale = Vector2( 0.510831, 14.8934 )
+transform/pos = Vector2( 0.600261, -2.52439 )
+transform/scale = Vector2( 0.510831, 16.0814 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
-
-[node name="CollisionShape2D1" type="CollisionShape2D" parent="column"]
-
-transform/pos = Vector2( 2.258, -207.045 )
-transform/rot = -90.4203
-transform/scale = Vector2( 1.65069, 4.57639 )
-shape = SubResource( 2 )
-trigger = false
-_update_shape_index = 1
 
 

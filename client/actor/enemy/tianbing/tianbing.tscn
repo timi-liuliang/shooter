@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://actor/collider_rigid.gd" type="Script" id=1]
 [ext_resource path="res://actor/enemy/tianbing/jiao1.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://actor/enemy/tianbing/shoubi2_2.png" type="Texture" id=7]
 [ext_resource path="res://actor/enemy/tianbing/shou.png" type="Texture" id=8]
 [ext_resource path="res://actor/enemy/tianbing/wuqi.png" type="Texture" id=9]
+[ext_resource path="res://actor/enemy/tianbing/cloud.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -35,7 +36,7 @@ shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 2.50058, 0, 0, 4.44158, 0.334794, 34.9118 )
 shapes/0/trigger = false
 collision/layers = 1
-collision/mask = 1
+collision/mask = 3
 mode = 0
 mass = 1.0
 friction = 1.0
@@ -151,5 +152,11 @@ transform/scale = Vector2( 1.76043, 1.61188 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="cloud" type="Sprite" parent="."]
+
+transform/pos = Vector2( 2, 85 )
+transform/scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 10 )
 
 

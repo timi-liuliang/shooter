@@ -215,7 +215,7 @@ func create_next_battle_map():
 	# gen column enemy
 	var column = preload("res://actor/column/column_0.tscn").instance()
 	column.set_battle_id(next_battle_id)
-	var pos_y = 330 + randi() % 5 * 60
+	var pos_y = 360 + randi() % 5 * 60
 	column_pos = Vector2( next_battle_id * 1024 + 300 + randi() % 7 * 80, pos_y)
 	column.set_pos(column_pos)
 	get_node("column_enemy").add_child(column)
