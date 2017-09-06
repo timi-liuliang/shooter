@@ -24,7 +24,7 @@ transform/scale = Vector2( 0.0993035, 0.111716 )
 node_a = NodePath("../body")
 node_b = NodePath("../head")
 bias/bias = 0.0
-collision/exclude_nodes = true
+collision/exclude_nodes = false
 softness = 0.0
 
 [node name="body" type="RigidBody2D" parent="."]
