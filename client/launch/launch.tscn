@@ -45,6 +45,7 @@ params/stretch_mode = 0
 
 [node name="jinbi" type="TextureFrame" parent="ui"]
 
+editor/display_folded = true
 anchor/left = 1
 anchor/right = 1
 focus/ignore_mouse = true
@@ -76,6 +77,7 @@ max_lines_visible = -1
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
+editor/display_folded = true
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -159,6 +161,7 @@ params/stretch_mode = 0
 
 [node name="bottom_bar" type="Control" parent="ui"]
 
+editor/display_folded = true
 anchor/top = 1
 anchor/right = 1
 anchor/bottom = 1
