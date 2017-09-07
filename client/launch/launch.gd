@@ -8,6 +8,8 @@ func _process(delta):
 		var global = load("res://global/global.gd").new()
 		global.set_name("global")
 		get_tree().get_root().add_child(global)
+		
+		update_coin_num_display()
 
 func _on_play_pressed():
 	get_node("/root/global").set_scene("res://game_single/game_single.tscn")
@@ -22,3 +24,7 @@ func _on_vs_pressed():
 func _on_vs_online_pressed():
 	# 当前是否有ID
 	get_node("/root/network").set_target_net_state(3)
+	
+func update_coin_num_display():
+	var data = get_node("/root/player")
+	get_node("ui/jinbi/Label").set_text(String(data.get_coin_num()))
