@@ -1,17 +1,17 @@
 [gd_scene load_steps=13 format=1]
 
 [ext_resource path="res://launch/launch.gd" type="Script" id=1]
-[ext_resource path="res://launch/ui/砖石.png" type="Texture" id=2]
-[ext_resource path="res://launch/ui/金币.png" type="Texture" id=3]
+[ext_resource path="res://launch/ui/zhuanshi.png" type="Texture" id=2]
+[ext_resource path="res://launch/ui/jinbi.png" type="Texture" id=3]
 [ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=4]
-[ext_resource path="res://launch/ui/挑战模式.png" type="Texture" id=5]
-[ext_resource path="res://launch/ui/人机模式.png" type="Texture" id=6]
-[ext_resource path="res://launch/ui/联网对战.png" type="Texture" id=7]
-[ext_resource path="res://launch/ui/背景色.png" type="Texture" id=8]
-[ext_resource path="res://launch/ui/英雄.png" type="Texture" id=9]
-[ext_resource path="res://launch/ui/排行榜.png" type="Texture" id=10]
-[ext_resource path="res://launch/ui/成就.png" type="Texture" id=11]
-[ext_resource path="res://launch/ui/聊天系统(系统公告等).png" type="Texture" id=12]
+[ext_resource path="res://launch/ui/tiaozhanmoshi.png" type="Texture" id=5]
+[ext_resource path="res://launch/ui/renjimoshi.png" type="Texture" id=6]
+[ext_resource path="res://launch/ui/lianwangduizhan.png" type="Texture" id=7]
+[ext_resource path="res://launch/ui/beijingse.png" type="Texture" id=8]
+[ext_resource path="res://launch/ui/yingxiong.png" type="Texture" id=9]
+[ext_resource path="res://launch/ui/paihangpang.png" type="Texture" id=10]
+[ext_resource path="res://launch/ui/chengjiu.png" type="Texture" id=11]
+[ext_resource path="res://launch/ui/chat.png" type="Texture" id=12]
 
 [node name="launch" type="Node2D"]
 
@@ -26,13 +26,15 @@ scale = Vector2( 1, 1 )
 
 [node name="zhuangshi" type="TextureButton" parent="ui"]
 
+anchor/left = 1
+anchor/right = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 848.0
+margin/left = 176.0
 margin/top = 18.0
-margin/right = 1009.0
+margin/right = 15.0
 margin/bottom = 58.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -43,7 +45,6 @@ params/stretch_mode = 0
 
 [node name="jinbi" type="TextureFrame" parent="ui"]
 
-editor/display_folded = true
 anchor/left = 1
 anchor/right = 1
 focus/ignore_mouse = true
@@ -75,114 +76,142 @@ max_lines_visible = -1
 
 [node name="bg" type="TextureFrame" parent="ui"]
 
-editor/display_folded = true
 anchor/left = 3
-anchor/right = 1
-anchor/bottom = 1
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 503.0
-margin/top = 32.0
-margin/right = -10.0
-margin/bottom = 222.0
+margin/top = 268.0
+margin/right = -522.0
+margin/bottom = -78.0
 expand = true
 stretch_mode = 0
 
 [node name="play" type="TextureButton" parent="ui/bg"]
 
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 rect/scale = Vector2( 1.06395, 1.06395 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.08
-margin/top = 0.225434
-margin/right = 0.303415
-margin/bottom = 1.03015
+margin/left = 400.5
+margin/top = 95.0
+margin/right = 197.5
+margin/bottom = -152.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 5 )
 params/resize_mode = 0
-params/scale = Vector2( 1.12726, 1.12726 )
 params/stretch_mode = 0
 
 [node name="vs" type="TextureButton" parent="ui/bg"]
 
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 rect/scale = Vector2( 1.0414, 1.0414 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.372683
-margin/top = 0.225434
-margin/right = 0.596098
-margin/bottom = 1.03015
+margin/left = 101.5
+margin/top = 95.0
+margin/right = -101.5
+margin/bottom = -152.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 6 )
 params/resize_mode = 0
-params/scale = Vector2( 1.12726, 1.12726 )
 params/stretch_mode = 0
 
 [node name="vs_online" type="TextureButton" parent="ui/bg"]
 
-anchor/left = 2
-anchor/top = 2
-anchor/right = 2
-anchor/bottom = 2
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
 rect/scale = Vector2( 1.0414, 1.0414 )
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.665366
-margin/top = 0.225434
-margin/right = 0.88878
-margin/bottom = 1.03015
+margin/left = -184.5
+margin/top = 95.0
+margin/right = -387.5
+margin/bottom = -152.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 7 )
 params/resize_mode = 0
-params/scale = Vector2( 1.12726, 1.12726 )
 params/stretch_mode = 0
 
-[node name="bottom_bar" type="TextureFrame" parent="ui"]
+[node name="bottom_bar" type="Control" parent="ui"]
 
-editor/display_folded = true
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 1
+size_flags/vertical = 1
+size_flags/stretch_ratio = 28.0
+margin/left = 0.0
+margin/top = 119.0
+margin/right = 0.0
+margin/bottom = 1.0
+
+[node name="bg_left" type="TextureFrame" parent="ui/bottom_bar"]
+
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -2.0
-margin/top = 481.0
-margin/right = 1022.0
-margin/bottom = 599.0
+margin/left = -512.0
+margin/top = 0.0
+margin/right = 512.0
+margin/bottom = 118.0
+texture = ExtResource( 8 )
+stretch_mode = 0
+
+[node name="bg_right" type="TextureFrame" parent="ui/bottom_bar"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 512.0
+margin/top = 0.0
+margin/right = 1536.0
+margin/bottom = 118.0
 texture = ExtResource( 8 )
 stretch_mode = 0
 
 [node name="yinxiong" type="TextureButton" parent="ui/bottom_bar"]
 
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 704.0
-margin/top = 18.0
-margin/right = 784.0
-margin/bottom = 103.0
+margin/left = 320.0
+margin/top = 100.0
+margin/right = 240.0
+margin/bottom = 15.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -192,14 +221,18 @@ params/stretch_mode = 0
 
 [node name="paihangpang" type="TextureButton" parent="ui/bottom_bar"]
 
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 804.0
-margin/top = 18.0
-margin/right = 884.0
-margin/bottom = 103.0
+margin/left = 220.0
+margin/top = 100.0
+margin/right = 140.0
+margin/bottom = 15.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -209,14 +242,17 @@ params/stretch_mode = 0
 
 [node name="chengjiu" type="TextureButton" parent="ui/bottom_bar"]
 
+anchor/left = 1
+anchor/right = 1
+anchor/bottom = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 904.0
+margin/left = 120.0
 margin/top = 18.0
-margin/right = 984.0
-margin/bottom = 103.0
+margin/right = 40.0
+margin/bottom = 15.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -259,14 +295,15 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 1.0
-margin/top = 238.0
-margin/right = 19.0
-margin/bottom = 308.0
+margin/top = 229.0
+margin/right = 28.0
+margin/bottom = 334.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 12 )
 params/resize_mode = 0
+params/scale = Vector2( 1.5, 1.5 )
 params/stretch_mode = 0
 
 [connection signal="pressed" from="ui/bg/play" to="." method="_on_play_pressed"]
