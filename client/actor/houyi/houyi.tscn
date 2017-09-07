@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://actor/houyi/houyi.gd" type="Script" id=1]
 [ext_resource path="res://actor/houyi/tui1.png" type="Texture" id=2]
@@ -8,11 +8,10 @@
 [ext_resource path="res://actor/houyi/gebo_2.png" type="Texture" id=6]
 [ext_resource path="res://actor/houyi/shoubi2.png" type="Texture" id=7]
 [ext_resource path="res://actor/houyi/wuqi.png" type="Texture" id=8]
-[ext_resource path="res://actor/weapon/arrow.png" type="Texture" id=9]
-[ext_resource path="res://actor/houyi/shou.png" type="Texture" id=10]
-[ext_resource path="res://actor/houyi/qugan.png" type="Texture" id=11]
-[ext_resource path="res://actor/houyi/gebo_1.png" type="Texture" id=12]
-[ext_resource path="res://actor/houyi/shoubi1.png" type="Texture" id=13]
+[ext_resource path="res://actor/houyi/shou.png" type="Texture" id=9]
+[ext_resource path="res://actor/houyi/qugan.png" type="Texture" id=10]
+[ext_resource path="res://actor/houyi/gebo_1.png" type="Texture" id=11]
+[ext_resource path="res://actor/houyi/shoubi1.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -71,40 +70,38 @@ transform/scale = Vector2( 0.5, 0.5 )
 
 [node name="tui_1" type="Sprite" parent="display"]
 
-editor/display_folded = true
-transform/pos = Vector2( 30.1892, 96.0991 )
-transform/rot = -3.6905
+transform/pos = Vector2( 23.9394, 96.0032 )
+transform/rot = -6.29389
 transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 2 )
 offset = Vector2( 8.08321, 17.996 )
 
-[node name="foot_right" type="Sprite" parent="display/tui_1"]
+[node name="foot_right" type="Sprite" parent="display"]
 
-transform/pos = Vector2( 13.9174, 40.4468 )
-transform/rot = 1.92061
+transform/pos = Vector2( 34.2731, 135.039 )
+transform/rot = -1.60352
 texture = ExtResource( 3 )
 offset = Vector2( 7.72697, 29.8224 )
 
 [node name="tui_2" type="Sprite" parent="display"]
 
-editor/display_folded = true
-transform/pos = Vector2( 4.12937, 106.147 )
-transform/rot = -3.6905
-transform/scale = Vector2( 1, 1 )
+transform/pos = Vector2( -1.9914, 106.379 )
+transform/rot = -8.1432
 texture = ExtResource( 4 )
 offset = Vector2( -0.102297, 11.3296 )
 
-[node name="foot_left" type="Sprite" parent="display/tui_2"]
+[node name="foot_left" type="Sprite" parent="display"]
 
-transform/pos = Vector2( 340.735, 142.317 )
-transform/rot = 2.52533
+transform/pos = Vector2( -4.33798, 134.496 )
+transform/rot = -15.3675
+transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 5 )
-offset = Vector2( -324.973, -98.0703 )
+offset = Vector2( 10.4682, 30.7012 )
 
 [node name="gebo_2" type="Sprite" parent="display"]
 
-transform/pos = Vector2( 50.4619, 26.1567 )
-transform/rot = -2.20292
+transform/pos = Vector2( 43.5049, 17.0722 )
+transform/rot = 9.94239
 transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 6 )
 offset = Vector2( 2.81158, 18.6166 )
@@ -118,67 +115,66 @@ offset = Vector2( 16.5225, -3.62721 )
 [node name="weapon_sprite" type="Sprite" parent="display/gebo_2/shoubi_2"]
 
 transform/pos = Vector2( 33.5746, -10.3254 )
-transform/rot = -9.6295
+transform/rot = -5.43576
 texture = ExtResource( 8 )
 offset = Vector2( -24.9034, 7.39649 )
-
-[node name="weapon_sprite 2" type="Sprite" parent="display/gebo_2/shoubi_2"]
-
-transform/pos = Vector2( -0.209211, -10.8923 )
-transform/rot = 93.317
-texture = ExtResource( 9 )
-offset = Vector2( -2.61234, -0.876053 )
 
 [node name="shou" type="Sprite" parent="display/gebo_2/shoubi_2"]
 
 transform/pos = Vector2( 34.6338, -13.5411 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 offset = Vector2( -0.794402, 3.14333 )
 
 [node name="body" type="Sprite" parent="display"]
 
-transform/pos = Vector2( 22.7018, 79.9813 )
-transform/rot = -3.6905
+transform/pos = Vector2( 16.249, 79.9813 )
+transform/rot = -2.96676
+texture = ExtResource( 10 )
 offset = Vector2( -22.7018, -79.9813 )
 
-[node name="yao" type="Sprite" parent="display/body"]
-
-transform/pos = Vector2( 1.52327, 1.33868 )
-transform/rot = 1.48757
-transform/scale = Vector2( 1, 1 )
-texture = ExtResource( 11 )
-offset = Vector2( -25.2314, -72.8759 )
-
-[node name="gebo_1" type="Sprite" parent="display/body/yao"]
+[node name="gebo_1" type="Sprite" parent="display/body"]
 
 editor/display_folded = true
-transform/pos = Vector2( -48.1372, -50.5967 )
-transform/rot = -0.146508
-transform/scale = Vector2( 1, 1 )
-texture = ExtResource( 12 )
+transform/pos = Vector2( -43.2141, -59.6607 )
+transform/rot = -0.741406
+texture = ExtResource( 11 )
 offset = Vector2( 0.650146, 21.8587 )
 
-[node name="shoubi_1" type="Sprite" parent="display/body/yao/gebo_1"]
+[node name="shoubi_1" type="Sprite" parent="display/body/gebo_1"]
 
 transform/pos = Vector2( 1.52588e-005, 50.7939 )
-transform/rot = 102.501
-texture = ExtResource( 13 )
+transform/rot = 61.2
+texture = ExtResource( 12 )
 offset = Vector2( 3.24214, 22.6951 )
 
-[node name="gebo_2_remote" type="RemoteTransform2D" parent="display/body/yao"]
+[node name="gebo_2_remote" type="RemoteTransform2D" parent="display/body"]
 
-transform/pos = Vector2( 24.1826, -56.2296 )
-transform/scale = Vector2( 1, 1 )
-remote_path = NodePath("../../../gebo_2")
+transform/pos = Vector2( 23.9634, -64.2354 )
+transform/rot = 12.9091
+remote_path = NodePath("../../gebo_2")
 
 [node name="tui_1_remote" type="RemoteTransform2D" parent="display/body"]
 
 transform/pos = Vector2( 8.50932, 15.6024 )
+transform/rot = -3.32713
 remote_path = NodePath("../../tui_1")
+
+[node name="foot_right_remote" type="RemoteTransform2D" parent="display/body/tui_1_remote"]
+
+transform/pos = Vector2( 14.5508, 37.6674 )
+transform/rot = 4.69037
+remote_path = NodePath("../../../foot_right")
 
 [node name="tui_2_remote" type="RemoteTransform2D" parent="display/body"]
 
 transform/pos = Vector2( -16.8497, 27.3067 )
+transform/rot = -5.17644
 remote_path = NodePath("../../tui_2")
+
+[node name="foot_left_remote" type="RemoteTransform2D" parent="display/body/tui_2_remote"]
+
+transform/pos = Vector2( 1.65972, 28.1655 )
+transform/rot = -7.22429
+remote_path = NodePath("../../../foot_left")
 
 
