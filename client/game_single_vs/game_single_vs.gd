@@ -199,7 +199,7 @@ func robot_player_aim(delta, idx):
 		var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
 		
 		# show aiming
-		get_node("aiming_sight").set_hidden(false)
+		get_node("aiming_sight").set_hidden(true)
 		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
 		
 	else:

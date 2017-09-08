@@ -9,8 +9,8 @@
 [sub_resource type="CapsuleShape2D" id=4]
 
 custom_solver_bias = 0.0
-radius = 10.0
-height = 20.0
+radius = 21.5585
+height = 7.45991
 
 [sub_resource type="Animation" id=2]
 
@@ -80,11 +80,11 @@ tracks/1/keys = {
 transform/pos = Vector2( 0, -29 )
 input/pickable = false
 shapes/0/shape = SubResource( 4 )
-shapes/0/transform = Matrix32( 3.13272, 0, 0, 4.00349, -0.514833, -40.4787 )
+shapes/0/transform = Matrix32( 2.04056, 0, 0, 2.96702, 0.649261, -44.0268 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
-mode = 0
+mode = 3
 mass = 1.0
 friction = 1.0
 bounce = 0.0
@@ -104,8 +104,8 @@ IsDisplayMirror = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.514833, -40.4787 )
-transform/scale = Vector2( 3.13272, 4.00349 )
+transform/pos = Vector2( 0.649261, -44.0268 )
+transform/scale = Vector2( 2.04056, 2.96702 )
 shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
