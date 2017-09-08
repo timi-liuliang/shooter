@@ -47,7 +47,7 @@ func _ready():
 	players.append(get_node("player_1"))
 	for i in range(players.size()):
 		players[i].set_layer_mask(0)
-		players[i].set_layer_mask_bit(i, true)
+		players[i].set_layer_mask_bit(i+1, true)
 	
 	# 抛物线
 	parabola = preload("res://global/parabola.gd").new()
@@ -193,8 +193,8 @@ func robot_player_aim(delta, idx):
 		var weapon_head_pos = weapon.get_node("display/head").get_global_pos()
 		
 		# show aiming
-		#get_node("aiming_sight").set_hidden(false)
-		#get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
+		get_node("aiming_sight").set_hidden(false)
+		get_node("aiming_sight").set_param(weapon_head_pos, init_speed, get_player_aim_degree(idx, aim_degree), wind_slow_down, gravity)
 		
 	else:
 		var player = players[idx]
@@ -257,7 +257,14 @@ func check_result():
 	var weapon = get_node("weapon/arrow")
 	if weapon.is_colliding():
 		var collider = weapon.get_collider()
-		if collider.is_type("KinematicBody2D"):	
+		if collider.is_type("RigidBody2D"):		
+			var impulse = Vector2(0.0, 1.0)
+			#impulse = impulse.rotated(weapon.get_rot())
+			var offset = weapon.get_collision_pos() - collider.get_global_pos()
+			collider.set_mode(RigidBody2D.MODE_RIGID)
+			collider.set_sleeping(false)
+			#collider.apply_impulse( offset, impulse * 150.0)
+		
 			# 箭摇尾
 			collider.on_attack()
 			weapon.get_node("anim").play("attacked")
@@ -317,8 +324,10 @@ func add_weapon_to( i):
 	weapon.set_pos(character.get_weapon_pos())
 	weapon.set_scale(Vector2(3.0, 2.9))
 	weapon.set_rot(character.get_weapon_rot())
+	weapon.set_layer_mask(0)
+	weapon.set_layer_mask_bit(3, true)
 	weapon.set_collision_mask(0xFFFFFFFF)
-	weapon.set_collision_mask_bit(i, false)
+	weapon.set_collision_mask_bit(i+1, false)
 	weapon.set_player_idx(i)
 
 func update_blood_display():

@@ -46,14 +46,12 @@ drag_margin/bottom = 0.0
 
 transform/pos = Vector2( 100, 452 )
 collision/layers = 2
-collision/mask = 0
 
 [node name="player_1" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 1024, 452 )
-transform/scale = Vector2( -1, 1 )
+transform/pos = Vector2( 1024, 444 )
 collision/layers = 2
-collision/mask = 0
+collision/mask = 9
 
 [node name="weapon" type="Node2D" parent="."]
 

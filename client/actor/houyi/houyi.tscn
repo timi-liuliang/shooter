@@ -31,7 +31,7 @@ length = 0.5
 loop = true
 step = 0.1
 
-[node name="archer" type="KinematicBody2D"]
+[node name="archer" type="RigidBody2D"]
 
 transform/pos = Vector2( 0, -29 )
 input/pickable = false
@@ -40,7 +40,21 @@ shapes/0/transform = Matrix32( 3.13272, 0, 0, 6.93154, -0.514833, -39.9432 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
-collision/margin = 0.08
+mode = 3
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
 script/script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -152,6 +166,7 @@ remote_path = NodePath("../../gebo_2")
 
 [node name="tui_1_remote" type="RemoteTransform2D" parent="display/body"]
 
+editor/display_folded = true
 transform/pos = Vector2( 8.50932, 15.6024 )
 transform/rot = -3.32713
 remote_path = NodePath("../../tui_1")
@@ -164,6 +179,7 @@ remote_path = NodePath("../../../foot_right")
 
 [node name="tui_2_remote" type="RemoteTransform2D" parent="display/body"]
 
+editor/display_folded = true
 transform/pos = Vector2( -16.8497, 27.3067 )
 transform/rot = -5.17644
 remote_path = NodePath("../../tui_2")

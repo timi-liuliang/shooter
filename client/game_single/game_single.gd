@@ -34,6 +34,10 @@ func _ready():
 	var camera = get_node("camera")
 	Globals.set("main_camera", camera)
 	
+	# 设置碰撞标记
+	get_node("archer").set_layer_mask(0)
+	get_node("archer").set_collision_mask(0)
+	
 	# 抛物线
 	parabola = preload("res://global/parabola.gd").new()
 	

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 var max_blood = 100
 var cur_blood = 100
@@ -22,10 +22,10 @@ func get_weapon_rot():
 	return node.get_global_rot()
 	
 func set_hand_rot(radian):
-	get_node("display/body/yao").set_rot(radian)
+	get_node("display/body").set_rot(radian)
 	
 func get_hand_rot():
-	return get_node("display/body/yao").get_rot()
+	return get_node("display/body").get_rot()
 	
 func set_weapon_hidden(hide):
 	get_node("display/gebo_2/shoubi_2/shou").set_hidden(hide)

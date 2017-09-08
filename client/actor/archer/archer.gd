@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 
 var max_blood = 100
 var cur_blood = 100
