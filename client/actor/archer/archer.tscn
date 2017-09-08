@@ -6,10 +6,11 @@
 [ext_resource path="res://actor/weapon/stick.png" type="Texture" id=4]
 [ext_resource path="res://actor/archer/right_hand.png" type="Texture" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=4]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+radius = 10.0
+height = 20.0
 
 [sub_resource type="Animation" id=2]
 
@@ -78,8 +79,8 @@ tracks/1/keys = {
 
 transform/pos = Vector2( 0, -29 )
 input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 3.13272, 0, 0, 6.93154, -0.514833, -39.9432 )
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 3.13272, 0, 0, 4.00349, -0.514833, -40.4787 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -99,12 +100,13 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
 script/script = ExtResource( 1 )
+IsDisplayMirror = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -0.514833, -39.9432 )
-transform/scale = Vector2( 3.13272, 6.93154 )
-shape = SubResource( 1 )
+transform/pos = Vector2( -0.514833, -40.4787 )
+transform/scale = Vector2( 3.13272, 4.00349 )
+shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
 
@@ -122,27 +124,25 @@ autoplay = ""
 
 [node name="display" type="Node2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 1, -49 )
 transform/scale = Vector2( 0.5, 0.5 )
 
 [node name="foot_right" type="Sprite" parent="display"]
 
 transform/pos = Vector2( -5.05606, 103.714 )
-transform/rot = 39.7825
+transform/rot = 1.92061
 texture = ExtResource( 2 )
 offset = Vector2( 2.00729, 23.9148 )
 
 [node name="foot_left" type="Sprite" parent="display"]
 
 transform/pos = Vector2( 7.97604, 113.488 )
-transform/rot = -43.2336
+transform/rot = 2.52533
 texture = ExtResource( 2 )
 offset = Vector2( 1.05603, 15.5748 )
 
 [node name="body" type="Sprite" parent="display"]
 
-transform/pos = Vector2( 0, -8.34239 )
 texture = ExtResource( 3 )
 
 [node name="weapon_sprite" type="Sprite" parent="display/body"]

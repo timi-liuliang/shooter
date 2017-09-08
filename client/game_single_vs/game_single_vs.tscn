@@ -52,6 +52,7 @@ collision/layers = 2
 transform/pos = Vector2( 1024, 444 )
 collision/layers = 2
 collision/mask = 9
+IsDisplayMirror = true
 
 [node name="weapon" type="Node2D" parent="."]
 

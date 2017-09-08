@@ -8,6 +8,7 @@ enum GameState{
 	GS_PLAYER_AIM,
 	GS_PLAYER_SHOOT,
 	GS_CHECK_SHOOT_RESULT,
+	GS_WAIT_PLAYER_PHYSICS_SLEEP,
 	GS_FAILING,
 	GS_FAILED,
 	GS_WINING,
@@ -48,6 +49,8 @@ func _ready():
 	for i in range(players.size()):
 		players[i].set_layer_mask(0)
 		players[i].set_layer_mask_bit(i+1, true)
+		players[i].set_collision_mask(0)
+		players[i].set_collision_mask_bit(0, true)
 	
 	# 抛物线
 	parabola = preload("res://global/parabola.gd").new()
@@ -77,6 +80,8 @@ func _process(delta):
 		shoot(delta)
 	elif game_state == GameState.GS_CHECK_SHOOT_RESULT:
 		check_result()
+	elif game_state == GameState.GS_WAIT_PLAYER_PHYSICS_SLEEP:
+		wait_physic_sleep()
 	elif game_state == GameState.GS_FAILING:
 		failing()
 	elif game_state == GameState.GS_FAILED:
@@ -167,6 +172,7 @@ func main_player_aim(delta, idx):
 		var weapon = get_node("weapon/arrow")
 		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, aim_degree), init_speed, Vector2(-wind_slow_down, gravity))
 		aim_degree = 0.0
+		shoot_time = 0.0
 		game_state = GameState.GS_PLAYER_SHOOT
 		
 func robot_player_aim(delta, idx):
@@ -200,13 +206,14 @@ func robot_player_aim(delta, idx):
 		var player = players[idx]
 		player.set_weapon_hidden(true)
 		get_node("weapon/arrow").set_hidden(false)
-		#get_node("aiming_sight").set_hidden(true)
+		get_node("aiming_sight").set_hidden(true)
 		
 		# 抛物线
 		var weapon = get_node("weapon/arrow")
 		parabola.set(weapon.get_pos(), get_player_aim_degree(idx, robot_target_aim_degree), robot_init_speed, Vector2(-wind_slow_down, gravity))
 		robot_target_aim_degree = -90.0
 		robot_aim_degree = 0.0
+		shoot_time = 0.0
 		game_state = GameState.GS_PLAYER_SHOOT
 		
 func get_player_aim_degree(idx, origin_degree):
@@ -221,6 +228,7 @@ func shoot(delta):
 	if !weapon.is_colliding():
 		# 移动武器
 		shoot_time += delta
+		print(shoot_time)
 		var offset = parabola.get_pos(shoot_time) - weapon.get_pos()
 		weapon.move(offset)
 		
@@ -259,11 +267,16 @@ func check_result():
 		var collider = weapon.get_collider()
 		if collider.is_type("RigidBody2D"):		
 			var impulse = Vector2(0.0, 1.0)
-			#impulse = impulse.rotated(weapon.get_rot())
+			impulse = impulse.rotated(weapon.get_rot())
+			
 			var offset = weapon.get_collision_pos() - collider.get_global_pos()
 			collider.set_mode(RigidBody2D.MODE_RIGID)
 			collider.set_sleeping(false)
-			#collider.apply_impulse( offset, impulse * 150.0)
+			print("impulse:", impulse)
+			
+			# 强制修改物理规则让玩家飞起来
+			impulse.y = -abs(impulse.y)
+			collider.apply_impulse( offset, impulse * 200.0)
 		
 			# 箭摇尾
 			collider.on_attack()
@@ -271,13 +284,36 @@ func check_result():
 			
 			update_blood_display()
 
-	if get_self().cur_blood <= 0:
-		game_state = GameState.GS_FAILING	
-	elif get_enemy(main_player_idx).cur_blood <=0:
-		game_state = GameState.GS_WINING
+	game_state = GameState.GS_WAIT_PLAYER_PHYSICS_SLEEP
+		
+func wait_physic_sleep():
+	var player_idx = (active_player_idx + 1) % players.size()
+	var player = players[player_idx]
+	if player.is_sleeping():
+		if get_self().cur_blood <= 0:
+			game_state = GameState.GS_FAILING
+		elif get_enemy(main_player_idx).cur_blood <=0:
+			game_state = GameState.GS_WINING
+		else:	
+			player.set_mode(RigidBody2D.MODE_KINEMATIC)
+			player.set_rot(0)
+		
+			active_player_idx = (active_player_idx + 1) % players.size() 	
+			game_state = GameState.GS_FOCUS_PLAYER
 	else:
-		active_player_idx = (active_player_idx + 1) % players.size() 	
-		game_state = GameState.GS_FOCUS_PLAYER
+		var player_pos = players[player_idx].get_pos() + Vector2(0, -150)
+		var camera = get_node("camera")
+		if camera.get_pos()!= player_pos:
+			var move_dir = player_pos - camera.get_pos()
+			var length      = move_dir.length()
+			move_dir = move_dir.normalized()
+			if length<10:
+				camera.set_pos(player_pos)
+			else:
+				var move_speed = 10
+				var move_len = min(move_speed, length)
+				camera.set_pos( camera.get_pos() + move_dir * move_len)
+	
 	
 func failing():
 	var character = get_self()	

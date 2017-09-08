@@ -1,11 +1,16 @@
 extends RigidBody2D
 
+export(bool) var IsDisplayMirror = false
+
 var max_blood = 100
 var cur_blood = 100
 
 var cur_anim = ""
 
 func _ready():
+	if IsDisplayMirror:
+		get_node("display").set_scale(Vector2(-0.5, 0.5))
+		
 	play_anim("idle")
 
 func play_anim(anim):
@@ -34,7 +39,7 @@ func on_attack():
 	cur_blood = max(0, cur_blood - 35)
 
 func is_mirror():
-	if get_scale().x > 0.0:
+	if get_node("display").get_scale().x > 0.0:
 		return false 
 	else:
 		return true

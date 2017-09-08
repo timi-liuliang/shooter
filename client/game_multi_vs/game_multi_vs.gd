@@ -184,6 +184,7 @@ func main_player_aim(delta, idx):
 		# 向服务器发送"shooter"消息
 		var weapon = get_node("weapon/arrow")
 		get_node("/root/network").battle_player_shoot(weapon.get_pos(), get_player_aim_degree(idx, aim_degree))
+		shoot_time = 0.0
 		game_state = GameState.GS_PLAYER_SHOOT_EMIT
 		
 func enemy_player_aim_sync(delta, idx):
@@ -209,6 +210,7 @@ func on_player_shoot(idx, weapon_pos, degree):
 	# 抛物线
 	parabola.set(weapon_pos, degree, init_speed, Vector2(-wind_slow_down, gravity))
 	aim_degree = 0.0
+	shoot_time = 0.0
 	game_state = GameState.GS_PLAYER_SHOOT
 		
 		
