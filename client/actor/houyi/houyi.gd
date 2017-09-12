@@ -22,6 +22,9 @@ func get_weapon_rot():
 	return node.get_global_rot()
 	
 func set_hand_rot(radian):
+	print(rad2deg(radian))
+	get_node("anim")
+	
 	get_node("normal/display/body").set_rot(radian)
 	
 func get_hand_rot():
