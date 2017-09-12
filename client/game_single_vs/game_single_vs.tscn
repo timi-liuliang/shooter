@@ -2,7 +2,7 @@
 
 [ext_resource path="res://game_single_vs/game_single_vs.gd" type="Script" id=1]
 [ext_resource path="res://actor/scene/green_sky/green_sky.tscn" type="PackedScene" id=2]
-[ext_resource path="res://actor/archer/archer.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actor/houyi/houyi.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actor/aiming/aiming_sight.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game_single_vs/ui_result.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/vs_win/vs_win.tscn" type="PackedScene" id=6]
@@ -45,14 +45,11 @@ drag_margin/bottom = 0.0
 [node name="player_0" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 100, 452 )
-collision/layers = 2
 
 [node name="player_1" parent="." instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 1024, 444 )
-collision/layers = 2
-collision/mask = 9
-IsDisplayMirror = true
+transform/pos = Vector2( 1024, 452 )
+transform/scale = Vector2( -1, 1 )
 
 [node name="weapon" type="Node2D" parent="."]
 

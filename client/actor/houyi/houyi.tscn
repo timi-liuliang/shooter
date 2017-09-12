@@ -504,7 +504,6 @@ script/script = ExtResource( 1 )
 
 [node name="normal" type="StaticBody2D" parent="."]
 
-editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 3.13272, 0, 0, 6.93154, -0.514833, -39.9432 )

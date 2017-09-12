@@ -46,8 +46,26 @@ func disable_collision():
 	get_node("normal").set_layer_mask(0)
 	get_node("normal").set_collision_mask(0)
 	
+func set_layer_mask(mask):
+	get_node("normal").set_layer_mask(mask)
+	
+func set_layer_mask_bit(bit, value):
+	get_node("normal").set_layer_mask_bit(bit, value)
+	
+func set_collision_mask(mask):
+	get_node("normal").set_collision_mask(mask)
+
+func set_collision_mask_bit(bit, value):
+	get_node("normal").set_collision_mask_bit(bit, value)
+	
 func get_weapon():
 	return "res://actor/weapon/arrow.tscn"
+	
+func is_sleeping():
+	return true
+	
+func set_mode(mode):
+	pass
 
 func is_mirror():
 	if get_scale().x > 0.0:

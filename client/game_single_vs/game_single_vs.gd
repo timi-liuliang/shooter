@@ -352,11 +352,11 @@ func add_weapon_to( i):
 	if has_node("weapon/arrow"):
 		get_node("weapon/arrow").free()
 			
-	var arrow = preload("res://actor/weapon/stick.tscn").instance()
+	var arrow = load(character.get_weapon()).instance()
 	get_node("weapon").add_child(arrow)
 	
 	var weapon = get_node("weapon/arrow")
-	weapon.set_hidden(true)
+	weapon.set_hidden(false)
 	weapon.set_pos(character.get_weapon_pos())
 	weapon.set_scale(Vector2(3.0, 2.9))
 	weapon.set_rot(character.get_weapon_rot())
