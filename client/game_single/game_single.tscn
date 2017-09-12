@@ -44,8 +44,6 @@ drag_margin/bottom = 0.0
 [node name="archer" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 100, 452 )
-collision/layers = 0
-collision/mask = 0
 
 [node name="weapon" type="Node2D" parent="."]
 

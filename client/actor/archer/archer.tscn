@@ -6,7 +6,7 @@
 [ext_resource path="res://actor/weapon/stick.png" type="Texture" id=4]
 [ext_resource path="res://actor/archer/right_hand.png" type="Texture" id=5]
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 21.5585
@@ -79,7 +79,7 @@ tracks/1/keys = {
 
 transform/pos = Vector2( 0, -29 )
 input/pickable = false
-shapes/0/shape = SubResource( 4 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 2.04056, 0, 0, 2.96702, 0.649261, -44.0268 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -106,7 +106,7 @@ IsDisplayMirror = false
 
 transform/pos = Vector2( 0.649261, -44.0268 )
 transform/scale = Vector2( 2.04056, 2.96702 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
@@ -148,8 +148,7 @@ texture = ExtResource( 3 )
 [node name="weapon_sprite" type="Sprite" parent="display/body"]
 
 transform/pos = Vector2( -0.0699959, -40.9695 )
-transform/rot = 87.7934
-transform/scale = Vector2( 1, 1 )
+transform/rot = 88.5706
 texture = ExtResource( 4 )
 
 [node name="hand_right" type="Sprite" parent="display/body"]
@@ -162,7 +161,7 @@ offset = Vector2( 30.0046, -33.2117 )
 [node name="weapon" type="RemoteTransform2D" parent="display/body/hand_right"]
 
 transform/pos = Vector2( 56.9853, -71.1928 )
-transform/rot = 89.2228
+transform/rot = 90.0
 remote_path = NodePath("../../weapon_sprite")
 
 

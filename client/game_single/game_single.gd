@@ -35,8 +35,7 @@ func _ready():
 	Globals.set("main_camera", camera)
 	
 	# 设置碰撞标记
-	get_node("archer").set_layer_mask(0)
-	get_node("archer").set_collision_mask(0)
+	get_node("archer").disable_collision()
 	
 	# 抛物线
 	parabola = preload("res://global/parabola.gd").new()
@@ -84,7 +83,7 @@ func prepare():
 		
 	var weapon = get_node("weapon/arrow")
 	weapon.set_pos(character.get_weapon_pos())
-	weapon.set_rot(character.get_weapon_rot() + deg2rad(90.0))
+	weapon.set_rot(character.get_weapon_rot())
 	
 func aim(delta):
 	if Input.is_action_pressed("touch"):	
@@ -259,10 +258,9 @@ func moveto_next_battle_map(delta):
 		if has_node("weapon/arrow"):
 			get_node("weapon/arrow").free()
 			
-		var arrow = preload("res://actor/weapon/stick.tscn").instance()
+		var arrow = load(character.get_weapon()).instance()
 		get_node("weapon").add_child(arrow)
 		
-		get_node("weapon/arrow").set_hidden(true)
 		get_node("weapon/arrow").set_pos(character.get_weapon_pos())
 		get_node("weapon/arrow").set_scale(Vector2(3.0, 2.9))
 		get_node("weapon/arrow").set_rot(character.get_weapon_rot())

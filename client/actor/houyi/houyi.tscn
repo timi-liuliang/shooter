@@ -31,33 +31,25 @@ length = 0.5
 loop = true
 step = 0.1
 
-[node name="archer" type="RigidBody2D"]
+[node name="archer" type="Node2D"]
 
 transform/pos = Vector2( 0, -29 )
+script/script = ExtResource( 1 )
+
+[node name="normal" type="StaticBody2D" parent="."]
+
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 3.13272, 0, 0, 6.93154, -0.514833, -39.9432 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
-mode = 3
-mass = 1.0
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-gravity_scale = 1.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-velocity/linear = Vector2( 0, 0 )
-velocity/angular = 0.0
-damp_override/linear = -1.0
-damp_override/angular = -1.0
-script/script = ExtResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="coll_shape" type="CollisionShape2D" parent="normal"]
 
 transform/pos = Vector2( -0.514833, -39.9432 )
 transform/scale = Vector2( 3.13272, 6.93154 )
@@ -65,7 +57,7 @@ shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
-[node name="anim" type="AnimationPlayer" parent="."]
+[node name="anim" type="AnimationPlayer" parent="normal"]
 
 playback/process_mode = 1
 playback/default_blend_time = 0.0
@@ -77,73 +69,79 @@ playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
 
-[node name="display" type="Node2D" parent="."]
+[node name="display" type="Node2D" parent="normal"]
 
 transform/pos = Vector2( -14, -73 )
 transform/scale = Vector2( 0.5, 0.5 )
 
-[node name="tui_1" type="Sprite" parent="display"]
+[node name="tui_1" type="Sprite" parent="normal/display"]
 
 transform/pos = Vector2( 23.9394, 96.0032 )
 transform/rot = -6.29389
 texture = ExtResource( 2 )
 offset = Vector2( 8.08321, 17.996 )
 
-[node name="foot_right" type="Sprite" parent="display"]
+[node name="foot_right" type="Sprite" parent="normal/display"]
 
 transform/pos = Vector2( 34.2731, 135.039 )
 transform/rot = -1.60352
 texture = ExtResource( 3 )
 offset = Vector2( 7.72697, 29.8224 )
 
-[node name="tui_2" type="Sprite" parent="display"]
+[node name="tui_2" type="Sprite" parent="normal/display"]
 
 transform/pos = Vector2( -1.99142, 106.379 )
 transform/rot = -8.1432
 texture = ExtResource( 4 )
 offset = Vector2( -0.102297, 11.3296 )
 
-[node name="foot_left" type="Sprite" parent="display"]
+[node name="foot_left" type="Sprite" parent="normal/display"]
 
 transform/pos = Vector2( -4.33801, 134.496 )
 transform/rot = -15.3675
 texture = ExtResource( 5 )
 offset = Vector2( 10.4682, 30.7012 )
 
-[node name="gebo_2" type="Sprite" parent="display"]
+[node name="gebo_2" type="Sprite" parent="normal/display"]
 
 transform/pos = Vector2( 43.5049, 17.0723 )
 transform/rot = 9.94234
 texture = ExtResource( 6 )
 offset = Vector2( 2.81158, 18.6166 )
 
-[node name="shoubi_2" type="Sprite" parent="display/gebo_2"]
+[node name="shoubi_2" type="Sprite" parent="normal/display/gebo_2"]
 
 transform/pos = Vector2( 4.82369, 41.3911 )
 texture = ExtResource( 7 )
 offset = Vector2( 16.5225, -3.62721 )
 
-[node name="weapon_sprite" type="Sprite" parent="display/gebo_2/shoubi_2"]
+[node name="weapon_sprite" type="Sprite" parent="normal/display/gebo_2/shoubi_2"]
 
 transform/pos = Vector2( 33.5746, -10.3254 )
 transform/rot = -5.43576
 texture = ExtResource( 8 )
 offset = Vector2( -24.9034, 7.39649 )
 
-[node name="shou" type="Sprite" parent="display/gebo_2/shoubi_2"]
+[node name="shou" type="Sprite" parent="normal/display/gebo_2/shoubi_2"]
 
 transform/pos = Vector2( 34.6338, -13.5411 )
 texture = ExtResource( 9 )
 offset = Vector2( -0.794402, 3.14333 )
 
-[node name="body" type="Sprite" parent="display"]
+[node name="weapon" type="Position2D" parent="normal/display/gebo_2/shoubi_2/shou"]
+
+transform/pos = Vector2( -1.90454, 4.0405 )
+transform/rot = 80.0
+transform/scale = Vector2( 2, 2 )
+
+[node name="body" type="Sprite" parent="normal/display"]
 
 transform/pos = Vector2( 16.249, 79.9813 )
 transform/rot = -2.96676
 texture = ExtResource( 10 )
 offset = Vector2( -22.7018, -79.9813 )
 
-[node name="gebo_1" type="Sprite" parent="display/body"]
+[node name="gebo_1" type="Sprite" parent="normal/display/body"]
 
 editor/display_folded = true
 transform/pos = Vector2( -43.2141, -59.6607 )
@@ -151,43 +149,45 @@ transform/rot = -0.741406
 texture = ExtResource( 11 )
 offset = Vector2( 0.650146, 21.8587 )
 
-[node name="shoubi_1" type="Sprite" parent="display/body/gebo_1"]
+[node name="shoubi_1" type="Sprite" parent="normal/display/body/gebo_1"]
 
 transform/pos = Vector2( 1.52588e-005, 50.7939 )
 transform/rot = 61.2
 texture = ExtResource( 12 )
 offset = Vector2( 3.24214, 22.6951 )
 
-[node name="gebo_2_remote" type="RemoteTransform2D" parent="display/body"]
+[node name="gebo_2_remote" type="RemoteTransform2D" parent="normal/display/body"]
 
 transform/pos = Vector2( 23.9634, -64.2354 )
 transform/rot = 12.9091
 remote_path = NodePath("../../gebo_2")
 
-[node name="tui_1_remote" type="RemoteTransform2D" parent="display/body"]
+[node name="tui_1_remote" type="RemoteTransform2D" parent="normal/display/body"]
 
 editor/display_folded = true
 transform/pos = Vector2( 8.50932, 15.6024 )
 transform/rot = -3.32713
 remote_path = NodePath("../../tui_1")
 
-[node name="foot_right_remote" type="RemoteTransform2D" parent="display/body/tui_1_remote"]
+[node name="foot_right_remote" type="RemoteTransform2D" parent="normal/display/body/tui_1_remote"]
 
 transform/pos = Vector2( 14.5508, 37.6674 )
 transform/rot = 4.69037
 remote_path = NodePath("../../../foot_right")
 
-[node name="tui_2_remote" type="RemoteTransform2D" parent="display/body"]
+[node name="tui_2_remote" type="RemoteTransform2D" parent="normal/display/body"]
 
 editor/display_folded = true
 transform/pos = Vector2( -16.8497, 27.3067 )
 transform/rot = -5.17644
 remote_path = NodePath("../../tui_2")
 
-[node name="foot_left_remote" type="RemoteTransform2D" parent="display/body/tui_2_remote"]
+[node name="foot_left_remote" type="RemoteTransform2D" parent="normal/display/body/tui_2_remote"]
 
 transform/pos = Vector2( 1.65972, 28.1655 )
 transform/rot = -7.22429
 remote_path = NodePath("../../../foot_left")
+
+[node name="ragdoll" type="Node2D" parent="."]
 
 
