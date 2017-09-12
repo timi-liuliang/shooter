@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=17 format=1]
 
 [ext_resource path="res://actor/houyi/houyi.gd" type="Script" id=1]
 [ext_resource path="res://actor/houyi/tui1.png" type="Texture" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://actor/houyi/qugan.png" type="Texture" id=10]
 [ext_resource path="res://actor/houyi/gebo_1.png" type="Texture" id=11]
 [ext_resource path="res://actor/houyi/shoubi1.png" type="Texture" id=12]
-[ext_resource path="res://actor/houyi/houyi_ragdoll.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -656,7 +655,5 @@ remote_path = NodePath("../../tui_2")
 transform/pos = Vector2( 1.65972, 28.1655 )
 transform/rot = -7.22429
 remote_path = NodePath("../../../foot_left")
-
-[node name="ragdoll" parent="." instance=ExtResource( 13 )]
 
 
