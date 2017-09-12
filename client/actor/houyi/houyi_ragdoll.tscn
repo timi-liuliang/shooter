@@ -1,0 +1,498 @@
+[gd_scene load_steps=16 format=1]
+
+[ext_resource path="res://actor/houyi/qugan.png" type="Texture" id=1]
+[ext_resource path="res://actor/houyi/tui1.png" type="Texture" id=2]
+[ext_resource path="res://actor/houyi/jiao_2.png" type="Texture" id=3]
+[ext_resource path="res://actor/houyi/tui2.png" type="Texture" id=4]
+[ext_resource path="res://actor/houyi/jiao_1.png" type="Texture" id=5]
+[ext_resource path="res://actor/houyi/gebo_1.png" type="Texture" id=6]
+[ext_resource path="res://actor/houyi/shoubi1.png" type="Texture" id=7]
+[ext_resource path="res://actor/houyi/gebo_2.png" type="Texture" id=8]
+[ext_resource path="res://actor/houyi/shoubi2.png" type="Texture" id=9]
+[ext_resource path="res://actor/houyi/shou.png" type="Texture" id=10]
+
+[sub_resource type="CapsuleShape2D" id=5]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id=6]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id=7]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id=8]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id=9]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[node name="ragdoll" type="Node2D"]
+
+editor/display_folded = true
+transform/rot = -0.732306
+
+[node name="body" type="RigidBody2D" parent="."]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 5 )
+shapes/0/transform = Matrix32( 1.50309, 0, 0, 2.05788, -8.05513, -62.5771 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="body" type="Sprite" parent="body"]
+
+transform/pos = Vector2( -5.8755, -33.0093 )
+transform/rot = -2.96676
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+offset = Vector2( -22.7018, -79.9813 )
+
+[node name="coll_shape" type="CollisionShape2D" parent="body"]
+
+transform/pos = Vector2( -8.05513, -62.5771 )
+transform/scale = Vector2( 1.50309, 2.05788 )
+shape = SubResource( 5 )
+trigger = false
+_update_shape_index = 0
+
+[node name="tui_1" type="RigidBody2D" parent="body"]
+
+transform/rot = 7.94947
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 0.526746, 0, 0, 0.540203, 0.892822, -15.4152 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="tui_1" type="Sprite" parent="body/tui_1"]
+
+transform/pos = Vector2( -2.03031, -24.9984 )
+transform/rot = -6.29389
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+offset = Vector2( 8.08321, 17.996 )
+
+[node name="joint" type="PinJoint2D" parent="body/tui_1"]
+
+transform/pos = Vector2( -1, -26 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape" type="CollisionShape2D" parent="body/tui_1"]
+
+transform/pos = Vector2( 0.892822, -15.4152 )
+transform/scale = Vector2( 0.526746, 0.540203 )
+shape = SubResource( 6 )
+trigger = false
+_update_shape_index = 0
+
+[node name="jiao_1" type="RigidBody2D" parent="body/tui_1"]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 0.606467, 0, 0, 0.83697, 3.29597, 9.59942 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="foot_right" type="Sprite" parent="body/tui_1/jiao_1"]
+
+transform/pos = Vector2( 3.13654, -5.48062 )
+transform/rot = -1.60352
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+offset = Vector2( 7.72697, 29.8224 )
+
+[node name="joint" type="PinJoint2D" parent="body/tui_1/jiao_1"]
+
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape1" type="CollisionShape2D" parent="body/tui_1/jiao_1"]
+
+transform/pos = Vector2( 3.29597, 9.59942 )
+transform/scale = Vector2( 0.606467, 0.83697 )
+shape = SubResource( 7 )
+trigger = false
+_update_shape_index = 0
+
+[node name="tui_2" type="RigidBody2D" parent="body"]
+
+editor/display_folded = true
+transform/rot = 0.419365
+input/pickable = false
+shapes/0/shape = SubResource( 8 )
+shapes/0/transform = Matrix32( 0.457143, 0, 0, 0.648899, -15.469, -15.1931 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="tui_2" type="Sprite" parent="body/tui_2"]
+
+transform/pos = Vector2( -14.9957, -19.8103 )
+transform/rot = -8.1432
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+offset = Vector2( -0.102297, 11.3296 )
+
+[node name="joint" type="PinJoint2D" parent="body/tui_2"]
+
+transform/pos = Vector2( -16, -25 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape" type="CollisionShape2D" parent="body/tui_2"]
+
+transform/pos = Vector2( -15.469, -15.1931 )
+transform/scale = Vector2( 0.457143, 0.648899 )
+shape = SubResource( 8 )
+trigger = false
+_update_shape_index = 0
+
+[node name="jiao_2" type="RigidBody2D" parent="body/tui_2"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 9 )
+shapes/0/transform = Matrix32( 0.469587, 0, 0, 0.916167, -16.9249, 10.3662 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="foot_left" type="Sprite" parent="body/tui_2/jiao_2"]
+
+transform/pos = Vector2( -16.169, -5.75204 )
+transform/rot = -15.3675
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+offset = Vector2( 10.4682, 30.7012 )
+
+[node name="joint" type="PinJoint2D" parent="body/tui_2/jiao_2"]
+
+transform/pos = Vector2( -16, -6 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape" type="CollisionShape2D" parent="body/tui_2/jiao_2"]
+
+transform/pos = Vector2( -16.9249, 10.3662 )
+transform/scale = Vector2( 0.469587, 0.916167 )
+shape = SubResource( 9 )
+trigger = false
+_update_shape_index = 0
+
+[node name="gebo_1" type="RigidBody2D" parent="body"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 0.356972, 0.55637, -0.698343, 0.448064, -31.4136, -58.3498 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 0
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="gebo_1" type="Sprite" parent="body/gebo_1"]
+
+transform/pos = Vector2( -25.9097, -63.918 )
+transform/rot = -58.0302
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+offset = Vector2( 0.650146, 21.8587 )
+
+[node name="joint" type="PinJoint2D" parent="body/gebo_1"]
+
+transform/pos = Vector2( -21, -65 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape" type="CollisionShape2D" parent="body/gebo_1"]
+
+transform/pos = Vector2( -31.4136, -58.3498 )
+transform/rot = -57.3154
+transform/scale = Vector2( 0.661042, 0.829726 )
+shape = SubResource( 6 )
+trigger = false
+_update_shape_index = 0
+
+[node name="shoubi_1" type="RigidBody2D" parent="body/gebo_1"]
+
+transform/rot = 2.85233
+input/pickable = false
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 0.589927, 0.140673, -0.194139, 0.814143, -51.6121, -37.5066 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 0
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="shoubi_1" type="Sprite" parent="body/gebo_1/shoubi_1"]
+
+transform/pos = Vector2( -47.4546, -50.471 )
+transform/rot = -30.6708
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+offset = Vector2( 3.24214, 22.6951 )
+
+[node name="joint" type="PinJoint2D" parent="body/gebo_1/shoubi_1"]
+
+transform/pos = Vector2( -48, -51 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape1" type="CollisionShape2D" parent="body/gebo_1/shoubi_1"]
+
+transform/pos = Vector2( -51.6121, -37.5066 )
+transform/rot = -13.4122
+transform/scale = Vector2( 0.606467, 0.83697 )
+shape = SubResource( 7 )
+trigger = false
+_update_shape_index = 0
+
+[node name="gebo_2" type="RigidBody2D" parent="body"]
+
+editor/display_folded = true
+input/pickable = false
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Matrix32( 0.192589, -0.412468, 0.745763, 0.348211, 17.5794, -60.8392 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="gebo_2" type="Sprite" parent="body/gebo_2"]
+
+transform/pos = Vector2( 7.75245, -64.4639 )
+transform/rot = 61.9333
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+offset = Vector2( 2.81158, 18.6166 )
+
+[node name="joint" type="PinJoint2D" parent="body/gebo_2"]
+
+transform/pos = Vector2( 6, -66 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape" type="CollisionShape2D" parent="body/gebo_2"]
+
+transform/pos = Vector2( 17.5794, -60.8392 )
+transform/rot = 64.9712
+transform/scale = Vector2( 0.455215, 0.823051 )
+shape = SubResource( 6 )
+trigger = false
+_update_shape_index = 0
+
+[node name="shoubi_2" type="RigidBody2D" parent="body/gebo_2"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 0.177778, -0.443945, 0.742038, 0.297149, 35.2955, -54.4922 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+
+[node name="shoubi_2" type="Sprite" parent="body/gebo_2/shoubi_2"]
+
+editor/display_folded = true
+transform/pos = Vector2( 27.149, -56.8549 )
+transform/rot = -32.4706
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 9 )
+offset = Vector2( 16.5225, -3.62721 )
+
+[node name="shou" type="Sprite" parent="body/gebo_2/shoubi_2/shoubi_2"]
+
+transform/pos = Vector2( 34.6338, -13.5411 )
+texture = ExtResource( 10 )
+offset = Vector2( -0.794402, 3.14333 )
+
+[node name="joint" type="PinJoint2D" parent="body/gebo_2/shoubi_2"]
+
+transform/pos = Vector2( 25, -58 )
+node_a = NodePath("..")
+node_b = NodePath("../..")
+bias/bias = 0.0
+collision/exclude_nodes = true
+softness = 0.0
+
+[node name="col_shape1" type="CollisionShape2D" parent="body/gebo_2/shoubi_2"]
+
+transform/pos = Vector2( 35.2955, -54.4922 )
+transform/rot = 68.1764
+transform/scale = Vector2( 0.478218, 0.799323 )
+shape = SubResource( 7 )
+trigger = false
+_update_shape_index = 0
+
+
