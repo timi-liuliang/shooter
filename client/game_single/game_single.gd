@@ -80,6 +80,7 @@ func prepare():
 		
 	var character = get_node("archer")
 	character.set_hand_rot(deg2rad(aim_degree))
+	character.play_anim("idle")
 		
 	var weapon = get_node("weapon/arrow")
 	weapon.set_pos(character.get_weapon_pos())

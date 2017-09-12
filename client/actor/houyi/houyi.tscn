@@ -207,15 +207,295 @@ tracks/17/keys = {
 
 [sub_resource type="Animation" id=3]
 
-length = 0.5
+length = 0.6
 loop = true
 step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("display:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -14, -73 ), Vector2( -14, -73 ), Vector2( -14, -73 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("display:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("display/body:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 16.249, 79.9813 ), Vector2( 16.249, 85.9813 ), Vector2( 16.249, 79.9813 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("display/body:transform/rot")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -2.96676, -2.96676, -2.96676 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("display/body/gebo_1:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -43.2141, -59.6607 ), Vector2( -43.2141, -59.6607 ), Vector2( -43.2141, -59.6607 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("display/body/gebo_1:transform/rot")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -55.0634, -55.0634, -55.0634 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("display/body/gebo_2_remote:transform/pos")
+tracks/6/interp = 1
+tracks/6/imported = false
+tracks/6/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 23.9634, -64.2354 ), Vector2( 23.9634, -64.2354 ), Vector2( 23.9634, -64.2354 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("display/body/gebo_2_remote:transform/rot")
+tracks/7/interp = 1
+tracks/7/imported = false
+tracks/7/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 64.9001, 64.9001, 64.9001 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("display/body/tui_1_remote:transform/pos")
+tracks/8/interp = 1
+tracks/8/imported = false
+tracks/8/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8.50932, 15.6024 ), Vector2( 8.40581, 13.6051 ), Vector2( 8.50932, 15.6024 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("display/body/tui_1_remote:transform/rot")
+tracks/9/interp = 1
+tracks/9/imported = false
+tracks/9/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -3.32713, 14.1588, -3.32713 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("display/body/tui_1_remote/foot_right_remote:transform/pos")
+tracks/10/interp = 1
+tracks/10/imported = false
+tracks/10/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 14.5508, 37.6674 ), Vector2( 14.5508, 37.6674 ), Vector2( 14.5508, 37.6674 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("display/body/tui_1_remote/foot_right_remote:transform/rot")
+tracks/11/interp = 1
+tracks/11/imported = false
+tracks/11/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 4.69037, -28.6751, 4.69037 ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("display/body/tui_2_remote:transform/pos")
+tracks/12/interp = 1
+tracks/12/imported = false
+tracks/12/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16.8497, 27.3067 ), Vector2( -16.8497, 27.3067 ), Vector2( -16.8497, 27.3067 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("display/body/tui_2_remote:transform/rot")
+tracks/13/interp = 1
+tracks/13/imported = false
+tracks/13/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -5.17644, 9.62975, -5.17644 ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("display/body/tui_2_remote/foot_left_remote:transform/pos")
+tracks/14/interp = 1
+tracks/14/imported = false
+tracks/14/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.65972, 28.1655 ), Vector2( 3.87827, 26.4111 ), Vector2( 1.65972, 28.1655 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("display/body/tui_2_remote/foot_left_remote:transform/rot")
+tracks/15/interp = 1
+tracks/15/imported = false
+tracks/15/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -7.22429, -43.2618, -7.22429 ]
+}
 
 [sub_resource type="Animation" id=4]
 
-length = 0.5
+length = 0.6
 loop = true
 step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("display:transform/pos")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -14, -67 ), Vector2( -14, -73 ), Vector2( -14, -67 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("display:transform/rot")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("display/body:transform/pos")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 16.249, 83.9188 ), Vector2( 16.249, 83.9188 ), Vector2( 16.249, 83.9188 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("display/body:transform/rot")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -20.665, -16.758, -20.665 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("display/body/tui_1_remote:transform/pos")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 8.44139, 14.2917 ), Vector2( 8.44139, 14.2917 ), Vector2( 8.44139, 14.2917 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("display/body/tui_1_remote:transform/rot")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 41.8733, 0.788213, 41.8733 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("display/body/tui_2_remote:transform/pos")
+tracks/6/interp = 1
+tracks/6/imported = false
+tracks/6/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -16.8497, 27.3067 ), Vector2( -16.8497, 27.3067 ), Vector2( -16.8497, 27.3067 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("display/body/tui_2_remote:transform/rot")
+tracks/7/interp = 1
+tracks/7/imported = false
+tracks/7/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 10.3339, 43.7484, 10.3339 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("display/body/tui_2_remote/foot_left_remote:transform/pos")
+tracks/8/interp = 1
+tracks/8/imported = false
+tracks/8/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 3.11564, 27.0142 ), Vector2( 3.11564, 27.0142 ), Vector2( 3.11564, 27.0142 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("display/body/tui_2_remote/foot_left_remote:transform/rot")
+tracks/9/interp = 1
+tracks/9/imported = false
+tracks/9/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -63.6665, -50.6898, -63.6665 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("display/body/tui_1_remote/foot_right_remote:transform/pos")
+tracks/10/interp = 1
+tracks/10/imported = false
+tracks/10/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 14.5508, 37.6674 ), Vector2( 14.5508, 37.6674 ), Vector2( 14.5508, 37.6674 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("display/body/tui_1_remote/foot_right_remote:transform/rot")
+tracks/11/interp = 1
+tracks/11/imported = false
+tracks/11/keys = {
+"times": FloatArray( 0, 0.3, 0.6 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -59.0165, -48.4225, -59.0165 ]
+}
 
 [node name="archer" type="Node2D"]
 
@@ -258,41 +538,43 @@ autoplay = ""
 
 [node name="display" type="Node2D" parent="normal"]
 
-transform/pos = Vector2( -14, -73 )
+transform/pos = Vector2( -14, -68.2142 )
 transform/scale = Vector2( 0.5, 0.5 )
 
 [node name="tui_1" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( 23.9394, 96.0032 )
-transform/rot = -6.29389
+transform/pos = Vector2( 19.329, 100.229 )
+transform/rot = 13.6849
 texture = ExtResource( 2 )
 offset = Vector2( 8.08321, 17.996 )
 
 [node name="foot_right" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( 34.2731, 135.039 )
-transform/rot = -1.60352
+transform/pos = Vector2( 42.3782, 133.385 )
+transform/rot = -43.1878
 texture = ExtResource( 3 )
 offset = Vector2( 7.72697, 29.8224 )
 
 [node name="tui_2" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( -1.99142, 106.379 )
-transform/rot = -8.1432
+transform/pos = Vector2( -8.8803, 103.871 )
+transform/rot = -2.77871
 texture = ExtResource( 4 )
 offset = Vector2( -0.102297, 11.3296 )
 
 [node name="foot_left" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( -4.33801, 134.496 )
-transform/rot = -15.3675
+transform/pos = Vector2( -7.07793, 131.004 )
+transform/rot = -63.8192
 texture = ExtResource( 5 )
 offset = Vector2( 10.4682, 30.7012 )
 
 [node name="gebo_2" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( 43.5049, 17.0723 )
-transform/rot = 61.9333
+editor/display_folded = true
+transform/pos = Vector2( 60.6226, 31.6558 )
+transform/rot = 45.0257
+transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 6 )
 offset = Vector2( 2.81158, 18.6166 )
 
@@ -324,8 +606,8 @@ transform/scale = Vector2( 2, 2 )
 
 [node name="body" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( 16.249, 79.9813 )
-transform/rot = -2.96676
+transform/pos = Vector2( 16.249, 83.9188 )
+transform/rot = -19.8744
 texture = ExtResource( 10 )
 offset = Vector2( -22.7018, -79.9813 )
 
@@ -351,26 +633,26 @@ remote_path = NodePath("../../gebo_2")
 
 [node name="tui_1_remote" type="RemoteTransform2D" parent="normal/display/body"]
 
-transform/pos = Vector2( 8.50932, 15.6024 )
-transform/rot = -3.32713
+transform/pos = Vector2( 8.44139, 14.2917 )
+transform/rot = 33.5593
 remote_path = NodePath("../../tui_1")
 
 [node name="foot_right_remote" type="RemoteTransform2D" parent="normal/display/body/tui_1_remote"]
 
 transform/pos = Vector2( 14.5508, 37.6674 )
-transform/rot = 4.69037
+transform/rot = -56.8727
 remote_path = NodePath("../../../foot_right")
 
 [node name="tui_2_remote" type="RemoteTransform2D" parent="normal/display/body"]
 
 transform/pos = Vector2( -16.8497, 27.3067 )
-transform/rot = -5.17644
+transform/rot = 17.0957
 remote_path = NodePath("../../tui_2")
 
 [node name="foot_left_remote" type="RemoteTransform2D" parent="normal/display/body/tui_2_remote"]
 
-transform/pos = Vector2( 1.65972, 28.1655 )
-transform/rot = -7.22429
+transform/pos = Vector2( 3.11564, 27.0142 )
+transform/rot = -61.0405
 remote_path = NodePath("../../../foot_left")
 
 [node name="ragdoll" type="Node2D" parent="."]
