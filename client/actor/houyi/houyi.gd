@@ -6,6 +6,9 @@ var cur_blood = 100
 var cur_anim = ""
 var hand_rot = 0.0
 
+var physics_collision_mask = 0
+var physics_layer_mask = 0
+
 func _ready():
 	play_anim("idle")
 
@@ -40,26 +43,41 @@ func on_attack():
 	cur_blood = max(0, cur_blood - 35)
 	
 func disable_collision():
-	get_node("normal").set_layer_mask(0)
-	get_node("normal").set_collision_mask(0)
+	physics_layer_mask = 0
+	physics_collision_mask = 0
+	if has_node("ragdoll"):
+		get_node("ragdoll").set_layer_mask(0)
+		get_node("ragdoll").set_collision_mask(0)
 	
 func set_layer_mask(mask):
-	get_node("normal").set_layer_mask(mask)
+	physics_layer_mask = mask
+	if has_node("ragdoll"):
+		get_node("ragdoll").set_layer_mask(mask)
 	
-func set_layer_mask_bit(bit, value):
-	get_node("normal").set_layer_mask_bit(bit, value)
+#func set_layer_mask_bit(bit, value):
+#	if value:
+#		physics_layer_mask = 1 << bit
+		
+#	if has_node("ragdoll"):
+#		get_node("ragdoll").set_layer_mask_bit(bit, value)
 	
 func set_collision_mask(mask):
-	get_node("normal").set_collision_mask(mask)
+	physics_collision_mask = mask
+	if has_node("ragdoll"):
+		get_node("ragdoll").set_collision_mask(mask)
 
-func set_collision_mask_bit(bit, value):
-	get_node("normal").set_collision_mask_bit(bit, value)
+#func set_collision_mask_bit(bit, value):
+#	if has_node("ragdoll"):
+#		get_node("ragdoll").set_collision_mask_bit(bit, value)
 	
 func get_weapon():
 	return "res://actor/weapon/arrow.tscn"
 	
 func is_sleeping():
-	return true
+	if has_node("ragdoll"):
+		return get_node("ragdoll").is_sleeping()
+	else:
+		return true
 	
 func set_mode(mode):
 	pass
@@ -69,3 +87,18 @@ func is_mirror():
 		return false 
 	else:
 		return true
+		
+	
+func remove_ragdoll():
+	if has_node("ragdoll"):
+		get_node("ragdoll").queue_free()	
+	
+func create_ragdoll():
+	remove_ragdoll()
+	
+	var ragdoll = load("res://actor/houyi/houyi_ragdoll.tscn").instance()
+	add_child(ragdoll)
+	ragdoll.set_root(self)
+	ragdoll.set_layer_mask(physics_layer_mask)
+	ragdoll.set_collision_mask(physics_collision_mask)
+	

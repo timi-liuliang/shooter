@@ -3,6 +3,7 @@ extends Node2D
 enum GameState{
 	GS_PREPARE,
 	GS_SHOW_ENEMY,
+	GS_CREAT_RAGDOLL,
 	GS_FOCUS_PLAYER,
 	GS_WAIT_FOR_AIM,
 	GS_PLAYER_AIM,
@@ -47,10 +48,8 @@ func _ready():
 	players.append(get_node("player_0"))
 	players.append(get_node("player_1"))
 	for i in range(players.size()):
-		players[i].set_layer_mask(0)
-		players[i].set_layer_mask_bit(i+1, true)
-		players[i].set_collision_mask(0)
-		players[i].set_collision_mask_bit(0, true)
+		players[i].set_layer_mask(1<<(i+1))
+		players[i].set_collision_mask(1<<0)
 	
 	# 抛物线
 	parabola = preload("res://global/parabola.gd").new()
@@ -70,6 +69,8 @@ func _process(delta):
 		prepare()
 	if game_state == GameState.GS_SHOW_ENEMY:
 		show_enemy()
+	if game_state == GameState.GS_CREAT_RAGDOLL:
+		create_ragdoll()
 	elif game_state == GameState.GS_FOCUS_PLAYER:
 		focus_player(active_player_idx)
 	elif game_state == GameState.GS_WAIT_FOR_AIM:
@@ -103,7 +104,16 @@ func show_enemy():
 		camera.set_zoom( camera.get_zoom() + (Vector2(1.0, 1.0) - camera.get_zoom()) * 0.02)
 	else:
 		camera.set_enable_follow_smoothing( true)
-		game_state = GameState.GS_FOCUS_PLAYER
+		game_state = GameState.GS_CREAT_RAGDOLL
+
+func next_player_idx():
+	return (active_player_idx + 1) % players.size() 	
+						
+func create_ragdoll():
+	players[active_player_idx].remove_ragdoll()
+	players[next_player_idx()].create_ragdoll()
+	
+	game_state = GameState.GS_FOCUS_PLAYER
 		
 func focus_player(idx):
 	var player_pos = players[idx].get_pos() + Vector2(0, -150)
@@ -224,7 +234,6 @@ func shoot(delta):
 	if !weapon.is_colliding():
 		# 移动武器
 		shoot_time += delta
-		print(shoot_time)
 		var offset = parabola.get_pos(shoot_time) - weapon.get_pos()
 		weapon.move(offset)
 		
@@ -266,16 +275,15 @@ func check_result():
 			impulse = impulse.rotated(weapon.get_rot())
 			
 			var offset = weapon.get_collision_pos() - collider.get_global_pos()
-			collider.set_mode(RigidBody2D.MODE_RIGID)
-			collider.set_sleeping(false)
-			print("impulse:", impulse)
-			
+		
 			# 强制修改物理规则让玩家飞起来
 			impulse.y = -abs(impulse.y)
-			collider.apply_impulse( offset, impulse * 200.0)
+	
+			weapon.set_layer_mask(0)
+			weapon.set_collision_mask(0)
 		
 			# 箭摇尾
-			collider.on_attack()
+			collider.on_attack(offset, impulse*200.0)
 			weapon.get_node("anim").play("attacked")
 			
 			update_blood_display()
@@ -295,7 +303,7 @@ func wait_physic_sleep():
 			player.set_rot(0)
 		
 			active_player_idx = (active_player_idx + 1) % players.size() 	
-			game_state = GameState.GS_FOCUS_PLAYER
+			game_state = GameState.GS_CREAT_RAGDOLL
 	else:
 		var player_pos = players[player_idx].get_pos() + Vector2(0, -150)
 		var camera = get_node("camera")
