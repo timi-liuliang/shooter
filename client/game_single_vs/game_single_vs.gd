@@ -277,13 +277,14 @@ func check_result():
 			var offset = weapon.get_collision_pos() - collider.get_global_pos()
 		
 			# 强制修改物理规则让玩家飞起来
-			impulse.y = -abs(impulse.y)
+			#impulse.y = -abs(impulse.y)
 	
 			weapon.set_layer_mask(0)
 			weapon.set_collision_mask(0)
+			weapon.set_hidden(true)
 		
 			# 箭摇尾
-			collider.on_attack(offset, impulse*200.0)
+			collider.on_attack(offset, impulse*1600.0)
 			weapon.get_node("anim").play("attacked")
 			
 			update_blood_display()
@@ -305,7 +306,7 @@ func wait_physic_sleep():
 			active_player_idx = (active_player_idx + 1) % players.size() 	
 			game_state = GameState.GS_CREAT_RAGDOLL
 	else:
-		var player_pos = players[player_idx].get_pos() + Vector2(0, -150)
+		var player_pos = players[player_idx].get_focus_pos() + Vector2(0, -150)
 		var camera = get_node("camera")
 		if camera.get_pos()!= player_pos:
 			var move_dir = player_pos - camera.get_pos()

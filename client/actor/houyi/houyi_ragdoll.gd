@@ -1,6 +1,7 @@
 extends Node2D
 
 var rigidbodys = []
+var rigid_bodys_sleeping_check = []
 
 func _ready():
 	rigidbodys.append(get_node("body"))
@@ -12,6 +13,8 @@ func _ready():
 	rigidbodys.append(get_node("body/gebo_1/shoubi_1"))
 	rigidbodys.append(get_node("body/gebo_2"))
 	rigidbodys.append(get_node("body/gebo_2/shoubi_2"))
+	
+	rigid_bodys_sleeping_check.append(get_node("body"))
 	
 func set_root(actor_root):
 	for rb in rigidbodys:
@@ -39,8 +42,14 @@ func set_collision_mask_bit(bit, value):
 		rb.set_collision_mask_bit(bit, value)
 		
 func is_sleeping():
-	for rb in rigidbodys:
+	for rb in rigid_bodys_sleeping_check:
 		if !rb.is_sleeping():
 			return false
 			
 	return true
+	
+func get_foot_pos():
+	return get_node("body/tui_1/jiao_1").get_global_pos() - get_global_pos()
+	
+func get_focus_pos():
+	return get_node("body").get_global_pos()

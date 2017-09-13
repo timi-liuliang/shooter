@@ -12,7 +12,6 @@ func _ready():
 # switch to scene by name
 func set_scene(name):
 	if curScene:
-		get_tree().get_root().remove_child(curScene)
 		curScene.queue_free()
 		
 	var sceneRes = ResourceLoader.load(name)

@@ -6,21 +6,30 @@ var cur_blood = 100
 var cur_anim = ""
 var hand_rot = 0.0
 
+var is_ragdoll_active = false
 var physics_collision_mask = 0
 var physics_layer_mask = 0
 
 func _ready():
 	play_anim("idle")
 	set_process(true)
-	
+
 func _process(delta):
-	if has_node("ragdoll"):
-		if !get_node("ragdoll").is_sleeping():
-			get_node("normal").set_hidden(true)
-		else:
-			var rdPos = get_node("ragdoll").get_global_pos()
-			set_pos(Vector2(rdPos.x, get_pos().y))
-			get_node("normal").set_hidden(false)
+	if is_ragdoll_active:
+		if get_node("ragdoll").is_sleeping():
+			deactive_ragdoll()
+
+func active_ragdoll():
+	is_ragdoll_active = true
+	get_node("normal").set_hidden(true)
+	
+func deactive_ragdoll():
+	is_ragdoll_active = false
+	var rd_pos = get_node("ragdoll").get_foot_pos()
+	print(rd_pos)
+	set_pos(get_pos() + Vector2(rd_pos.x, 0.0))
+	
+	get_node("normal").set_hidden(false)
 
 func play_anim(anim):
 	if cur_anim != anim:
@@ -50,8 +59,15 @@ func get_hand_rot():
 	return get_node("normal/display/body").get_rot()
 	
 func on_attack():
+	active_ragdoll()
 	cur_blood = max(0, cur_blood - 35)
 	
+func get_focus_pos():
+	if is_ragdoll_active:
+		return get_node("ragdoll").get_focus_pos()
+	else:
+		return get_pos()
+				
 func disable_collision():
 	physics_layer_mask = 0
 	physics_collision_mask = 0
@@ -64,30 +80,17 @@ func set_layer_mask(mask):
 	if has_node("ragdoll"):
 		get_node("ragdoll").set_layer_mask(mask)
 	
-#func set_layer_mask_bit(bit, value):
-#	if value:
-#		physics_layer_mask = 1 << bit
-		
-#	if has_node("ragdoll"):
-#		get_node("ragdoll").set_layer_mask_bit(bit, value)
 	
 func set_collision_mask(mask):
 	physics_collision_mask = mask
 	if has_node("ragdoll"):
 		get_node("ragdoll").set_collision_mask(mask)
-
-#func set_collision_mask_bit(bit, value):
-#	if has_node("ragdoll"):
-#		get_node("ragdoll").set_collision_mask_bit(bit, value)
 	
 func get_weapon():
 	return "res://actor/weapon/arrow.tscn"
 	
 func is_sleeping():
-	if has_node("ragdoll"):
-		return get_node("ragdoll").is_sleeping()
-	else:
-		return true
+	return !is_ragdoll_active;
 	
 func set_mode(mode):
 	pass
@@ -98,7 +101,6 @@ func is_mirror():
 	else:
 		return true
 		
-	
 func remove_ragdoll():
 	if has_node("ragdoll"):
 		get_node("ragdoll").queue_free()	
