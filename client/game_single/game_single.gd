@@ -108,7 +108,6 @@ func aim(delta):
 		
 	if !Input.is_action_pressed("touch"):
 		var character = get_node("archer")
-		character.set_weapon_hidden(true)
 		get_node("weapon/arrow").set_hidden(false)
 		get_node("aiming_sight").set_hidden(true)
 		
@@ -212,7 +211,6 @@ func check_result():
 		
 func create_next_battle_map():
 	var character = get_node("archer")
-	character.set_weapon_hidden(false)
 	
 	var next_battle_id = battle_id + 1
 	next_battle_pos = Vector2(next_battle_id * 1024 + 50, 480)

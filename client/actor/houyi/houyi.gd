@@ -36,9 +36,6 @@ func set_hand_rot(radian):
 func get_hand_rot():
 	return get_node("normal/display/body").get_rot()
 	
-func set_weapon_hidden(hide):
-	get_node("normal/display/gebo_2/shoubi_2/shou").set_hidden(hide)
-	
 func on_attack():
 	cur_blood = max(0, cur_blood - 35)
 	

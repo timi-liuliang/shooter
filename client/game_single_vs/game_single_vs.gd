@@ -125,8 +125,6 @@ func focus_player(idx):
 			camera.set_pos( camera.get_pos() + move_dir * move_len)
 	else:
 		add_weapon_to(idx)
-		players[idx].set_weapon_hidden(false)
-		get_node("weapon/arrow").set_hidden(true)
 		game_state = GameState.GS_WAIT_FOR_AIM
 
 func wait_for_aim(idx):
@@ -164,7 +162,6 @@ func main_player_aim(delta, idx):
 		
 	if !Input.is_action_pressed("touch"):
 		var player = players[idx]
-		player.set_weapon_hidden(true)
 		get_node("weapon/arrow").set_hidden(false)
 		get_node("aiming_sight").set_hidden(true)
 		
@@ -204,7 +201,6 @@ func robot_player_aim(delta, idx):
 		
 	else:
 		var player = players[idx]
-		player.set_weapon_hidden(true)
 		get_node("weapon/arrow").set_hidden(false)
 		get_node("aiming_sight").set_hidden(true)
 		
