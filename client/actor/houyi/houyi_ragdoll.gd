@@ -20,6 +20,7 @@ func set_root(actor_root):
 func switch_to_rigid_mode():
 	for rb in rigidbodys:
 		rb.set_mode(RigidBody2D.MODE_RIGID)
+		rb.set_sleeping(false)
 
 func set_layer_mask(mask):
 	for rb in rigidbodys:

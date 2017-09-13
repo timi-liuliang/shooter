@@ -11,6 +11,16 @@ var physics_layer_mask = 0
 
 func _ready():
 	play_anim("idle")
+	set_process(true)
+	
+func _process(delta):
+	if has_node("ragdoll"):
+		if !get_node("ragdoll").is_sleeping():
+			get_node("normal").set_hidden(true)
+		else:
+			var rdPos = get_node("ragdoll").get_global_pos()
+			set_pos(Vector2(rdPos.x, get_pos().y))
+			get_node("normal").set_hidden(false)
 
 func play_anim(anim):
 	if cur_anim != anim:
