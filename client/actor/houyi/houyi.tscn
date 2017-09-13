@@ -496,6 +496,7 @@ tracks/11/keys = {
 
 transform/pos = Vector2( 0, -29 )
 script/script = ExtResource( 1 )
+is_mirror = false
 
 [node name="normal" type="Node2D" parent="."]
 

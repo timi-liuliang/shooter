@@ -9,10 +9,14 @@ var hand_rot = 0.0
 var is_ragdoll_active = false
 var physics_collision_mask = 0
 var physics_layer_mask = 0
+export(bool) var is_mirror = false
 
 func _ready():
 	play_anim("idle")
 	set_process(true)
+	
+	if is_mirror:
+		get_node("normal").set_scale(Vector2(-1, 1))
 
 func _process(delta):
 	if is_ragdoll_active:
@@ -22,6 +26,7 @@ func _process(delta):
 func active_ragdoll():
 	is_ragdoll_active = true
 	get_node("normal").set_hidden(true)
+	get_node("ragdoll").set_hidden(false)
 	
 func deactive_ragdoll():
 	is_ragdoll_active = false
@@ -94,12 +99,9 @@ func is_sleeping():
 	
 func set_mode(mode):
 	pass
-
+	
 func is_mirror():
-	if get_scale().x > 0.0:
-		return false 
-	else:
-		return true
+	return is_mirror
 		
 func remove_ragdoll():
 	if has_node("ragdoll"):
@@ -108,9 +110,15 @@ func remove_ragdoll():
 func create_ragdoll():
 	remove_ragdoll()
 	
-	var ragdoll = load("res://actor/houyi/houyi_ragdoll.tscn").instance()
+	var ragdoll = null 
+	if is_mirror():
+		ragdoll = load("res://actor/houyi/houyi_ragdoll_mirror.tscn").instance()
+	else:
+		ragdoll = load("res://actor/houyi/houyi_ragdoll.tscn").instance()
+		
 	add_child(ragdoll)
 	ragdoll.set_root(self)
+	ragdoll.set_hidden(true)
 	ragdoll.set_layer_mask(physics_layer_mask)
 	ragdoll.set_collision_mask(physics_collision_mask)
 	

@@ -113,7 +113,16 @@ func create_ragdoll():
 	players[active_player_idx].remove_ragdoll()
 	players[next_player_idx()].create_ragdoll()
 	
+	# 显示距离
+	update_length_display()
+	
 	game_state = GameState.GS_FOCUS_PLAYER
+		
+func update_length_display():
+	var pos_0 = players[active_player_idx].get_focus_pos()
+	var pos_1 = players[next_player_idx()].get_focus_pos()
+	var len = (pos_1 - pos_0).length()
+	get_node("ui/distance").set_text(String(len/50.0))
 		
 func focus_player(idx):
 	var player_pos = players[idx].get_pos() + Vector2(0, -150)
@@ -284,6 +293,7 @@ func check_result():
 			weapon.set_hidden(true)
 		
 			# 箭摇尾
+			impulse.x = impulse.x * 2.0
 			collider.on_attack(offset, impulse*1600.0)
 			weapon.get_node("anim").play("attacked")
 			
@@ -306,6 +316,8 @@ func wait_physic_sleep():
 			active_player_idx = (active_player_idx + 1) % players.size() 	
 			game_state = GameState.GS_CREAT_RAGDOLL
 	else:
+		update_length_display()
+		
 		var player_pos = players[player_idx].get_focus_pos() + Vector2(0, -150)
 		var camera = get_node("camera")
 		if camera.get_pos()!= player_pos:

@@ -49,7 +49,7 @@ transform/pos = Vector2( 100, 452 )
 [node name="player_1" parent="." instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 1024, 452 )
-transform/scale = Vector2( -1, 1 )
+is_mirror = true
 
 [node name="weapon" type="Node2D" parent="."]
 
@@ -59,7 +59,6 @@ visibility/visible = false
 
 [node name="ui" type="CanvasLayer" parent="."]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -157,5 +156,22 @@ texture/over = null
 texture/progress = ExtResource( 10 )
 radial_fill/fill_degrees = 360.0
 radial_fill/center_offset = Vector2( 0, 0 )
+
+[node name="distance" type="Label" parent="ui"]
+
+rect/rotation = -11.2904
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 491.0
+margin/top = 506.0
+margin/right = 531.0
+margin/bottom = 543.0
+custom_fonts/font = ExtResource( 7 )
+text = "20"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

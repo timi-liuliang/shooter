@@ -10,7 +10,6 @@ func _ready():
 	rigidbodys.append(get_node("body/tui_2"))
 	rigidbodys.append(get_node("body/tui_2/jiao_2"))
 	rigidbodys.append(get_node("body/gebo_1"))
-	rigidbodys.append(get_node("body/gebo_1/shoubi_1"))
 	rigidbodys.append(get_node("body/gebo_2"))
 	rigidbodys.append(get_node("body/gebo_2/shoubi_2"))
 	
