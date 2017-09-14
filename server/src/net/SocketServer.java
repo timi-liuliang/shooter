@@ -4,6 +4,8 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -29,7 +31,7 @@ public class SocketServer {
 	
 	public static SocketServer inst;
 	public static int port;
-	
+	private static final Logger logger = LogManager.getLogger("socket server");
 	private NioEventLoopGroup bossGroup = new NioEventLoopGroup();
 	private NioEventLoopGroup workGroup = new NioEventLoopGroup();
 	
@@ -77,7 +79,7 @@ public class SocketServer {
 		try{
 			future = bootstrap.bind(port).sync();
 			if(future.isSuccess()){
-				app.logger().info(String.format("bind port %d succeed", port));
+				logger.info(String.format("bind port [%d] succeed", port));
 			}
 		}
 		catch(InterruptedException e){

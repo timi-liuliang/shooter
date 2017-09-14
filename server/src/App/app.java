@@ -4,6 +4,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import net.SocketServer;
 import org.apache.logging.log4j.Logger;
+
+import http.HttpServer;
+
 import org.apache.logging.log4j.LogManager;
 
 public class app {
@@ -36,6 +39,9 @@ public class app {
 		// Æô¶¯·þÎñ
 		SocketServer server = SocketServer.getInstance();
 		server.start();
+		
+		HttpServer httpServer = HttpServer.getInstance();
+		httpServer.start();
 	}
 	
 	public static Logger logger() {
