@@ -1,11 +1,11 @@
-package room;
+package manager.room;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import App.app;
-import player.Player;
+import manager.player.Player;
 
 class PlayerState{
 	protected long	  player;		// Íæ¼Òid

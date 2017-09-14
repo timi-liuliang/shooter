@@ -1,7 +1,7 @@
-package room;
+package manager.room;
 
 import io.netty.buffer.ByteBuf;
-import player.Player;
+import manager.player.Player;
 
 enum GameState{
 	GS_PREPARE,

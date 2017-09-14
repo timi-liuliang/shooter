@@ -1,4 +1,4 @@
-package http;
+package net.http;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -15,6 +15,8 @@ public class HttpServerInboundHandler extends ChannelInboundHandlerAdapter{
 	private static final Logger logger = LogManager.getLogger("HttpInHandlerImp");
 	
 	public void channelRead(final ChannelHandlerContext ctx, final Object msg) throws Exception {
+		logger.info("received msg");
+		
 		DefaultFullHttpRequest req = (DefaultFullHttpRequest)msg;
 		if(req.getMethod() == HttpMethod.GET) {
 			handleHttpGet(ctx, req);

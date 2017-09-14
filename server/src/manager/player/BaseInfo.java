@@ -1,4 +1,4 @@
-package player;
+package manager.player;
 
 import io.netty.channel.ChannelHandlerContext;
 

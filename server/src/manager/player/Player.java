@@ -1,4 +1,4 @@
-package player;
+package manager.player;
 
 import db.db;
 import db.player_table;
@@ -16,8 +16,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import room.Room;
-import room.RoomMgr;
+import manager.room.Room;
+import manager.room.RoomMgr;
 
 class Info{
 	protected BaseInfo						baseInfo = null;

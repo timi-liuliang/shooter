@@ -1,4 +1,4 @@
-package http;
+package net.http;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;

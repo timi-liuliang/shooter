@@ -1,7 +1,7 @@
-package net;
+package net.socket;
 
 import io.netty.channel.ChannelHandlerContext;
-import player.Player;
+import manager.player.Player;
 
 interface ProtocolProcess {
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx);

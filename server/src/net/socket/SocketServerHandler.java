@@ -1,4 +1,4 @@
-package net;
+package net.socket;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;
@@ -76,7 +76,7 @@ public class SocketServerHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx)throws Exception {
 		// channel失效异常，客户端下线或者强制退出等触发。
-		player.Player.disconnectPlayer(ctx);
+		manager.player.Player.disconnectPlayer(ctx);
 		
 		app.logger().info(String.format("Disconnect from client"));
 		

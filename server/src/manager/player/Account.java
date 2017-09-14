@@ -1,4 +1,4 @@
-package player;
+package manager.player;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;

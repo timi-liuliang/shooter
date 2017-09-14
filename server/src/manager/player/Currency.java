@@ -1,4 +1,4 @@
-package player;
+package manager.player;
 
 public class Currency {
 	public int coins = 0;			// ½ğ±Ò

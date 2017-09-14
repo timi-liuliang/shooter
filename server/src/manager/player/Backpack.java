@@ -1,4 +1,4 @@
-package player;
+package manager.player;
 
 import java.util.ArrayList;
 import java.util.Collection;

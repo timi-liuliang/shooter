@@ -1,4 +1,4 @@
-package net;
+package net.socket;
 
 import java.util.Iterator;
 import java.util.Timer;

@@ -2,10 +2,10 @@ package App;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import net.SocketServer;
+import net.socket.SocketServer;
 import org.apache.logging.log4j.Logger;
 
-import http.HttpServer;
+import net.http.HttpServer;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -23,7 +23,7 @@ public class app {
 		dbSaveTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				player.Player.updateAll();
+				manager.player.Player.updateAll();
 			}
 		}, 5*1000, 5*1000);
 		
@@ -32,7 +32,7 @@ public class app {
 		roomUpdateTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
-				room.RoomMgr.update();
+				manager.room.RoomMgr.update();
 			}
 		}, 0, 1000);
 		
