@@ -10,33 +10,17 @@ func _process(delta):
 		get_tree().get_root().add_child(global)
 		
 		update_coin_num_display()
-
-func _on_play_pressed():
-	get_node("/root/global").set_scene("res://game_single/game_single.tscn")
-
-func _on_wechat_pressed():
-	get_node("/root/wechat").send_msg()
-
-func _on_vs_pressed():
-	get_node("/root/global").set_scene("res://game_single_vs/game_single_vs.tscn")
-
-# 快速匹配
-func _on_vs_online_pressed():
-	# 当前是否有ID
-	get_node("/root/network").set_target_net_state(3)
 	
 func update_coin_num_display():
 	var data = get_node("/root/player")
-	get_node("ui/jinbi/Label").set_text(String(data.get_coin_num()))
-
-
-func _on_paihangpang_pressed():
-	get_node("/root/network").send_ranking_request()
+	get_node("ui/common/jinbi/Label").set_text(String(data.get_coin_num()))
 	
 func on_loaded_rakinglist(msg):
 	var dict = {}
 	if(dict.parse_json(msg.ranking)==OK):
-		print(msg.ranking)
+		get_node("ui/main").set_hidden(true)
+		get_node("ui/ranking").set_hidden(false)
+		get_node("ui/ranking").refresh_display(dict)
 	else:
 		print("Dictionary parse failed")
 

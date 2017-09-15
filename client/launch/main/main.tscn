@@ -1,0 +1,272 @@
+[gd_scene load_steps=11 format=1]
+
+[ext_resource path="res://launch/main/main.gd" type="Script" id=1]
+[ext_resource path="res://launch/ui/tiaozhanmoshi.png" type="Texture" id=2]
+[ext_resource path="res://launch/ui/renjimoshi.png" type="Texture" id=3]
+[ext_resource path="res://launch/ui/lianwangduizhan.png" type="Texture" id=4]
+[ext_resource path="res://launch/ui/beijingse.png" type="Texture" id=5]
+[ext_resource path="res://launch/ui/yingxiong.png" type="Texture" id=6]
+[ext_resource path="res://launch/ui/paihangpang.png" type="Texture" id=7]
+[ext_resource path="res://launch/ui/chengjiu.png" type="Texture" id=8]
+[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://launch/ui/chat.png" type="Texture" id=10]
+
+[node name="main" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 984.0
+margin/bottom = 560.0
+script/script = ExtResource( 1 )
+
+[node name="bg" type="TextureFrame" parent="."]
+
+editor/display_folded = true
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 11.0
+margin/top = -12.0
+margin/right = -1014.0
+margin/bottom = -358.0
+expand = true
+stretch_mode = 0
+
+[node name="play" type="TextureButton" parent="bg"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+rect/scale = Vector2( 1.06395, 1.06395 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 400.5
+margin/top = 95.0
+margin/right = 197.5
+margin/bottom = -152.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 2 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="vs" type="TextureButton" parent="bg"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+rect/scale = Vector2( 1.0414, 1.0414 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 101.5
+margin/top = 95.0
+margin/right = -101.5
+margin/bottom = -152.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 3 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="vs_online" type="TextureButton" parent="bg"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+rect/scale = Vector2( 1.0414, 1.0414 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -184.5
+margin/top = 95.0
+margin/right = -387.5
+margin/bottom = -152.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 4 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="bottom_bar" type="Control" parent="."]
+
+editor/display_folded = true
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 1
+size_flags/vertical = 1
+size_flags/stretch_ratio = 28.0
+margin/left = 0.0
+margin/top = -441.0
+margin/right = 0.0
+margin/bottom = -559.0
+
+[node name="bg_left" type="TextureFrame" parent="bottom_bar"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -512.0
+margin/top = 0.0
+margin/right = 512.0
+margin/bottom = 118.0
+texture = ExtResource( 5 )
+stretch_mode = 0
+
+[node name="bg_right" type="TextureFrame" parent="bottom_bar"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 512.0
+margin/top = 0.0
+margin/right = 1536.0
+margin/bottom = 118.0
+texture = ExtResource( 5 )
+stretch_mode = 0
+
+[node name="yinxiong" type="TextureButton" parent="bottom_bar"]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -651.0
+margin/top = 100.0
+margin/right = -731.0
+margin/bottom = 15.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 6 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="paihangpang" type="TextureButton" parent="bottom_bar"]
+
+anchor/left = 1
+anchor/top = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -751.0
+margin/top = 100.0
+margin/right = -831.0
+margin/bottom = 15.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 7 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="chengjiu" type="TextureButton" parent="bottom_bar"]
+
+anchor/left = 1
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -851.0
+margin/top = 18.0
+margin/right = -931.0
+margin/bottom = 15.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 8 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="ui_anim" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
+
+[node name="wechat" type="Button" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 223.0
+margin/top = 31.0
+margin/right = 353.0
+margin/bottom = 84.0
+custom_fonts/font = ExtResource( 9 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Wechat"
+flat = false
+
+[node name="chat" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1.0
+margin/top = 229.0
+margin/right = 28.0
+margin/bottom = 334.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 10 )
+params/resize_mode = 0
+params/scale = Vector2( 1.5, 1.5 )
+params/stretch_mode = 0
+
+[connection signal="pressed" from="bg/play" to="." method="_on_play_pressed"]
+
+[connection signal="pressed" from="bg/vs" to="." method="_on_vs_pressed"]
+
+[connection signal="pressed" from="bg/vs_online" to="." method="_on_vs_online_pressed"]
+
+[connection signal="pressed" from="bottom_bar/paihangpang" to="." method="_on_paihangpang_pressed"]
+
+[connection signal="pressed" from="wechat" to="." method="_on_wechat_pressed"]
+
+
