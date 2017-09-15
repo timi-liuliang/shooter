@@ -8,7 +8,7 @@ public class search_room_end extends message {
 	@Override
 
 	public int id(){
-		 return 26;
+		 return 28;
 	}
 
 	@Override

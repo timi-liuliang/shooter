@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 
 import App.app;
 import db.db;
+import io.netty.channel.ChannelHandlerContext;
 
 class HigherChuangGuanScore{
 	protected long		account;
@@ -21,6 +25,10 @@ class HigherChuangGuanScore{
 	}
 }
 
+class RankingResult{
+	public String type = "";
+	public ArrayList<HigherChuangGuanScore> data = new ArrayList<HigherChuangGuanScore>();
+}
 
 class ChuangGuanScoreRanking{
 	private int			lowestScore = 0;
@@ -71,10 +79,22 @@ class ChuangGuanScoreRanking{
 			scoreRanking.remove(scoreRanking.size()-1);
 		}
 	}
+	
+	public RankingResult getList(int start, int end){
+		RankingResult result = new RankingResult();
+		result.type = "max_score";
+		
+		for(int i=start; i<end && i<scoreRanking.size(); i++){
+			result.data.add(scoreRanking.get(i));
+		}
+		
+		return result;
+	}
 }
 
 public class RankingMgr {
 	private static RankingMgr inst = null;
+	private static final Logger logger = LogManager.getLogger("ranking");
 	public ChuangGuanScoreRanking higerChuangGuanRanking = new ChuangGuanScoreRanking();
 	
 	public static RankingMgr getInstance() {
@@ -90,9 +110,15 @@ public class RankingMgr {
 		higerChuangGuanRanking.onChuangGuanScoreChanged(account, name, score);
 	}
 	
-	public void refreshJson() {
+	public void onRequestRanking(ChannelHandlerContext channelCtx) {
+		Gson gson = new Gson();	
+		String json = gson.toJson(higerChuangGuanRanking.getList(0, 9));
 		
+		protocol.ranking_response msg = new protocol.ranking_response();
+		msg.ranking = json;
+		channelCtx.write(msg.data());
 	}
+	
 	
 	public String getRankingInJson() {
 		Gson gson = new Gson();	

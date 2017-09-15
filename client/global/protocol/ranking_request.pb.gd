@@ -5,10 +5,10 @@ func _ready():
 	pass
 
 func name():
-	return 'search_room_begin'
+	return 'ranking_request'
 
 func id():
-	return 27
+	return 23
 
 func length():
 	return 0 ;

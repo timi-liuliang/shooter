@@ -9,7 +9,7 @@ public class search_room_result extends message {
 	@Override
 
 	public int id(){
-		 return 27;
+		 return 29;
 	}
 
 	@Override

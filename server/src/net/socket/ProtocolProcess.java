@@ -2,6 +2,7 @@ package net.socket;
 
 import io.netty.channel.ChannelHandlerContext;
 import manager.player.Player;
+import manager.ranking.RankingMgr;
 
 interface ProtocolProcess {
 	public void on_accept(protocol.message proto, ChannelHandlerContext ctx);
@@ -18,6 +19,7 @@ interface ProtocolProcess {
 		SocketServerHandler.bind(new protocol.battle_player_blood(), new battle_player_blood_process());
 		SocketServerHandler.bind(new protocol.battle_sync_aim_degree(), new battle_sync_aim_degree_process());
 		SocketServerHandler.bind(new protocol.max_score(), new max_score_process());
+		SocketServerHandler.bind(new protocol.ranking_request(), new ranking_request_process());
 		
 		// Unused
 		//SocketServerHandler.bind(new protocol.collect_item(), new collect_item_process());
@@ -131,7 +133,12 @@ class max_score_process implements ProtocolProcess{
 	}
 }
 
-
+class ranking_request_process implements ProtocolProcess{
+	@Override
+	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {		
+		RankingMgr.getInstance().onRequestRanking(ctx);
+	}
+}
 
 
 class collect_item_process implements ProtocolProcess{

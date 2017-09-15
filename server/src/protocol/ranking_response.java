@@ -3,27 +3,25 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class register_result extends message {
+public class ranking_response extends message {
 
-	public int account = 0;
-	public int result = 0;
+	public String ranking = "";
 	@Override
 
 	public int id(){
-		 return 26;
+		 return 24;
 	}
 
 	@Override
 	public int length(){
-		 return 8 ;
+		 return 4 +ranking.length();
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		byteBuffer.writeInt(account);
-		byteBuffer.writeInt(result);
+		write_string(byteBuffer, ranking);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -31,7 +29,6 @@ public class register_result extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		account = byteBuffer.readInt();
-		result = byteBuffer.readInt();
+		ranking = read_string(byteBuffer);
 	}
 }

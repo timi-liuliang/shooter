@@ -227,6 +227,11 @@ func send_max_score(max_score):
 		var max_score_msg = preload("res://global/protocol/max_score.pb.gd").new()
 		max_score_msg.max_score = max_score
 		max_score_msg.send(streamPeerTCP)
+		
+func send_ranking_request():
+	if streamPeerTCP.is_connected():
+		var msg = preload("res://global/protocol/ranking_request.pb.gd").new()
+		msg.send(streamPeerTCP)
 
 func bind_msgs():
 	bind(preload("res://global/protocol/register_result.pb.gd"))
@@ -242,6 +247,7 @@ func bind_msgs():
 	bind(preload("res://global/protocol/battle_player_shoot.pb.gd"))
 	bind(preload("res://global/protocol/battle_player_shoot_result.pb.gd"))
 	bind(preload("res://global/protocol/battle_sync_aim_degree.pb.gd"))
+	bind(preload("res://global/protocol/ranking_response.pb.gd"))
 	
 	bind(preload("res://global/protocol/backpack_num.pb.gd"))
 	bind(preload("res://global/protocol/backpack_cell.pb.gd"))
@@ -334,6 +340,10 @@ func on_msg_battle_player_relogin(msg):
 	if !has_node("/root/game"):
 		get_node("/root/global").set_scene("res://game_multi_vs/game_multi_vs.tscn")
 		get_node("/root/game").on_msg_battle_player_relogin(msg)
+		
+func on_msg_ranking_response(msg):
+	if has_node("/root/launch"):
+		get_node("/root/launch").on_loaded_rakinglist(msg)
 			
 func on_msg_backpack_num( msg):
 	get_tree().get_root().get_node("level/ui/little bag").set_slot_size(msg.num)

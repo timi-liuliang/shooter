@@ -28,3 +28,15 @@ func _on_vs_online_pressed():
 func update_coin_num_display():
 	var data = get_node("/root/player")
 	get_node("ui/jinbi/Label").set_text(String(data.get_coin_num()))
+
+
+func _on_paihangpang_pressed():
+	get_node("/root/network").send_ranking_request()
+	
+func on_loaded_rakinglist(msg):
+	var dict = {}
+	if(dict.parse_json(msg.ranking)==OK):
+		print(msg.ranking)
+	else:
+		print("Dictionary parse failed")
+

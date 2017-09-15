@@ -161,7 +161,6 @@ params/stretch_mode = 0
 
 [node name="bottom_bar" type="Control" parent="ui"]
 
-editor/display_folded = true
 anchor/top = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -314,6 +313,8 @@ params/stretch_mode = 0
 [connection signal="pressed" from="ui/bg/vs" to="." method="_on_vs_pressed"]
 
 [connection signal="pressed" from="ui/bg/vs_online" to="." method="_on_vs_online_pressed"]
+
+[connection signal="pressed" from="ui/bottom_bar/paihangpang" to="." method="_on_paihangpang_pressed"]
 
 [connection signal="pressed" from="ui/wechat" to="." method="_on_wechat_pressed"]
 
