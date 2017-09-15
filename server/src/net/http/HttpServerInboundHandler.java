@@ -18,6 +18,7 @@ import io.netty.handler.codec.http.HttpVersion;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.util.CharsetUtil;
 import manager.player.Player;
+import manager.ranking.RankingMgr;
 import manager.room.RoomMgr;
 
 import org.apache.logging.log4j.LogManager;
@@ -48,15 +49,25 @@ public class HttpServerInboundHandler extends SimpleChannelInboundHandler<FullHt
 		
 		if(uri.equals("/state")) {
 			String sendMsg = String.format("Rooms number [%d]\nPlayers number[%d]", RoomMgr.rooms.size(), Player.players.size());
-			ByteBuf content = Unpooled.copiedBuffer(sendMsg, CharsetUtil.UTF_8);
+
+			writeJson(ctx, sendMsg);
+		}
+		else if(uri.equals("/ranking")) {
+			String sendMsg = RankingMgr.getInstance().getRankingInJson();
 			
-			DefaultFullHttpResponse msg = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
-			msg.headers().set(HttpHeaders.Names.CONTENT_TYPE, "application/json; charset=utf-8");
-			msg.headers().set(HttpHeaders.Names.CONTENT_LENGTH, msg.content().readableBytes());
-			ctx.write(msg).addListener(ChannelFutureListener.CLOSE);
-			ctx.flush();
+			writeJson(ctx, sendMsg);
 		}
 		
+	}
+	
+	private void writeJson(ChannelHandlerContext ctx, String sendMsg) {
+		ByteBuf content = Unpooled.copiedBuffer(sendMsg, CharsetUtil.UTF_8);
+		
+		DefaultFullHttpResponse msg = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
+		msg.headers().set(HttpHeaders.Names.CONTENT_TYPE, "application/json; charset=utf-8");
+		msg.headers().set(HttpHeaders.Names.CONTENT_LENGTH, msg.content().readableBytes());
+		ctx.write(msg).addListener(ChannelFutureListener.CLOSE);
+		ctx.flush();
 	}
 	
 	private void handleHttpPost(ChannelHandlerContext ctx, FullHttpRequest request) {

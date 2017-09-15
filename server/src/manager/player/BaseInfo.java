@@ -7,6 +7,7 @@ public class BaseInfo {
 	protected int		gameTime = 0;
 	protected int		curBlood = 50;
 	protected int		maxBlood = 50;
+	protected int		maxScore = 0;
 	
 	public void onAttacked(int damage) {
 		curBlood = Math.min(Math.max(curBlood - damage, 0), maxBlood);
@@ -33,5 +34,14 @@ public class BaseInfo {
 		protocol.game_time bp_cell = new protocol.game_time();
 		bp_cell.time = gameTime;
 		ctx.write(bp_cell.data());
+	}
+	
+	public boolean onNewMaxScore(int score) {
+		//if (score>maxScore) {
+		//	maxScore = score;
+			return true;
+		//}
+		
+		//return false;
 	}
 }

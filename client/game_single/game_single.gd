@@ -72,7 +72,7 @@ func _process(delta):
 	elif game_state == GameState.GS_Failing:
 		failing()
 	elif game_state == GameState.GS_Failed:
-		failed()	
+		failed()
 	
 func prepare():
 	if Input.is_action_pressed("touch"):
@@ -293,3 +293,4 @@ func failing():
 	
 func failed():
 	get_node("ui/game_over").set_hidden(false)
+	get_node("/root/player").on_get_new_cgmode_max_score(score)

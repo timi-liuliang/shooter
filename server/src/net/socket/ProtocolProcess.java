@@ -17,6 +17,7 @@ interface ProtocolProcess {
 		SocketServerHandler.bind(new protocol.battle_switch_turn(), new battle_switch_turn_process());
 		SocketServerHandler.bind(new protocol.battle_player_blood(), new battle_player_blood_process());
 		SocketServerHandler.bind(new protocol.battle_sync_aim_degree(), new battle_sync_aim_degree_process());
+		SocketServerHandler.bind(new protocol.max_score(), new max_score_process());
 		
 		// Unused
 		//SocketServerHandler.bind(new protocol.collect_item(), new collect_item_process());
@@ -120,7 +121,15 @@ class battle_sync_aim_degree_process implements ProtocolProcess{
 	}
 }
 
-
+class max_score_process implements ProtocolProcess{
+	@Override
+	public void on_accept(protocol.message proto, ChannelHandlerContext ctx) {	
+		Player player = Player.get(ctx);
+		protocol.max_score msg = (protocol.max_score)proto;
+		
+		player.on_new_max_score(msg);
+	}
+}
 
 
 

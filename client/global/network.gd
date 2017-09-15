@@ -18,6 +18,7 @@ var time_out = -1
 var cur_net_state = NetState.DISCONNECTED
 var target_net_state = NetState.LOGINED
 var nonHeartBeatTime = 0.0
+var net_heart_beat = 0.0
 var send_heart_beat_time = 0.0
 var ping_time = 0.0
 
@@ -41,6 +42,11 @@ func _process(delta):
 		cur_net_state = NetState.DISCONNECTED
 		
 	update_net_state(delta)
+	
+	net_heart_beat += delta
+	if net_heart_beat > 5.0:
+		get_node("/root/network").send_heart_beat()
+		net_heart_beat = 0.0	
 		
 func update_net_state(delta):
 	if cur_net_state < target_net_state:
@@ -215,6 +221,12 @@ func on_attacked(damage):
 		var on_attacked_msg = preload("res://global/protocol/on_attacked.pb.gd").new()
 		on_attacked_msg.damage = damage
 		on_attacked_msg.send(streamPeerTCP)
+		
+func send_max_score(max_score):
+	if streamPeerTCP.is_connected():
+		var max_score_msg = preload("res://global/protocol/max_score.pb.gd").new()
+		max_score_msg.max_score = max_score
+		max_score_msg.send(streamPeerTCP)
 
 func bind_msgs():
 	bind(preload("res://global/protocol/register_result.pb.gd"))

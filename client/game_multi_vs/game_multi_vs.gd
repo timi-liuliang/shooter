@@ -95,7 +95,6 @@ func _process(delta):
 		
 	net_heart_beat += delta
 	if net_heart_beat > 5.0:
-		get_node("/root/network").send_heart_beat()
 		net_heart_beat = 0.0
 		
 		var ping = get_node("/root/network").get_ping_value()

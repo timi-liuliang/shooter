@@ -16,6 +16,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import manager.ranking.RankingMgr;
 import manager.room.Room;
 import manager.room.RoomMgr;
 
@@ -261,6 +263,12 @@ public class Player {
 		Room room = RoomMgr.instance().getRoom(get_id());
 		if(room!=null) {
 			room.on_battle_sync_aim_degree(get_id(), msg);
+		}
+	}
+	
+	public void on_new_max_score(protocol.max_score msg) {
+		if(info.baseInfo.onNewMaxScore( msg.max_score)) {
+			RankingMgr.getInstance().onChuangGuanScoreChanged( table.account, info.baseInfo.name, msg.max_score);
 		}
 	}
 	

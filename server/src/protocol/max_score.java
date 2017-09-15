@@ -3,27 +3,25 @@ package protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-public class player_info extends message {
+public class max_score extends message {
 
-	public long player = 0;
-	public String name = "";
+	public int max_score = 0;
 	@Override
 
 	public int id(){
-		 return 22;
+		 return 19;
 	}
 
 	@Override
 	public int length(){
-		 return 12 +name.length();
+		 return 4 ;
 	}
 
 	public ByteBuf data(){
 		ByteBuf byteBuffer = Unpooled.buffer(8+length());
 		byteBuffer.writeInt(id());
 		byteBuffer.writeInt(length());
-		byteBuffer.writeLong(player);
-		write_string(byteBuffer, name);
+		byteBuffer.writeInt(max_score);
 		byteBuffer.writeByte(64);
 		byteBuffer.writeByte(64);
 		return byteBuffer;
@@ -31,7 +29,6 @@ public class player_info extends message {
 
 	@Override
 	public void parse_data(ByteBuf byteBuffer){
-		player = byteBuffer.readLong();
-		name = read_string(byteBuffer);
+		max_score = byteBuffer.readInt();
 	}
 }
