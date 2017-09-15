@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="jar/dom4j-2.0.1.jar"/>
 	<classpathentry kind="lib" path="jar/gson-2.8.1.jar"/>
 	<classpathentry kind="lib" path="jar/netty-all-4.1.13.Final-sources.jar"/>
-	<classpathentry kind="lib" path="jar/netty-all-4.1.13.Final.jar"/>
+	<classpathentry kind="lib" path="jar/netty-all-4.1.13.Final.jar" sourcepath="jar/netty-all-4.1.13.Final-sources.jar"/>
 	<classpathentry kind="lib" path="jar/postgresql-42.1.1.jar"/>
 	<classpathentry kind="lib" path="jar/log4j-core-2.8.2-javadoc.jar"/>
 	<classpathentry kind="lib" path="jar/log4j-core-2.8.2-sources.jar"/>
