@@ -221,7 +221,7 @@ public class db {
 		try{	
 			Statement st = con.createStatement();
 			
-			String sql = String.format("SELECT * FROM global WHERE key=\'\';", key);
+			String sql = String.format("SELECT * FROM global WHERE key=\'%s\';", key);
 			ResultSet rs = st.executeQuery(sql);
 			if(rs.next()) {
 				result  = rs.getString("value");

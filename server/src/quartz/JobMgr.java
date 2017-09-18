@@ -30,7 +30,6 @@ public class JobMgr {
 			@Override
 			public void run() {
 				manager.player.Player.updateAll();
-				manager.ranking.RankingMgr.getInstance().saveToDB();
 			}
 		}, 5*1000, 5*1000);
 		
@@ -42,5 +41,14 @@ public class JobMgr {
 				manager.room.RoomMgr.update();
 			}
 		}, 0, 1000);
+		
+		// 数据保存计时器
+		Timer rdSaveTimer = new Timer();
+		rdSaveTimer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				manager.ranking.RankingMgr.getInstance().saveToDB();
+			}
+		}, 300*1000, 300*1000);
 	}
 }

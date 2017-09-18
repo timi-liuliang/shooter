@@ -32,7 +32,7 @@ class RankingResult{
 
 class ChuangGuanScoreRanking{
 	private int			lowestScore = 0;
-	private int			rankingSize  = 1000;
+	private int			rankingSize  = 200;
 	public ArrayList<HigherChuangGuanScore> scoreRanking = new ArrayList<HigherChuangGuanScore>();
 	
 	
@@ -133,12 +133,18 @@ public class RankingMgr {
 		String json = gson.toJson(higerChuangGuanRanking);	
 		
 		db.instance().saveGlobalKeyValue("higerChuangGuanRanking", json);
+		
+		logger.info(String.format("save ranking data to db [%s]", json));
 	}
 	
 	public void loadFromDB() {
 		String value = db.instance().getGlobalValue( "higerChuangGuanRanking");
 		
-		Gson gson = new Gson();
-		higerChuangGuanRanking = gson.fromJson( value, ChuangGuanScoreRanking.class);
+		if(!value.isEmpty()) {
+			Gson gson = new Gson();
+			higerChuangGuanRanking = gson.fromJson( value, ChuangGuanScoreRanking.class);
+			
+			logger.info(String.format("load ranking data from db [%s]", value));
+		}
 	}
 }

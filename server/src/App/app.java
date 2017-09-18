@@ -7,6 +7,7 @@ import quartz.JobMgr;
 
 import org.apache.logging.log4j.Logger;
 
+import manager.ranking.RankingMgr;
 import net.http.HttpServer;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,6 +27,9 @@ public class app {
 		
 		// 开启定时任务
 		JobMgr.getInstance().startJobs();
+		
+		// 排行榜
+		RankingMgr.getInstance();
 		
 		// 启动服务
 		SocketServer server = SocketServer.getInstance();
