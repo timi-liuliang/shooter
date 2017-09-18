@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>shooter</string>
+	<string>箭士</string>
 	<key>CFBundleExecutable</key>
 	<string>godot_opt.iphone</string>
 	<key>CFBundleIcons</key>
