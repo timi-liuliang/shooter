@@ -18,3 +18,7 @@ func refresh_display(dict):
 		item.set(account, name, score)
 		boxContainer.add_child(item)
 		
+
+
+func _on_return_pressed():
+	get_node("/root/launch").show("main")

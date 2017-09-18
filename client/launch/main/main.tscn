@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://launch/main/main.gd" type="Script" id=1]
 [ext_resource path="res://launch/ui/tiaozhanmoshi.png" type="Texture" id=2]
@@ -7,9 +7,8 @@
 [ext_resource path="res://launch/ui/beijingse.png" type="Texture" id=5]
 [ext_resource path="res://launch/ui/yingxiong.png" type="Texture" id=6]
 [ext_resource path="res://launch/ui/paihangpang.png" type="Texture" id=7]
-[ext_resource path="res://launch/ui/chengjiu.png" type="Texture" id=8]
-[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=9]
-[ext_resource path="res://launch/ui/chat.png" type="Texture" id=10]
+[ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=8]
+[ext_resource path="res://launch/ui/chat.png" type="Texture" id=9]
 
 [node name="main" type="Control"]
 
@@ -111,7 +110,6 @@ params/stretch_mode = 0
 
 [node name="bottom_bar" type="Control" parent="."]
 
-editor/display_folded = true
 anchor/top = 1
 anchor/right = 1
 anchor/bottom = 1
@@ -161,9 +159,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -651.0
+margin/left = -759.0
 margin/top = 100.0
-margin/right = -731.0
+margin/right = -839.0
 margin/bottom = 15.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -182,34 +180,14 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -751.0
+margin/left = -859.0
 margin/top = 100.0
-margin/right = -831.0
+margin/right = -939.0
 margin/bottom = 15.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 textures/normal = ExtResource( 7 )
-params/resize_mode = 0
-params/stretch_mode = 0
-
-[node name="chengjiu" type="TextureButton" parent="bottom_bar"]
-
-anchor/left = 1
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = -851.0
-margin/top = 18.0
-margin/right = -931.0
-margin/bottom = 15.0
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-textures/normal = ExtResource( 8 )
 params/resize_mode = 0
 params/stretch_mode = 0
 
@@ -234,7 +212,7 @@ margin/left = 223.0
 margin/top = 31.0
 margin/right = 353.0
 margin/bottom = 84.0
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 8 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -254,7 +232,7 @@ margin/bottom = 334.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
-textures/normal = ExtResource( 10 )
+textures/normal = ExtResource( 9 )
 params/resize_mode = 0
 params/scale = Vector2( 1.5, 1.5 )
 params/stretch_mode = 0
