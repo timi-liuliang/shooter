@@ -100,6 +100,7 @@ public class RankingMgr {
 	public static RankingMgr getInstance() {
 		if(inst==null) {
 			inst = new RankingMgr();
+			inst.loadFromDB();
 		}
 		
 		return inst;
@@ -128,18 +129,16 @@ public class RankingMgr {
 	}
 	
 	public void saveToDB() {
-//		mAccount.saveToDB();
+		Gson gson = new Gson();
+		String json = gson.toJson(higerChuangGuanRanking);	
 		
-//		if(refreshPlayerToJson()) {
-//			db.instance().savePlayer(table.player, table.info);
-//			app.logger().info(String.format("account [%s] player [%d] save to db", table.account, table.player));
-//		}
+		db.instance().saveGlobalKeyValue("higerChuangGuanRanking", json);
 	}
 	
 	public void loadFromDB() {
-//		table = db.instance().getPlayerTable( mAccount.table.account);
+		String value = db.instance().getGlobalValue( "higerChuangGuanRanking");
 		
-//		Gson gson = new Gson();
-//		info = gson.fromJson( table.info, Info.class);
+		Gson gson = new Gson();
+		higerChuangGuanRanking = gson.fromJson( value, ChuangGuanScoreRanking.class);
 	}
 }

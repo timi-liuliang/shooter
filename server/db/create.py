@@ -65,3 +65,4 @@ def createTable(tableName, sqlCMD):
 #createDB()
 createTable('account', '(account BIGSERIAL PRIMARY KEY, password VARCHAR(128), info JSONB)')
 createTable('player', '(player BIGSERIAL PRIMARY KEY, account BIGINT, info JSONB)')
+createTable('global', '(key VARCHAR(128) PRIMARY KEY, value JSONB)')

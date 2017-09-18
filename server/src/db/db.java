@@ -199,4 +199,40 @@ public class db {
 		
 		return table;
 	}
+	
+	
+	public void saveGlobalKeyValue(String key, String json) {
+		try {
+			Statement st = con.createStatement();
+			
+			String sql = String.format("INSERT INTO global(key,value) VALUES(\'%s\',\'%s\') ON conflict(key) DO UPDATE SET value=\'%s\';", key, json, json);
+			
+			st.executeUpdate(sql);
+			st.close();
+			
+		}catch(Exception e) {
+			
+		}
+	}
+	
+	// 根据邮箱密码新建账号
+	public String getGlobalValue(String key) {
+		String result = "";
+		try{	
+			Statement st = con.createStatement();
+			
+			String sql = String.format("SELECT * FROM global WHERE key=\'\';", key);
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) {
+				result  = rs.getString("value");
+			}
+			rs.close();
+			st.close();
+					
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

@@ -3,6 +3,8 @@ package App;
 import java.util.Timer;
 import java.util.TimerTask;
 import net.socket.SocketServer;
+import quartz.JobMgr;
+
 import org.apache.logging.log4j.Logger;
 
 import net.http.HttpServer;
@@ -18,23 +20,12 @@ public class app {
 		logger.info("|Start server|");
 		logger.info("--------------");
 		
-		// 数据保存计时器
-		Timer dbSaveTimer = new Timer();
-		dbSaveTimer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				manager.player.Player.updateAll();
-			}
-		}, 5*1000, 5*1000);
+		// 程序终止处理
+		KillHandler killHandler = new KillHandler();
+		killHandler.registerSignal("TERM");
 		
-		// 战场更新计时器
-		Timer roomUpdateTimer = new Timer();
-		roomUpdateTimer.scheduleAtFixedRate(new TimerTask() {
-			@Override
-			public void run() {
-				manager.room.RoomMgr.update();
-			}
-		}, 0, 1000);
+		// 开启定时任务
+		JobMgr.getInstance().startJobs();
 		
 		// 启动服务
 		SocketServer server = SocketServer.getInstance();
