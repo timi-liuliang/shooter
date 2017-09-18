@@ -151,6 +151,7 @@ stretch_mode = 0
 
 [node name="yinxiong" type="TextureButton" parent="bottom_bar"]
 
+visibility/visible = false
 anchor/left = 1
 anchor/top = 1
 anchor/right = 1
@@ -221,6 +222,7 @@ flat = false
 
 [node name="chat" type="TextureButton" parent="."]
 
+visibility/visible = false
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2

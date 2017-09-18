@@ -6,7 +6,6 @@
 
 [node name="common" type="Control"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -18,15 +17,16 @@ margin/bottom = 40.0
 
 [node name="zhuangshi" type="TextureButton" parent="."]
 
+visibility/visible = false
 anchor/left = 1
 anchor/right = 1
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -808.0
+margin/left = -630.0
 margin/top = 18.0
-margin/right = -969.0
+margin/right = -791.0
 margin/bottom = 58.0
 toggle_mode = false
 enabled_focus_mode = 2
@@ -44,9 +44,9 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -630.0
+margin/left = -808.0
 margin/top = 18.0
-margin/right = -791.0
+margin/right = -969.0
 margin/bottom = 66.0
 texture = ExtResource( 2 )
 stretch_mode = 0
