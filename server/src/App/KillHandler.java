@@ -16,7 +16,10 @@ public class KillHandler implements SignalHandler {
 	
 	@Override
 	public void handle(Signal signal) {
-		if(signal.getName().equals("TERM")) {
+		if( signal.getName().equals("TERM") ||		// (Kill -15)
+			signal.getName().equals("USR1") || 		// (Kill -10)
+			signal.getName().equals("USR2")) 		// (Kill -12)
+		{
 			logger.info("Server Terminal");
 			
 			logger.info("排名数据存储到DB");
