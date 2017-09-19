@@ -173,6 +173,16 @@ public class Player {
 		}
 	}
 	
+	public static void disconnectAll() {
+		// Æ¥Åä
+		while(id_player_map.size()>0) {
+			Iterator it = id_player_map.entrySet().iterator();
+			HashMap.Entry pair = (HashMap.Entry)it.next();
+			Player player = (Player) pair.getValue();
+			player.disconnect();
+		}
+	}
+	
 	public void disconnect() {
 		app.logger().info(String.format("Player [%d] offline, CurrentPlayers [%d]", table.player, players.size()-1));
 		
