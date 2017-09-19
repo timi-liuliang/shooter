@@ -20,10 +20,13 @@ public class KillHandler implements SignalHandler {
 			signal.getName().equals("USR1") || 		// (Kill -10)
 			signal.getName().equals("USR2")) 		// (Kill -12)
 		{
-			logger.info("Server Terminal");
+			logger.info("server close processing...");
 			
-			logger.info("排名数据存储到DB");
+			logger.info("save ranking data to db...");
 			manager.ranking.RankingMgr.getInstance().saveToDB();
+			
+			logger.info("server close finished");
+			System.exit(0);
 		}
 	}
 
