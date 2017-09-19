@@ -3,6 +3,7 @@ package net.socket;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,8 +33,8 @@ public class SocketServer {
 	public static SocketServer inst;
 	public static int port;
 	private static final Logger logger = LogManager.getLogger("socket server");
-	private NioEventLoopGroup bossGroup = new NioEventLoopGroup();
-	private NioEventLoopGroup workGroup = new NioEventLoopGroup();
+	private NioEventLoopGroup bossGroup = new NioEventLoopGroup(0, Executors.newCachedThreadPool());
+	private NioEventLoopGroup workGroup = new NioEventLoopGroup(0, Executors.newCachedThreadPool());
 	
 	private SocketServer() {
 	}

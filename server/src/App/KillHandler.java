@@ -28,11 +28,17 @@ public class KillHandler implements SignalHandler {
 			logger.info("shutdown http server");
 			net.http.HttpServer.getInstance().shut();
 			
+			logger.info("app stop update");
+			App.app.stopUpdate();
+			
 			logger.info("save ranking data to db...");
 			manager.ranking.RankingMgr.getInstance().saveToDB();
 			
 			logger.info("disconnect all players");
 			manager.player.Player.disconnectAll();
+			
+			logger.info("waiting multi thread task finish...");
+			App.app.waitExecutatServiceTerminated();
 			
 			logger.info("server close finished");
 			System.exit(0);

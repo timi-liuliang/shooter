@@ -12,6 +12,8 @@ import com.google.gson.Gson;
 import App.app;
 
 import java.util.Timer;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -36,15 +38,15 @@ class Info{
 }
 
 public class Player {
-	public static HashMap<Integer, Player>  players = new HashMap<Integer, Player>();
-	public static HashMap<Long, Player>	    id_player_map = new HashMap<Long, Player>();
+	public static ConcurrentHashMap<Integer, Player>  players = new ConcurrentHashMap<Integer, Player>();
+	public static ConcurrentHashMap<Long, Player>	    id_player_map = new ConcurrentHashMap<Long, Player>();
 	public ChannelHandlerContext 		   	mChannelCtx = null;
 	protected long							mLastTickTime = 0;
 	protected Account						mAccount = new Account();
 	protected player_table					table = new player_table();						// 玩家表信息
 	protected Info					   		info = new Info();	
-	protected float							nonHeartBeatTime = 0.f;
-	protected float							saveDBTime = 0.f;
+	protected long							nonHeartBeatTime = 0;
+	protected long							saveDBTime = 0;
 	protected static float					players_update_time = 0.f;
 
 	public Player(ChannelHandlerContext channelCtx) {
@@ -52,27 +54,21 @@ public class Player {
 		mChannelCtx = channelCtx;
 	}
 	
-	public static void updateAll() {
+	public static void updateAll(long delta) {
 		for(Player player : players.values()) {
-			player.update();
-		}
-		
-		players_update_time += 5.f;
-		if(players_update_time>60.f) {
-			players_update_time = 0.f;
-			app.logger().info(String.format("active players count [%d]", players.size()));
+			player.update(delta);
 		}
 	}
 	
-	public void update() {
-		saveDBTime += 5.f;
-		if (saveDBTime > 3000.f) {
-			saveToDB();
-			saveDBTime = 0.f;
+	public static void saveAllToDB() {
+		for(Player player : players.values()) {
+				player.saveToDB();
 		}
-		
-		nonHeartBeatTime += 5.f;
-		if(nonHeartBeatTime > 30.f) {
+	}
+	
+	public void update(long delta) {	
+		nonHeartBeatTime += delta;
+		if(nonHeartBeatTime > 30 * 1000) {
 			disconnectPlayer(mChannelCtx);
 		}
 	}
@@ -126,7 +122,7 @@ public class Player {
 	}
 	
 	public void on_heart_beat(ByteBuf msg) {
-		nonHeartBeatTime = 0.f;
+		nonHeartBeatTime = 0;
 		
 		mChannelCtx.write(msg);
 	}
@@ -232,12 +228,16 @@ public class Player {
 	}
 	
 	public void saveToDB() {
-		mAccount.saveToDB();
-		
-		if(refreshPlayerToJson()) {
-			db.instance().savePlayer(table.player, table.info);
-			app.logger().info(String.format("account [%s] player [%d] save to db", table.account, table.player));
-		}
+		App.app.addSaveToDBTask(new Runnable() {
+			public void run() {
+				mAccount.saveToDB();
+				
+				if(refreshPlayerToJson()) {
+					db.instance().savePlayer(table.player, table.info);
+					app.logger().info(String.format("account [%s] player [%d] save to db", table.account, table.player));
+				}
+			}
+		});
 	}
 	
 	public void loadFromDB() {

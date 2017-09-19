@@ -3,6 +3,7 @@ package manager.room;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.concurrent.ConcurrentHashMap;
 
 import App.app;
 import manager.player.Player;
@@ -19,10 +20,10 @@ class PlayerState{
 
 public class RoomMgr {
 	protected static RoomMgr inst = null;
-	public static HashMap<Integer, Room>  rooms 			= new HashMap<Integer, Room>();
-	public float 					   rooms_update_time = 0.f;
-	public HashMap<Long, PlayerState>  players_searching = new HashMap<Long, PlayerState>();
-	public HashMap<Long, PlayerState>  players_in_battle = new HashMap<Long, PlayerState>();
+	public static ConcurrentHashMap<Integer, Room>  rooms 			= new ConcurrentHashMap<Integer, Room>();
+	public static long 					   			rooms_update_time = 0;
+	public ConcurrentHashMap<Long, PlayerState>  players_searching = new ConcurrentHashMap<Long, PlayerState>();
+	public ConcurrentHashMap<Long, PlayerState>  players_in_battle = new ConcurrentHashMap<Long, PlayerState>();
 	
 	public static RoomMgr instance() {
 		if(inst==null)
@@ -31,8 +32,12 @@ public class RoomMgr {
 		return inst;
 	}
 	
-	public static void update(){
-		RoomMgr.instance().process(1.f);
+	public static void update(long delta){
+		rooms_update_time += delta;
+		if(rooms_update_time>1000) {
+			RoomMgr.instance().process(1.0f);
+			rooms_update_time -= 1000;
+		}
 	}
 	
 	public void process(float delta) {
@@ -55,12 +60,6 @@ public class RoomMgr {
 		while(it.hasNext()){
 			HashMap.Entry pair = (HashMap.Entry)it.next();
 			((Room) pair.getValue()).process(delta);
-		}
-		
-		rooms_update_time += delta;
-		if(rooms_update_time>60.f) {
-			app.logger().info(String.format("active battle field count[%d]", rooms.size()));
-			rooms_update_time = 0.0f;
 		}
 	}
 	
