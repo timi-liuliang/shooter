@@ -3,6 +3,8 @@ extends Node2D
 func _ready():
 	set_process(true)
 	
+	update_coin_num_display()
+	
 func _process(delta):
 	if !has_node("/root/global"):
 		var global = load("res://global/global.gd").new()
@@ -15,7 +17,8 @@ func _process(delta):
 	
 func update_coin_num_display():
 	var data = get_node("/root/player")
-	get_node("ui/common/jinbi/Label").set_text(String(data.get_coin_num()))
+	if data!=null:
+		get_node("ui/common/jinbi/Label").set_text(String(data.get_coin_num()))
 	
 func show( type):
 	if type=="ranking":
