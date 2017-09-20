@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=18 format=1]
 
 [ext_resource path="res://actor/houyi/houyi.gd" type="Script" id=1]
 [ext_resource path="res://actor/houyi/tui1.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://actor/houyi/qugan.png" type="Texture" id=10]
 [ext_resource path="res://actor/houyi/gebo_1.png" type="Texture" id=11]
 [ext_resource path="res://actor/houyi/shoubi1.png" type="Texture" id=12]
+[ext_resource path="res://sound/actor/foot_step_grass.smp" type="Sample" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -491,6 +492,25 @@ tracks/11/keys = {
 "update": 0,
 "values": [ -59.0165, -48.4225, -59.0165 ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("sound:play/play")
+tracks/12/interp = 1
+tracks/12/imported = false
+tracks/12/keys = {
+"times": FloatArray( 0, 0.3 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 2,
+"values": [ "foot_step_grass", "foot_step_grass" ]
+}
+
+[sub_resource type="SampleLibrary" id=4]
+
+samples/foot_step_grass = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 13 )
+}
 
 [node name="archer" type="Node2D"]
 
@@ -499,8 +519,6 @@ script/script = ExtResource( 1 )
 is_mirror = false
 
 [node name="normal" type="Node2D" parent="."]
-
-editor/display_folded = true
 
 [node name="anim" type="AnimationPlayer" parent="normal"]
 
@@ -518,42 +536,43 @@ autoplay = ""
 [node name="display" type="Node2D" parent="normal"]
 
 editor/display_folded = true
-transform/pos = Vector2( -14, -73 )
+transform/pos = Vector2( -14, -70.9504 )
 transform/scale = Vector2( 0.5, 0.5 )
 
 [node name="tui_1" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( 23.9394, 96.0032 )
-transform/rot = -6.29389
+transform/pos = Vector2( 19.8347, 100.125 )
+transform/rot = -3.26963
 texture = ExtResource( 2 )
 offset = Vector2( 8.08321, 17.996 )
 
 [node name="foot_right" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( 34.2731, 135.039 )
-transform/rot = -1.60352
+transform/pos = Vector2( 32.2134, 138.561 )
+transform/rot = -55.3111
+transform/scale = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 offset = Vector2( 7.72697, 29.8224 )
 
 [node name="tui_2" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( -1.99142, 106.379 )
-transform/rot = -8.1432
+transform/pos = Vector2( -8.2478, 104.643 )
+transform/rot = 14.2412
 texture = ExtResource( 4 )
 offset = Vector2( -0.102297, 11.3296 )
 
 [node name="foot_left" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( -4.33801, 134.496 )
-transform/rot = -15.3675
+transform/pos = Vector2( 1.41773, 130.06 )
+transform/rot = -40.8814
 texture = ExtResource( 5 )
 offset = Vector2( 10.4682, 30.7012 )
 
 [node name="gebo_2" type="Sprite" parent="normal/display"]
 
 editor/display_folded = true
-transform/pos = Vector2( 43.5049, 17.0723 )
-transform/rot = 61.9333
+transform/pos = Vector2( 58.9761, 30.3014 )
+transform/rot = 46.8075
 texture = ExtResource( 6 )
 offset = Vector2( 2.81158, 18.6166 )
 
@@ -585,8 +604,8 @@ transform/scale = Vector2( 2, 2 )
 
 [node name="body" type="Sprite" parent="normal/display"]
 
-transform/pos = Vector2( 16.249, 79.9813 )
-transform/rot = -2.96676
+transform/pos = Vector2( 16.249, 83.9188 )
+transform/rot = -18.0926
 texture = ExtResource( 10 )
 offset = Vector2( -22.7018, -79.9813 )
 
@@ -612,26 +631,37 @@ remote_path = NodePath("../../gebo_2")
 
 [node name="tui_1_remote" type="RemoteTransform2D" parent="normal/display/body"]
 
-transform/pos = Vector2( 8.50932, 15.6024 )
-transform/rot = -3.32713
+transform/pos = Vector2( 8.44139, 14.2917 )
+transform/rot = 14.823
 remote_path = NodePath("../../tui_1")
 
 [node name="foot_right_remote" type="RemoteTransform2D" parent="normal/display/body/tui_1_remote"]
 
 transform/pos = Vector2( 14.5508, 37.6674 )
-transform/rot = 4.69037
+transform/rot = -52.0414
 remote_path = NodePath("../../../foot_right")
 
 [node name="tui_2_remote" type="RemoteTransform2D" parent="normal/display/body"]
 
 transform/pos = Vector2( -16.8497, 27.3067 )
-transform/rot = -5.17644
+transform/rot = 32.3339
 remote_path = NodePath("../../tui_2")
 
 [node name="foot_left_remote" type="RemoteTransform2D" parent="normal/display/body/tui_2_remote"]
 
-transform/pos = Vector2( 1.65972, 28.1655 )
-transform/rot = -7.22429
+transform/pos = Vector2( 3.11564, 27.0142 )
+transform/rot = -55.1227
 remote_path = NodePath("../../../foot_left")
+
+[node name="sound" type="SamplePlayer2D" parent="normal"]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 4 )
+config/pitch_random = 0.0
 
 

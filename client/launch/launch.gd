@@ -10,6 +10,8 @@ func _process(delta):
 		get_tree().get_root().add_child(global)
 		
 		update_coin_num_display()
+		
+		get_node("/root/sound").play_music()
 	
 func update_coin_num_display():
 	var data = get_node("/root/player")

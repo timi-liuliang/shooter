@@ -48,3 +48,6 @@ func load_global_scripts():
 	viewport.set_name("viewport")
 	get_tree().get_root().add_child(viewport)
 	
+	var sound = preload("res://sound/sound.tscn").instance()
+	get_tree().get_root().add_child(sound)
+	

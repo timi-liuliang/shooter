@@ -4,6 +4,7 @@ func _ready():
 	pass
 
 func _on_play_pressed():
+	get_node("/root/sound").play_sound("button_press")
 	get_node("/root/global").set_scene("res://game_single/game_single.tscn")
 
 func _on_vs_pressed():
@@ -15,6 +16,7 @@ func _on_vs_online_pressed():
 	get_node("/root/network").set_target_net_state(3)
 
 func _on_paihangpang_pressed():
+	get_node("/root/sound").play_sound("button_press")
 	get_node("/root/network").send_ranking_request()
 	
 func _on_wechat_pressed():

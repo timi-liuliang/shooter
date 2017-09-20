@@ -17,8 +17,7 @@ func refresh_display(dict):
 		var item = preload("res://launch/ranking/item.tscn").instance()
 		item.set(account, name, score)
 		boxContainer.add_child(item)
-		
-
 
 func _on_return_pressed():
+	get_node("/root/sound").play_sound("button_press")
 	get_node("/root/launch").show("main")

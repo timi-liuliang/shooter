@@ -122,3 +122,5 @@ func create_ragdoll():
 	ragdoll.set_layer_mask(physics_layer_mask)
 	ragdoll.set_collision_mask(physics_collision_mask)
 	
+func shoot():
+	get_node("normal/sound").play("shoot")
