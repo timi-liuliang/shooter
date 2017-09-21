@@ -113,6 +113,7 @@ func aim(delta):
 		
 		# 抛物线
 		var weapon = get_node("weapon/arrow")
+		weapon.play_shoot_sound()
 		parabola.set(weapon.get_pos(), aim_degree, init_speed, Vector2(-wind_slow_down, gravity))
 		
 		game_state = GameState.GS_SHOOT

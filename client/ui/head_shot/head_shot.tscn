@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://ui/head_shot/head_shot.gd" type="Script" id=1]
 [ext_resource path="res://ui/fonts/comic_bold.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://sound/actor/head_shot.smp" type="Sample" id=3]
 
 [sub_resource type="Animation" id=1]
 
@@ -38,6 +39,25 @@ tracks/2/keys = {
 "transitions": FloatArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("sound:play/play")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0 ),
+"transitions": FloatArray( 1 ),
+"update": 2,
+"values": [ "head_shot" ]
+}
+
+[sub_resource type="SampleLibrary" id=2]
+
+samples/head_shot = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 3 )
 }
 
 [node name="head_shot" type="Control"]
@@ -84,5 +104,16 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = ""
+
+[node name="sound" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 2 )
+config/pitch_random = 0.0
 
 
