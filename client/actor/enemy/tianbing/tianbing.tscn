@@ -1,22 +1,35 @@
-[gd_scene load_steps=12 format=1]
+[gd_scene load_steps=15 format=1]
 
-[ext_resource path="res://actor/collider_rigid.gd" type="Script" id=1]
-[ext_resource path="res://actor/enemy/tianbing/jiao1.png" type="Texture" id=2]
-[ext_resource path="res://actor/enemy/tianbing/jiao2.png" type="Texture" id=3]
-[ext_resource path="res://actor/enemy/tianbing/qugan.png" type="Texture" id=4]
-[ext_resource path="res://actor/enemy/tianbing/shoubi1.png" type="Texture" id=5]
-[ext_resource path="res://actor/enemy/tianbing/shoubi2.png" type="Texture" id=6]
-[ext_resource path="res://actor/enemy/tianbing/shoubi2_2.png" type="Texture" id=7]
-[ext_resource path="res://actor/enemy/tianbing/shou.png" type="Texture" id=8]
-[ext_resource path="res://actor/enemy/tianbing/wuqi.png" type="Texture" id=9]
-[ext_resource path="res://actor/enemy/tianbing/cloud.png" type="Texture" id=10]
+[ext_resource path="res://actor/enemy/tianbing/tianbing.gd" type="Script" id=1]
+[ext_resource path="res://actor/collider_rigid.gd" type="Script" id=2]
+[ext_resource path="res://sound/actor/man_wound.smp" type="Sample" id=3]
+[ext_resource path="res://actor/enemy/tianbing/jiao1.png" type="Texture" id=4]
+[ext_resource path="res://actor/enemy/tianbing/jiao2.png" type="Texture" id=5]
+[ext_resource path="res://actor/enemy/tianbing/qugan.png" type="Texture" id=6]
+[ext_resource path="res://actor/enemy/tianbing/shoubi1.png" type="Texture" id=7]
+[ext_resource path="res://actor/enemy/tianbing/shoubi2.png" type="Texture" id=8]
+[ext_resource path="res://actor/enemy/tianbing/shoubi2_2.png" type="Texture" id=9]
+[ext_resource path="res://actor/enemy/tianbing/shou.png" type="Texture" id=10]
+[ext_resource path="res://actor/enemy/tianbing/wuqi.png" type="Texture" id=11]
+[ext_resource path="res://actor/enemy/tianbing/cloud.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 11.1968 )
 
+[sub_resource type="SampleLibrary" id=2]
+
+samples/man_wound = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 3 )
+}
+
 [node name="enemy" type="Node2D"]
+
+script/script = ExtResource( 1 )
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 
@@ -30,7 +43,6 @@ softness = 0.0
 
 [node name="body" type="RigidBody2D" parent="."]
 
-editor/display_folded = true
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 2.50058, 0, 0, 4.44158, 0.334794, 34.9118 )
@@ -52,59 +64,72 @@ velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
-script/script = ExtResource( 1 )
+script/script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
 type = "body"
+wound_sound = "man_wound"
+
+[node name="sound" type="SamplePlayer2D" parent="body"]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 2 )
+config/pitch_random = 0.0
 
 [node name="body_display" type="Node2D" parent="body"]
 
+editor/display_folded = true
 transform/scale = Vector2( 0.5, 0.5 )
 
 [node name="foot_left" type="Sprite" parent="body/body_display"]
 
 transform/pos = Vector2( -30.5076, 145.357 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="foot_right" type="Sprite" parent="body/body_display"]
 
 transform/pos = Vector2( 11.2976, 144.367 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 
 [node name="body" type="Sprite" parent="body/body_display"]
 
 editor/display_folded = true
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 
 [node name="hand_left" type="Sprite" parent="body/body_display/body"]
 
 transform/pos = Vector2( 50.3372, 28.238 )
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 
 [node name="hand_right_0" type="Sprite" parent="body/body_display"]
 
 transform/pos = Vector2( -39.4356, -17.344 )
 transform/rot = -167.881
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 offset = Vector2( 2.43314, 14.6365 )
 
 [node name="hand_right_1" type="Sprite" parent="body/body_display/hand_right_0"]
 
 transform/pos = Vector2( 0.902496, 31.5875 )
 transform/rot = -174.554
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 offset = Vector2( -15.6169, -5.21852 )
 
 [node name="hand_right_2" type="Sprite" parent="body/body_display/hand_right_0/hand_right_1"]
 
 transform/pos = Vector2( -33.6668, -16.951 )
 transform/rot = 95.4439
-texture = ExtResource( 8 )
+texture = ExtResource( 10 )
 
 [node name="weapon" type="Sprite" parent="body/body_display/hand_right_0/hand_right_1/hand_right_2"]
 
-texture = ExtResource( 9 )
+texture = ExtResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="body"]
 
@@ -116,7 +141,6 @@ _update_shape_index = 0
 
 [node name="head" type="RigidBody2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 3.9805, -95.5325 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -139,11 +163,24 @@ velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
-script/script = ExtResource( 1 )
+script/script = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
 type = "head"
+wound_sound = "man_wound"
+
+[node name="sound" type="SamplePlayer2D" parent="head"]
+
+transform/pos = Vector2( -3.9805, 95.5325 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 2 )
+config/pitch_random = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="head"]
 
@@ -157,6 +194,6 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 2, 85 )
 transform/scale = Vector2( 0.4, 0.4 )
-texture = ExtResource( 10 )
+texture = ExtResource( 12 )
 
 

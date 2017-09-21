@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://sound/sound.gd" type="Script" id=1]
 [ext_resource path="res://sound/music/bg_music_0.smp" type="Sample" id=2]
 [ext_resource path="res://sound/ui/button_press.smp" type="Sample" id=3]
+[ext_resource path="res://sound/actor/coin_wood.smp" type="Sample" id=4]
+[ext_resource path="res://sound/actor/man_wound.smp" type="Sample" id=5]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -20,6 +22,18 @@ samples/button_press = {
 "pitch": 1.0,
 "priority": 0,
 "sample": ExtResource( 3 )
+}
+samples/coin_wood = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 4 )
+}
+samples/man_wound = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 5 )
 }
 
 [node name="sound" type="Node2D"]
@@ -39,12 +53,13 @@ config/pitch_random = 0.0
 
 [node name="sound" type="SamplePlayer2D" parent="."]
 
+visibility/visible = false
 params/volume_db = 0.0
 params/pitch_scale = 1.0
 params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
-config/polyphony = 1
+config/polyphony = 5
 config/samples = SubResource( 2 )
 config/pitch_random = 0.0
 

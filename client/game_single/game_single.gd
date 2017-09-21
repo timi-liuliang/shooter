@@ -28,6 +28,7 @@ var next_battle_pos = Vector2()
 var column_pos = Vector2()
 var battle_id = int(0)
 var blood_effect = null
+var coin_effect = null
 var continue_head_shot_num = 0
 
 func _ready():
@@ -175,6 +176,8 @@ func check_result():
 		
 		# 计算得分
 		if collider.get_type()=="body" || collider.get_type()=="head":
+			collider.on_attack()
+			
 			# 显示血
 			if blood_effect:
 				blood_effect.queue_free()
@@ -185,6 +188,14 @@ func check_result():
 			blood_effect.set_rot( weapon.get_rot())
 			blood_effect.get_node("anim").play("play")
 			add_child(blood_effect)
+			
+			if coin_effect:
+				coin_effect.queue_free()
+				coin_effect = null
+				
+			coin_effect = preload("res://effect/coin/coin_effect.tscn").instance()
+			coin_effect.set_pos(weapon.get_collision_pos())
+			add_child(coin_effect)
 			
 			var data = get_node("/root/player")
 			if collider.get_type()=="head":

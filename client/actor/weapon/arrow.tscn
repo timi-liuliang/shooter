@@ -50,6 +50,7 @@ player_idx = 0
 
 [node name="display" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( -0.0614775, 25.0243 )
 transform/scale = Vector2( 0.297441, 0.214888 )
 texture = ExtResource( 2 )
@@ -101,6 +102,7 @@ params/final_size = 1.0
 params/hue_variation = 0.0
 params/anim_speed_scale = 1.0
 params/anim_initial_pos = 0.0
+color/color = Color( 0.423619, 0.742188, 0.321808, 1 )
 
 [node name="sound" type="SamplePlayer2D" parent="."]
 
