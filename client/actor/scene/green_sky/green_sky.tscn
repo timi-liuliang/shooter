@@ -27,23 +27,30 @@ scroll/offset = Vector2( 0, 0 )
 scroll/base_offset = Vector2( 0, 0 )
 scroll/base_scale = Vector2( 1, 1 )
 scroll/limit_begin = Vector2( 0, 0 )
-scroll/limit_end = Vector2( 0, 0 )
-scroll/ignore_camera_zoom = false
+scroll/limit_end = Vector2( 4096, 0 )
+scroll/ignore_camera_zoom = true
 
 [node name="ParallaxLayer_0" type="ParallaxLayer" parent="ParallaxBackground"]
 
 transform/pos = Vector2( 0, -256 )
 motion/scale = Vector2( 1, 1 )
 motion/offset = Vector2( 0, 0 )
-motion/mirroring = Vector2( 1024, 0 )
+motion/mirroring = Vector2( 2048, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer_0"]
 
 texture = ExtResource( 1 )
 centered = false
 
+[node name="Sprite1" type="Sprite" parent="ParallaxBackground/ParallaxLayer_0"]
+
+transform/pos = Vector2( 1024, 0 )
+texture = ExtResource( 1 )
+centered = false
+
 [node name="ParallaxLayer_1" type="ParallaxLayer" parent="ParallaxBackground"]
 
+editor/display_folded = true
 transform/pos = Vector2( 0, 118 )
 motion/scale = Vector2( 0, 1 )
 motion/offset = Vector2( 0, 0 )
@@ -56,6 +63,7 @@ centered = false
 
 [node name="ParallaxLayer_2" type="ParallaxLayer" parent="ParallaxBackground"]
 
+editor/display_folded = true
 transform/pos = Vector2( 9, 16 )
 motion/scale = Vector2( 0, 1 )
 motion/offset = Vector2( 0, 0 )
@@ -68,15 +76,22 @@ centered = false
 
 [node name="ParallaxLayer_3" type="ParallaxLayer" parent="ParallaxBackground"]
 
+editor/display_folded = true
 transform/pos = Vector2( 2, 216 )
 transform/scale = Vector2( 0.8, 0.8 )
 motion/scale = Vector2( 0.2, 1 )
 motion/offset = Vector2( 0, 0 )
-motion/mirroring = Vector2( 1204, 0 )
+motion/mirroring = Vector2( 1926.4, 0 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer_3"]
+[node name="Sprite_0" type="Sprite" parent="ParallaxBackground/ParallaxLayer_3"]
 
 transform/pos = Vector2( 0, 10 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Sprite_1" type="Sprite" parent="ParallaxBackground/ParallaxLayer_3"]
+
+transform/pos = Vector2( 1204, 10 )
 texture = ExtResource( 4 )
 centered = false
 
