@@ -49,14 +49,14 @@ class ChuangGuanScoreRanking{
 				
 			sort();		
 			keepSize(rankingSize);
-			lowestScore = scoreRanking.get(scoreRanking.size()-1).score;
+			lowestScore = scoreRanking.size() > rankingSize ?  scoreRanking.get(scoreRanking.size()-1).score : 0;
 		}
 	}
 	
 	private void sort() {
 		Comparator<HigherChuangGuanScore> comparator = new Comparator<HigherChuangGuanScore>() {
 			public int compare(HigherChuangGuanScore s1, HigherChuangGuanScore s2) {
-				return s1.score - s2.score;
+				return s2.score- s1.score;
 			}
 		};
 		

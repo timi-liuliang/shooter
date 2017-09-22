@@ -45,11 +45,11 @@ func _ready():
 	cam_arrow_offset  = get_node("camera").get_pos() - get_node("archer").get_pos()
 	
 	# request ad
-	if(Globals.has_singleton("Gomob")):
-		var gomob = Globals.get_singleton("Gomob")
+	#if(Globals.has_singleton("Gomob")):
+	#	var gomob = Globals.get_singleton("Gomob")
 		#var thread = Thread.new()
 		#thread.start(gomob, "request_videoad")
-		gomob.request_videoad()
+	#	gomob.request_videoad()
 		
 	# 金币数量
 	var coin_num = get_node("/root/player").get_coin_num()
