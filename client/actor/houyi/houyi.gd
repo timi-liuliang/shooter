@@ -39,7 +39,6 @@ func deactive_ragdoll():
 func play_anim(anim):
 	if cur_anim != anim:
 		get_node("normal/anim").play(anim)
-		print(anim)
 		cur_anim = anim
 		
 func get_weapon_pos():

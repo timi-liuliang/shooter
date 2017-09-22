@@ -525,7 +525,6 @@ autoplay = ""
 
 [node name="display" type="Node2D" parent="normal"]
 
-editor/display_folded = true
 transform/pos = Vector2( -14, -67 )
 transform/scale = Vector2( 0.5, 0.5 )
 

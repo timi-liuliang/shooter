@@ -17,6 +17,5 @@ func get_battle_id():
 	return battle_id
 	
 func on_attack():
-	print("------------------")
 	if has_node("sound"):
 		get_node("sound").play(wound_sound)
