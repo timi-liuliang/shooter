@@ -47,6 +47,8 @@ func _ready():
 	# request ad
 	if(Globals.has_singleton("Gomob")):
 		var gomob = Globals.get_singleton("Gomob")
+		#var thread = Thread.new()
+		#thread.start(gomob, "request_videoad")
 		gomob.request_videoad()
 		
 	# 金币数量
