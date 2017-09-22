@@ -16,8 +16,8 @@ func _process(delta):
 		get_node("/root/sound").play_music()
 	
 func update_coin_num_display():
-	var data = get_node("/root/player")
-	if data!=null:
+	if has_node("/root/player"):
+		var data = get_node("/root/player")
 		get_node("ui/common/jinbi/Label").set_text(String(data.get_coin_num()))
 	
 func show( type):

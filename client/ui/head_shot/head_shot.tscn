@@ -40,16 +40,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true, false ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("sound:play/play")
-tracks/3/interp = 1
-tracks/3/imported = false
-tracks/3/keys = {
-"times": FloatArray( 0 ),
-"transitions": FloatArray( 1 ),
-"update": 2,
-"values": [ "head_shot" ]
-}
 
 [sub_resource type="SampleLibrary" id=2]
 
