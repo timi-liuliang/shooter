@@ -124,7 +124,7 @@ public class Player {
 	public void on_heart_beat(ByteBuf msg) {
 		nonHeartBeatTime = 0;
 		
-		mChannelCtx.write(msg);
+		mChannelCtx.writeAndFlush(msg);
 	}
 	
 	public void setAccount(long account) {	
@@ -330,7 +330,7 @@ public class Player {
 		protocol.player_info msg = new protocol.player_info();
 		msg.player = table.player;
 		msg.name = info.baseInfo.name;
-		mChannelCtx.write(msg.data());
+		mChannelCtx.writeAndFlush(msg.data());
 	}
 	
 	// send info to client
@@ -348,7 +348,7 @@ public class Player {
 			
 		protocol.search_room_result msg = new protocol.search_room_result();
 		msg.result = 1;
-		mChannelCtx.write(msg.data());
+		mChannelCtx.writeAndFlush(msg.data());
 	}
 	
 	public void search_room_end() {
@@ -356,6 +356,6 @@ public class Player {
 		
 		protocol.search_room_result msg = new protocol.search_room_result();
 		msg.result = 0;
-		mChannelCtx.write(msg.data());
+		mChannelCtx.writeAndFlush(msg.data());
 	}	
 }
